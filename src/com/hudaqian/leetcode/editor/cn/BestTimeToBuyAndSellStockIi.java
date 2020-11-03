@@ -53,6 +53,9 @@ public class BestTimeToBuyAndSellStockIi {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int maxProfit(int[] prices) {
+            /**
+             * 如果后边一天的钱比前边一天的大 那么就赚这个差价
+             */
             int buyProfit = 0;
             for (int i = 1; i < prices.length; i++) {
                 if (prices[i] > prices[i - 1]) {
