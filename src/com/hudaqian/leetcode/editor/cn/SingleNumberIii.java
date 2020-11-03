@@ -22,18 +22,19 @@ import java.util.Arrays;
 public class SingleNumberIii {
         public static void main(String[] args) {
             Solution solution = new SingleNumberIii().new Solution();
-            int[] nums = {1,1,2,2,3,3,4};
-            System.out.print(solution.singleNumber(nums)[0]);
+            int[] nums = {1,1,2,2,3,4};
+            int[] res = solution.singleNumber(nums);
+            System.out.print(res[0] + " & " +res[1]);
         }
        //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int[] singleNumber(int[] nums) {
-        int[] res = new int[nums.length];
+        int[] res = new int[2];
         int count = 0;
         Arrays.sort(nums);
-        for (int i = 1; i < nums.length;i++) {
-            if (nums[i] != nums[i-1]) {
-                res[count] = nums[i-1];
+        for (int i = 0; i < nums.length;i++) {
+            if (i==nums.length-1 || nums[i] != nums[i+1]) {
+                res[count] = nums[i];
                 count++;
             } else {
                 i++;
