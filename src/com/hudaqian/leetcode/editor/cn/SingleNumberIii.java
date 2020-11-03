@@ -49,19 +49,36 @@ class Solution {
         /**
          * 解法2：hashMap解法
          */
-        int[] res = new int[2];
-        Map<Integer,Integer> map = new HashMap<Integer,Integer>();
+//        int[] res = new int[2];
+//        Map<Integer,Integer> map = new HashMap<Integer,Integer>();
+//        for (int num : nums) {
+//            map.put(num, map.getOrDefault(num, 0) + 1);
+//        }
+//        int count = 0;
+//        for (int num : map.keySet()) {
+//            if (map.get(num) == 1) {
+//                res[count] = num;
+//                count++;
+//            }
+//        }
+//        return res;
+        /**
+         * 最快解法：位运算
+         */
+        int xor = 0;
         for (int num : nums) {
-            map.put(num, map.getOrDefault(num, 0) + 1);
+            xor = xor ^ num;
         }
-        int count = 0;
-        for (int num : map.keySet()) {
-            if (map.get(num) == 1) {
-                res[count] = num;
-                count++;
+        int mask = xor & (-xor);
+        int[] ans = new int[2];
+        for (int num:nums) {
+            if ((num & mask) == 0) {
+                ans[0] ^= num;
+            } else {
+                ans[1] ^= num;
             }
         }
-        return res;
+        return ans;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
