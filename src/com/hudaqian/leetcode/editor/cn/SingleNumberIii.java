@@ -18,6 +18,8 @@
     package com.hudaqian.leetcode.editor.cn;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SingleNumberIii {
         public static void main(String[] args) {
@@ -29,15 +31,34 @@ public class SingleNumberIii {
        //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int[] singleNumber(int[] nums) {
+        /**
+         * 解法1：排序解法 已经确定答案为数组长度为2 所以直接初始化就是2
+         */
+//        int[] res = new int[2];
+//        int count = 0;
+//        Arrays.sort(nums);
+//        for (int i = 0; i < nums.length;i++) {
+//            if (i==nums.length-1 || nums[i] != nums[i+1]) {
+//                res[count] = nums[i];
+//                count++;
+//            } else {
+//                i++;
+//            }
+//        }
+//        return res;
+        /**
+         * 解法2：hashMap解法
+         */
         int[] res = new int[2];
+        Map<Integer,Integer> map = new HashMap<Integer,Integer>();
+        for (int num : nums) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        }
         int count = 0;
-        Arrays.sort(nums);
-        for (int i = 0; i < nums.length;i++) {
-            if (i==nums.length-1 || nums[i] != nums[i+1]) {
-                res[count] = nums[i];
+        for (int num : map.keySet()) {
+            if (map.get(num) == 1) {
+                res[count] = num;
                 count++;
-            } else {
-                i++;
             }
         }
         return res;
