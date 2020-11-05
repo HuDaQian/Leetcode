@@ -36,6 +36,8 @@
 package com.hudaqian.leetcode.editor.cn;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class IntersectionOfTwoArraysIi {
     public static void main(String[] args) {
@@ -56,20 +58,46 @@ public class IntersectionOfTwoArraysIi {
             /**
              * 解法1：双指针解法
              */
-            Arrays.sort(nums1);
-            Arrays.sort(nums2);
-            int i = 0, j = 0, count = 0;
-            int[] res = new int[Math.min(nums1.length, nums2.length)];
-            while (i < nums1.length && j < nums2.length) {
-                if (nums1[i] == nums2[j]) {
-                    res[count] = nums1[i];
+//            Arrays.sort(nums1);
+//            Arrays.sort(nums2);
+//            int i = 0, j = 0, count = 0;
+//            int[] res = new int[Math.min(nums1.length, nums2.length)];
+//            while (i < nums1.length && j < nums2.length) {
+//                if (nums1[i] == nums2[j]) {
+//                    res[count] = nums1[i];
+//                    count++;
+//                    i++;
+//                    j++;
+//                } else if (nums1[i] < nums2[j]) {
+//                    i++;
+//                } else {
+//                    j++;
+//                }
+//            }
+//            return Arrays.copyOfRange(res, 0, count);
+            /**
+             * 解法2：哈希map解法
+             */
+            if (nums1.length > nums2.length) {
+                return intersect(nums2, nums1);
+            }
+            Map<Integer, Integer> map = new HashMap<>();
+            for (int num : nums1) {
+                map.put(num, map.getOrDefault(num, 0) + 1);
+            }
+            int[] res = new int[nums1.length];
+            int count = 0;
+            for (int num : nums2) {
+                int number = map.getOrDefault(num, 0);
+                if (number > 0) {
+                    res[count] = num;
+                    number--;
                     count++;
-                    i++;
-                    j++;
-                } else if (nums1[i] < nums2[j]) {
-                    i++;
-                } else {
-                    j++;
+                    if (number == 0) {
+                        map.remove(num);
+                    } else {
+                        map.put(num, number);
+                    }
                 }
             }
             return Arrays.copyOfRange(res, 0, count);
