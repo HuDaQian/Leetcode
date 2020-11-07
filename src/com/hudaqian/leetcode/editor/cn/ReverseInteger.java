@@ -36,6 +36,11 @@ public class ReverseInteger {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int reverse(int x) {
+            /**
+             * rev来倒着记录数字
+             * x逐步除10得余数加到rev后边
+             * 当newRev倒转计算不等于rev得时候 数据溢出 返回0
+             */
             int rev = 0;
             while (x != 0) {
                 int newRev = rev * 10 + x % 10;
