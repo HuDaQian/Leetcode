@@ -29,6 +29,27 @@ public class ValidPalindrome {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public boolean isPalindrome(String s) {
+
+//            s = s.replaceAll("[^A-Za-z0-9]", "").trim().toLowerCase();
+//
+//            /**
+//             * 解法1：双指针解法
+//             */
+//            int i = 0, j = s.length() - 1;
+//            while (i < j) {
+//                char ichar = s.charAt(i);
+//                char jchar = s.charAt(j);
+//                if (ichar != jchar) {
+//                    return false;
+//                }
+//                i++;
+//                j--;
+//            }
+//            return true;
+
+            /**
+             * 解法2：全部反转
+             */
             /**
              * 去除多余字符串
              */
@@ -40,26 +61,8 @@ public class ValidPalindrome {
                     sgood.append(Character.toLowerCase(ch));
                 }
             }
-            s = sgood.toString();
-            /**
-             * 解法1：双指针解法
-             */
-            int i = 0, j = s.length() - 1;
-            while (i < j) {
-                char ichar = s.charAt(i);
-                char jchar = s.charAt(j);
-                if (ichar != jchar) {
-                    return false;
-                }
-                i++;
-                j--;
-            }
-            return true;
-            /**
-             * 解法2：全部反转
-             */
-//            StringBuffer sgood_rev = new StringBuffer(sgood).reverse();
-//            return sgood.toString().equals(sgood_rev.toString());
+            StringBuffer sgood_rev = new StringBuffer(sgood).reverse();
+            return sgood.toString().equals(sgood_rev.toString());
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
