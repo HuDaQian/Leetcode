@@ -39,7 +39,7 @@
 package com.hudaqian.leetcode.editor.cn;
 
 public class DeleteNodeInALinkedList {
-    public static void main(String[] args) {
+    public void main(String[] args) {
         Solution solution = new DeleteNodeInALinkedList().new Solution();
         ListNode l1 = new ListNode(4);
         ListNode l2 = new ListNode(5);
@@ -53,6 +53,25 @@ public class DeleteNodeInALinkedList {
         System.out.print(l2.next);
 
     }
+
+    public class ListNode {
+        int val;
+        ListNode next;
+
+        ListNode(int x) {
+            val = x;
+        }
+
+        public String print(ListNode listNode) {
+            StringBuilder sb = new StringBuilder();
+            while (listNode != null) {
+                sb.append(listNode.val);
+                listNode = listNode.next;
+            }
+            return sb.toString();
+        }
+    }
+
     //leetcode submit region begin(Prohibit modification and deletion)
 
     /**
@@ -63,25 +82,8 @@ public class DeleteNodeInALinkedList {
      * ListNode(int x) { val = x; }
      * }
      */
-    public static class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode(int x) {
-            val = x;
-        }
-        public static String print(ListNode listNode) {
-            StringBuilder sb = new StringBuilder();
-            while (listNode != null) {
-                sb.append(listNode.val);
-                listNode = listNode.next;
-            }
-            return sb.toString();
-        }
-    }
 
     class Solution {
-
         public void deleteNode(ListNode node) {
             node.val = node.next.val;
             node.next = node.next.next;
