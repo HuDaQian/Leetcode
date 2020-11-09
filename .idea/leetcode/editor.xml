@@ -195,6 +195,22 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/ReverseLinkedList.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/ReverseLinkedList.java" />
+              <option name="questionId" value="206" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/ReverseLinkedListIi.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/ReverseLinkedListIi.java" />
+              <option name="questionId" value="92" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/ReverseString.java">
           <value>
             <LeetcodeEditor>
