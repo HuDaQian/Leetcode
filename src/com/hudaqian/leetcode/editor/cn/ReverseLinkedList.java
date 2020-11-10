@@ -58,16 +58,36 @@ public class ReverseLinkedList {
         public ListNode reverseList(ListNode head) {
             /**
              * 解法1：迭代
+             * 相当于连续两个节点 局部变量保存后一个节点的next节点
+             * 然后调整后一个节点的next节点为前一个节点
+             * 然后调整变量为后一个节点和局部变量所指向的节点
              */
-            ListNode prev = null;
+//            ListNode prev = null;
+//            ListNode current = head;
+//            while (current != null) {
+//                ListNode newNode = current.next;
+//                current.next = prev;
+//                prev = current;
+//                current = newNode;
+//            }
+//            return prev;
+            /**
+             * 解法2：双指针改
+             * 1-2-3-4-5
+             * 2-1-3-4-5
+             * 3-2-1-4-5
+             * 4-3-2-1-5
+             * 5-4-3-2-1
+             */
+            if (head == null) return null;
             ListNode current = head;
-            while (current != null) {
-                ListNode newNode = current.next;
-                current.next = prev;
-                prev = current;
-                current = newNode;
+            while (head.next != null) {
+                ListNode tempNode = head.next.next;
+                head.next.next = current;
+                current = head.next;
+                head.next = tempNode;
             }
-            return prev;
+            return current;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
