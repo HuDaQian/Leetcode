@@ -79,15 +79,25 @@ public class ReverseLinkedList {
              * 4-3-2-1-5
              * 5-4-3-2-1
              */
-            if (head == null) return null;
-            ListNode current = head;
-            while (head.next != null) {
-                ListNode tempNode = head.next.next;
-                head.next.next = current;
-                current = head.next;
-                head.next = tempNode;
+//            if (head == null) return null;
+//            ListNode current = head;
+//            while (head.next != null) {
+//                ListNode tempNode = head.next.next;
+//                head.next.next = current;
+//                current = head.next;
+//                head.next = tempNode;
+//            }
+//            return current;
+            /**
+             *  解法3：递归
+             */
+            if (head == null || head.next == null) {
+                return head;
             }
-            return current;
+            ListNode currentNode = reverseList(head.next);
+            head.next.next = head;
+            head.next = null;
+            return currentNode;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)

@@ -108,27 +108,27 @@ class Solution {
 //        firstNode.next = reverseLinkedList(secondNode);
 //        return result;
         /**
-         * 解法3：快慢指针过程中 直接反转前半段链表
-         * 比较完成之后再反转回去
+         * 解法3：递归
          */
         if (head == null) {
             return true;
         }
-        ListNode pre = null;
-        ListNode slow = head;
-        ListNode fast = head;
-        while(fast != null && fast.next != null){
-            ListNode temp = slow.next;
-            slow.next = pre;
-            pre = slow;
-            fast = fast.next.next;
-            slow = temp;
-        }
-        if(fast != null) slow = slow.next;
-        while(slow != null){
-            if(slow.val != pre.val) return false;
-            slow = slow.next;
-            pre = pre.next;
+        frontNode = head;
+        return recursivelyCheck(frontNode);
+    }
+    /**
+     * 递归用方法
+     */
+    ListNode frontNode = null;
+    private boolean recursivelyCheck(ListNode currentNode) {
+        if (currentNode != null) {
+            if (!recursivelyCheck(currentNode.next)) {
+                return false;
+            }
+            if (currentNode.val != frontNode.val) {
+                return false;
+            }
+            frontNode = frontNode.next;
         }
         return true;
     }
