@@ -50,11 +50,11 @@ public class DeleteNodeInALinkedList {
         l3.next = l4;
 
         solution.deleteNode(l3);
-        System.out.print(l2.next);
+        System.out.print(ListNode.print(l2.next));
 
     }
 
-    public class ListNode {
+    private static class ListNode {
         int val;
         ListNode next;
 
@@ -62,7 +62,7 @@ public class DeleteNodeInALinkedList {
             val = x;
         }
 
-        public String print(ListNode listNode) {
+        private static String print(ListNode listNode) {
             StringBuilder sb = new StringBuilder();
             while (listNode != null) {
                 sb.append(listNode.val);
