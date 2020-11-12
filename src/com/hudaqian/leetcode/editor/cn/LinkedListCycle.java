@@ -53,70 +53,87 @@
 // 👍 850 👎 0
 
 
-    package com.hudaqian.leetcode.editor.cn;
+package com.hudaqian.leetcode.editor.cn;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class LinkedListCycle {
-        public static void main(String[] args) {
-            Solution solution = new LinkedListCycle;
-        }
-        public static class ListNode {
-            int val;
-            ListNode next;
-
-            ListNode() {
-            }
-
-            ListNode(int val) {
-                this.val = val;
-            }
-
-            ListNode(int val, ListNode next) {
-                this.val = val;
-                this.next = next;
-            }
-
-            public String print(ListNode listNode) {
-                StringBuilder sb = new StringBuilder();
-                while (listNode != null) {
-                    sb.append(listNode.val);
-                    listNode = listNode.next;
-                }
-                return sb.toString();
-            }
-        }
-       //leetcode submit region begin(Prohibit modification and deletion)
-/**
- * Definition for singly-linked list.
- * class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode(int x) {
- *         val = x;
- *         next = null;
- *     }
- * }
- */
-public class Solution {
-    public boolean hasCycle(ListNode head) {
-        if (head == null || head.next == null) {
-            return false;
-        }
-        /**
-         * 解法1：hash集合
-         */
-        Set<ListNode> set = new HashSet<ListNode>();
-        while (head != null) {
-            if (!set.add(head)) {
-                return true;
-            }
-            head = head.next;
-        }
-        return false;
+    public static void main(String[] args) {
+        Solution solution = new LinkedListCycle().new Solution();
+        ListNode head = new ListNode(2,new ListNode(0,new ListNode(-1,new ListNode(9))));
+        System.out.print(solution.hasCycle(head));
     }
-}
+
+    public static class ListNode {
+        int val;
+        ListNode next;
+
+        ListNode() {
+        }
+
+        ListNode(int val) {
+            this.val = val;
+        }
+
+        ListNode(int val, ListNode next) {
+            this.val = val;
+            this.next = next;
+        }
+
+        public String print(ListNode listNode) {
+            StringBuilder sb = new StringBuilder();
+            while (listNode != null) {
+                sb.append(listNode.val);
+                listNode = listNode.next;
+            }
+            return sb.toString();
+        }
+    }
+    //leetcode submit region begin(Prohibit modification and deletion)
+
+    /**
+     * Definition for singly-linked list.
+     * class ListNode {
+     * int val;
+     * ListNode next;
+     * ListNode(int x) {
+     * val = x;
+     * next = null;
+     * }
+     * }
+     */
+    public class Solution {
+        public boolean hasCycle(ListNode head) {
+            if (head == null || head.next == null) {
+                return false;
+            }
+            /**
+             * 解法1：hash集合
+             */
+//        Set<ListNode> set = new HashSet<ListNode>();
+//        while (head != null) {
+//            if (!set.add(head)) {
+//                return true;
+//            }
+//            head = head.next;
+//        }
+//        return false;
+            /**
+             * 解法2：快慢指针
+             */
+            ListNode slow = head;
+            ListNode fast = head.next;
+            while (slow != fast) {
+                if (fast == null || fast.next == null) {
+                    return false;
+                }
+                slow = slow.next;
+                fast = fast.next.next;
+            }
+            return true;
+        }
+    }
 //leetcode submit region end(Prohibit modification and deletion)
 
-    }
+}
