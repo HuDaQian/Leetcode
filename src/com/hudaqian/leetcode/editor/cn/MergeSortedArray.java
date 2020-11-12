@@ -58,26 +58,34 @@ public class MergeSortedArray {
             /**
              * 解法2：双指针从后往前排
              */
-            int p=m-1,q=n-1;
-            while (p>=0 || q>=0) {
-                int num = 0;
-                if (p<0) {
-                    num = nums2[q];
-                    q--;
-                } else if (q<0) {
-                    num = nums1[p];
-                    p--;
-                } else {
-                    num = Math.max(nums1[p],nums2[q]);
-                    if (nums1[p] > nums2[q]){
-                        p--;
-                    } else {
-                        q--;
-                    }
-                }
-                //  元素位置+1 上边已经减一了此处再+1
-                nums1[p+q+1+1] = num;
+//            int p=m-1,q=n-1;
+//            while (p>=0 || q>=0) {
+//                int num = 0;
+//                if (p<0) {
+//                    num = nums2[q];
+//                    q--;
+//                } else if (q<0) {
+//                    num = nums1[p];
+//                    p--;
+//                } else {
+//                    num = Math.max(nums1[p],nums2[q]);
+//                    if (nums1[p] > nums2[q]){
+//                        p--;
+//                    } else {
+//                        q--;
+//                    }
+//                }
+//                //  元素位置+1 上边已经减一了此处再+1
+//                nums1[p+q+1+1] = num;
+//            }
+            /**
+             * 解法2的官方解法
+             */
+            int p1 = m-1, p2 = n-1,p = m+n-1;
+            while (p1>=0 && p2>=0) {
+                nums1[p--] = (nums1[p1] < nums2[p2]) ? nums2[p2--] : nums1[p1--];
             }
+            System.arraycopy(nums2,0,nums1,0,p2+1);
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
