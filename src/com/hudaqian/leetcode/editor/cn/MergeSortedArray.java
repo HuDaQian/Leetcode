@@ -79,7 +79,7 @@ public class MergeSortedArray {
 //                nums1[p+q+1+1] = num;
 //            }
             /**
-             * 解法2的官方解法
+             * 第一个错误的版本
              */
             int p1 = m-1, p2 = n-1,p = m+n-1;
             while (p1>=0 && p2>=0) {
