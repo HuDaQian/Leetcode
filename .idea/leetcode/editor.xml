@@ -27,6 +27,14 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/BinaryTreePreorderTraversal.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/BinaryTreePreorderTraversal.java" />
+              <option name="questionId" value="144" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/ContainsDuplicate.java">
           <value>
             <LeetcodeEditor>
@@ -176,6 +184,14 @@
             <LeetcodeEditor>
               <option name="path" value="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/MinimumSizeSubarraySum.java" />
               <option name="questionId" value="209" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/MissingNumber.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/MissingNumber.java" />
+              <option name="questionId" value="268" />
             </LeetcodeEditor>
           </value>
         </entry>
@@ -408,6 +424,14 @@
             <LeetcodeEditor>
               <option name="path" value="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/ValidSudoku.java" />
               <option name="questionId" value="36" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/VideoStitching.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/VideoStitching.java" />
+              <option name="questionId" value="1081" />
             </LeetcodeEditor>
           </value>
         </entry>
