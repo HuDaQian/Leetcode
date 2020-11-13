@@ -41,6 +41,9 @@ public class FirstBadVersion {
 
     public class Solution extends VersionControl {
         public int firstBadVersion(int n) {
+            /**
+             * 第一个错误的版本  经典二分法
+             */
             int left = 1;
             int right = n;
             while (left < right) {
