@@ -53,32 +53,97 @@
 // 👍 451 👎 0
 
 
-    package com.hudaqian.leetcode.editor.cn;
-    public class BinaryTreePreorderTraversal {
-        public static void main(String[] args) {
-            Solution solution = new BinaryTreePreorderTraversal;
-        }
-       //leetcode submit region begin(Prohibit modification and deletion)
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
- * }
- */
-class Solution {
-    public List<Integer> preorderTraversal(TreeNode root) {
-        
-    }
-}
-//leetcode submit region end(Prohibit modification and deletion)
+package com.hudaqian.leetcode.editor.cn;
+
+import java.util.ArrayList;
+import java.util.Deque;
+import java.util.LinkedList;
+import java.util.List;
+
+public class BinaryTreePreorderTraversal {
+    public static void main(String[] args) {
+        Solution solution = new BinaryTreePreorderTraversal().new Solution();
 
     }
+
+    /**
+     * Definition for a binary tree node.
+     */
+    public class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode() {
+        }
+
+        TreeNode(int val) {
+            this.val = val;
+        }
+
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+    }
+
+    //leetcode submit region begin(Prohibit modification and deletion)
+
+    /**
+     * Definition for a binary tree node.
+     * public class TreeNode {
+     * int val;
+     * TreeNode left;
+     * TreeNode right;
+     * TreeNode() {}
+     * TreeNode(int val) { this.val = val; }
+     * TreeNode(int val, TreeNode left, TreeNode right) {
+     * this.val = val;
+     * this.left = left;
+     * this.right = right;
+     * }
+     * }
+     */
+    class Solution {
+        public List<Integer> preorderTraversal(TreeNode root) {
+            /**
+             * 解法1：递归 题目禁用
+             */
+//            List<Integer> resultList = new ArrayList<>();
+//            preorder(root, resultList);
+//            return resultList;
+            /**
+             * 解法2：迭代
+             */
+            List<Integer> res = new ArrayList<Integer>();
+            if (root == null) {
+                return res;
+            }
+
+            Deque<TreeNode> stack = new LinkedList<TreeNode>();
+            TreeNode node = root;
+            while (!stack.isEmpty() || node != null) {
+                while (node != null) {
+                    res.add(node.val);
+                    stack.push(node);
+                    node = node.left;
+                }
+                node = stack.pop();
+                node = node.right;
+            }
+            return res;
+        }
+
+        private void preorder(TreeNode treeNode, List<Integer> list) {
+            if (treeNode == null) {
+                return;
+            }
+            list.add(treeNode.val);
+            preorder(treeNode.left, list);
+            preorder(treeNode.right, list);
+        }
+    }
+//leetcode submit region end(Prohibit modification and deletion)
+
+}
