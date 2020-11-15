@@ -54,15 +54,32 @@ class Solution {
         /**
          * 递归解法
          */
+//        if (head == null) {
+//            return null;
+//        }
+//        if (head.val == val) {
+//            head = removeElements(head.next, val);
+//        } else {
+//            head.next = removeElements(head.next, val);
+//        }
+//        return head;
+        /**
+         *  迭代法
+         */
         if (head == null) {
             return null;
         }
-        if (head.val == val) {
-            head = removeElements(head.next, val);
-        } else {
-            head.next = removeElements(head.next, val);
+        ListNode prev = new ListNode(val-1);
+        prev.next = head;
+        ListNode current = prev;
+        while (current.next != null) {
+            if (current.next.val == val) {
+                current.next = current.next.next;
+            } else {
+                current = current.next;
+            }
         }
-        return head;
+        return prev.next;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
