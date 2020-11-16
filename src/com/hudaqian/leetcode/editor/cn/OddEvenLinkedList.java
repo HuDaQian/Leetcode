@@ -71,27 +71,46 @@ public class OddEvenLinkedList {
      */
     class Solution {
         public ListNode oddEvenList(ListNode head) {
-            ListNode aNode = new ListNode(-1);
-            ListNode bNode = new ListNode(-2);
-            ListNode current = aNode;
-            ListNode current2 = bNode;
-            ListNode ptr = head;
-            int index = 0;
-            while (ptr != null) {
-                if (index % 2 == 0) {
-                    current.next = ptr;
-                    current = current.next;
-                } else  {
-                    current2.next = ptr;
-                    current2 = current2.next;
-                }
-                ptr = ptr.next;
-                index++;
+            /**
+             * 分离以后再组合
+             */
+//            ListNode aNode = new ListNode(-1);
+//            ListNode bNode = new ListNode(-2);
+//            ListNode current = aNode;
+//            ListNode current2 = bNode;
+//            ListNode ptr = head;
+//            int index = 0;
+//            while (ptr != null) {
+//                if (index % 2 == 0) {
+//                    current.next = ptr;
+//                    current = current.next;
+//                } else  {
+//                    current2.next = ptr;
+//                    current2 = current2.next;
+//                }
+//                ptr = ptr.next;
+//                index++;
+//            }
+//            current.next = null;
+//            current2.next = null;
+//            current.next = bNode.next;
+//            return aNode.next;
+            /**
+             * 前面解法的优化 一次遍历两个节点
+             */
+            if (head == null) {
+                return null;
             }
-            current.next = null;
-            current2.next = null;
-            current.next = bNode.next;
-            return aNode.next;
+            ListNode evenHead = head.next;
+            ListNode odd = head,even = evenHead;
+            while (even != null && even.next != null) {
+                odd.next = odd.next.next;
+                odd = odd.next;
+                even.next = even.next.next;
+                even = even.next;
+            }
+            odd.next = evenHead;
+            return head;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
