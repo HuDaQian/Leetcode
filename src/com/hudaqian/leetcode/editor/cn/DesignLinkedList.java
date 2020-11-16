@@ -83,7 +83,7 @@ public class DesignLinkedList {
 
         public MyLinkedList() {
             size = 0;
-            head = new ListNode(0);
+            head = new ListNode();
         }
 
 
@@ -140,18 +140,17 @@ public class DesignLinkedList {
          * Delete the index-th node in the linked list, if the index is valid.
          */
         public void deleteAtIndex(int index) {
-            if (index < 0 || index > size) return;
+            if (index < 0 || index > size-1) return;
+            size --;
             ListNode prev = head;
             if (index == 0) {
-                size--;
-                head = head.next;
+                head = prev.next;
                 return;
             }
             while (index > 1) {
                 prev = prev.next;
                 index--;
             }
-            size --;
             prev.next = prev.next.next;
         }
     }
