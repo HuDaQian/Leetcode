@@ -27,7 +27,8 @@ import java.util.Set;
 
 public class SingleNumberIi {
     public static void main(String[] args) {
-        Solution solution = new SingleNumberIi;
+        Solution solution = new SingleNumberIi().new Solution();
+        
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
@@ -51,7 +52,7 @@ public class SingleNumberIi {
              * hashMap
              */
             Map<Integer, Integer> map = new HashMap<>();
-            for (int num:nums) {
+            for (int num : nums) {
                 map.put(num, map.getOrDefault(num, 0) + 1);
             }
             for (int num : map.keySet()) {
