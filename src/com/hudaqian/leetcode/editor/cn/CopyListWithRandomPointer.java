@@ -98,20 +98,47 @@ class Node {
             /**
              * hashMap解法
              */
+//            if (head == null) return null;
+//            Map<Node, Node> map = new HashMap<>();
+//            Node ptr = head;
+//            while (ptr != null) {
+//                map.put(ptr, new Node(ptr.val));
+//                ptr = ptr.next;
+//            }
+//            ptr = head;
+//            while (ptr != null) {
+//                map.get(ptr).next = map.get(ptr.next);
+//                map.get(ptr).random = map.get(ptr.random);
+//                ptr = ptr.next;
+//            }
+//            return map.get(head);
+            /**
+             * 链表扩容再分离
+             */
             if (head == null) return null;
-            Map<Node, Node> map = new HashMap<>();
             Node ptr = head;
             while (ptr != null) {
-                map.put(ptr, new Node(ptr.val));
-                ptr = ptr.next;
+                Node newPtr = new Node(ptr.val);
+                newPtr.next = ptr.next;
+                ptr.next = newPtr;
+                ptr = ptr.next.next;
             }
             ptr = head;
             while (ptr != null) {
-                map.get(ptr).next = map.get(ptr.next);
-                map.get(ptr).random = map.get(ptr.random);
-                ptr = ptr.next;
+                ptr.next.random = ptr.random == null ? null : ptr.random.next;
+                ptr = ptr.next.next;
             }
-            return map.get(head);
+            Node newHead = head.next;
+            ptr = head;
+            Node ptrCopy = newHead;
+            while (ptrCopy.next != null) {
+                ptr.next = ptr.next.next;
+                ptrCopy.next = ptrCopy.next.next;
+                ptr = ptr.next;
+                ptrCopy = ptrCopy.next;
+            }
+            ptr.next = null;
+            return newHead;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
