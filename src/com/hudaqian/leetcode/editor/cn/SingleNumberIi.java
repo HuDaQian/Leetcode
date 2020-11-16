@@ -20,7 +20,9 @@
 
 package com.hudaqian.leetcode.editor.cn;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class SingleNumberIi {
@@ -34,17 +36,30 @@ public class SingleNumberIi {
             /**
              * hashset
              */
-            Set<Long> set = new HashSet<>();
-            int sumall = 0;
-            for (int num : nums) {
-                set.add((long)num);
-                sumall += num;
+//            Set<Long> set = new HashSet<>();
+//            long sumall = 0;
+//            for (int num : nums) {
+//                set.add((long)num);
+//                sumall += num;
+//            }
+//            long sum = 0;
+//            for (Long num:set) {
+//                sum += num;
+//            }
+//            return (int)((sum*3 - sumall)/2);
+            /**
+             * hashMap
+             */
+            Map<Integer, Integer> map = new HashMap<>();
+            for (int num:nums) {
+                map.put(num, map.getOrDefault(num, 0) + 1);
             }
-            int sum = 0;
-            for (long num:set) {
-                sum += num;
+            for (int num : map.keySet()) {
+                if (map.get(num) == 1) {
+                    return num;
+                }
             }
-            return (int)(sum*3 - sumall)/2;
+            return -1;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
