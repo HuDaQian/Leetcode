@@ -29,6 +29,9 @@ public class TwoSumIiInputArrayIsSorted {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int[] twoSum(int[] numbers, int target) {
+            /**
+             * 左右指针向中间集合
+             */
             int low = 0, high = numbers.length-1;
             while(low < high) {
                 int sum = numbers[low] + numbers[high];

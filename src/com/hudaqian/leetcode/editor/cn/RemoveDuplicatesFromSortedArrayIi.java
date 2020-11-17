@@ -54,43 +54,44 @@
 // 👍 316 👎 0
 
 
-    package com.hudaqian.leetcode.editor.cn;
+package com.hudaqian.leetcode.editor.cn;
 
 import java.util.Arrays;
 
 public class RemoveDuplicatesFromSortedArrayIi {
-        public static void main(String[] args) {
-            Solution solution = new RemoveDuplicatesFromSortedArrayIi().new Solution();
-            int[] nums = {0,0,1,1,1,1,2,3,3};
-            System.out.print(solution.removeDuplicates(nums));
-            System.out.print(Arrays.toString(nums));
-        }
-       //leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
-    public int removeDuplicates(int[] nums) {
-        /**
-         * 双指针 快指针元素覆盖慢指针元素
-         */
-        if (nums == null || nums.length == 0) return 0;
-        int slow = 0,fast = 0,count = 0,current = nums[0];
-        while (fast < nums.length) {
-            nums[slow] = nums[fast];
-            if (nums[fast] == current) {
-                if (count < 2) {
-                    count++;
-                    slow++;
-                }
-                fast++;
-            } else {
-                current = nums[fast];
-                count=1;
-                slow++;
-                fast++;
-            }
-        }
-        return slow;
+    public static void main(String[] args) {
+        Solution solution = new RemoveDuplicatesFromSortedArrayIi().new Solution();
+        int[] nums = {0, 0, 1, 1, 1, 1, 2, 3, 3};
+        System.out.print(solution.removeDuplicates(nums));
+        System.out.print(Arrays.toString(nums));
     }
-}
+
+    //leetcode submit region begin(Prohibit modification and deletion)
+    class Solution {
+        public int removeDuplicates(int[] nums) {
+            /**
+             * 双指针 快指针元素覆盖慢指针元素
+             */
+            if (nums == null || nums.length == 0) return 0;
+            int slow = 0, fast = 0, count = 0, current = nums[0];
+            while (fast < nums.length) {
+                nums[slow] = nums[fast];
+                if (nums[fast] == current) {
+                    if (count < 2) {
+                        count++;
+                        slow++;
+                    }
+                    fast++;
+                } else {
+                    current = nums[fast];
+                    count = 1;
+                    slow++;
+                    fast++;
+                }
+            }
+            return slow;
+        }
+    }
 //leetcode submit region end(Prohibit modification and deletion)
 
-    }
+}
