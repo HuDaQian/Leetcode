@@ -48,26 +48,44 @@
 // 👍 1984 👎 0
 
 
-    package com.hudaqian.leetcode.editor.cn;
-    public class ContainerWithMostWater {
-        public static void main(String[] args) {
-            Solution solution = new ContainerWithMostWater;
-        }
-       //leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
-    public int maxArea(int[] height) {
-        /**
-         * 解法1：for循环
-         */
-        int result = 0;
-        for (int i = 0; i < height.length-1; i++) {
-            for (int j=i+1;j<height.length;j++) {
-                result = Math.max(result, Math.min(height[i],height[j])*(j-i));
-            }
-        }
-        return result;
+package com.hudaqian.leetcode.editor.cn;
+
+public class ContainerWithMostWater {
+    public static void main(String[] args) {
+        Solution solution = new ContainerWithMostWater().new Solution();
+        int[] height = {1,8,6,2,5,4,8,3,7};
+        System.out.print(String.format("%d",solution.maxArea(height)));
     }
-}
+
+    //leetcode submit region begin(Prohibit modification and deletion)
+    class Solution {
+        public int maxArea(int[] height) {
+            /**
+             * 解法1：for循环
+             */
+//        int result = 0;
+//        for (int i = 0; i < height.length-1; i++) {
+//            for (int j=i+1;j<height.length;j++) {
+//                result = Math.max(result, Math.min(height[i],height[j])*(j-i));
+//            }
+//        }
+//        return result;
+            /**
+             * 解法2：对撞指针
+             */
+            int result = 0;
+            int i = 0, j = height.length - 1;
+            while (i < j) {
+                result = Math.max(result, Math.min(height[i], height[j]) * (j - i));
+                if (height[i] > height[j]) {
+                    j--;
+                } else {
+                    i++;
+                }
+            }
+            return result;
+        }
+    }
 //leetcode submit region end(Prohibit modification and deletion)
 
-    }
+}
