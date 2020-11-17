@@ -28,7 +28,7 @@ import java.util.Set;
 public class SingleNumberIi {
     public static void main(String[] args) {
         Solution solution = new SingleNumberIi().new Solution();
-        
+
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
