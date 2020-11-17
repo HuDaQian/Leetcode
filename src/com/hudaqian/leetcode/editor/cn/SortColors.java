@@ -28,7 +28,7 @@ import java.util.Arrays;
 public class SortColors {
     public static void main(String[] args) {
         Solution solution = new SortColors().new Solution();
-        int[] nums = {2,2,1,1,0};
+        int[] nums = {2, 2, 1, 1, 0};
         solution.sortColors(nums);
         System.out.print(Arrays.toString(nums));
     }
@@ -39,25 +39,53 @@ public class SortColors {
             /**
              * 单指针循环两次
              */
-            if (nums == null || nums.length == 0) {
-                return;
-            }
+//            if (nums == null || nums.length == 0) {
+//                return;
+//            }
+//            int n = nums.length;
+//            int index = 0;
+//            for (int i = 0; i < n; i++) {
+//                if (nums[i] == 0) {
+//                    int current = nums[index];
+//                    nums[index] = nums[i];
+//                    nums[i] = current;
+//                    index++;
+//                }
+//            }
+//            for (int i = index; i < n; i++) {
+//                if (nums[i] == 1) {
+//                    int current = nums[index];
+//                    nums[index] = nums[i];
+//                    nums[i] = current;
+//                    index++;
+//                }
+//            }
+            /**
+             * 双指针解法
+             * 慢指针指1 快指针指2
+             */
+            if (nums == null || nums.length == 0) return;
+            int aIndex = 0, bIndex = 0;
             int n = nums.length;
-            int index = 0;
             for (int i = 0; i < n; i++) {
-                if (nums[i] == 0) {
-                    int current = nums[index];
-                    nums[index] = nums[i];
-                    nums[i] = current;
-                    index++;
-                }
-            }
-            for (int i = index; i < n; i++) {
                 if (nums[i] == 1) {
-                    int current = nums[index];
-                    nums[index] = nums[i];
+                    int current = nums[bIndex];
+                    nums[bIndex] = nums[i];
                     nums[i] = current;
-                    index++;
+                    bIndex++;
+                } else if (nums[i] == 0) {
+                    int current = nums[aIndex];
+                    nums[aIndex] = nums[i];
+                    nums[i] = current;
+                    if (current == 1) {
+                        int bCurrent = nums[bIndex];
+                        nums[bIndex] = nums[i];
+                        nums[i] = bCurrent;
+                    }
+                    aIndex++;
+                    bIndex++;
+                } else {
+
                 }
             }
         }
