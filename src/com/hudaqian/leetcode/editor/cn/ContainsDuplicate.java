@@ -29,7 +29,7 @@ import java.util.*;
 public class ContainsDuplicate {
     public static void main(String[] args) {
         Solution solution = new ContainsDuplicate().new Solution();
-        int[] nums = {1, 2, 3};
+        int[] nums = {1, 2, 3, 1};
         System.out.print(solution.containsDuplicate(nums));
     }
 
@@ -37,10 +37,10 @@ public class ContainsDuplicate {
     class Solution {
         public boolean containsDuplicate(int[] nums) {
             /**
-             * 解法1：排序并依次判断前后两个数是否相等，本地通过，leetcode判断失败
+             * 解法1：排序并依次判断前后两个数是否相等
              */
 //        int[] copyNums = nums.clone();
-//        Arrays.sort(nums);
+//        Arrays.sort(copyNums);
 //        for (int i = 0; i < copyNums.length-1; i++) {
 //            if (copyNums[i] == copyNums[i+1]) {
 //                return true;
@@ -48,7 +48,7 @@ public class ContainsDuplicate {
 //        }
 //        return false;
             /**
-             * 解法2：set,本地通过，leetcode判断失败
+             * 解法2：set
              */
             Set<Integer> set = new HashSet<>();
             for (int i : nums) {

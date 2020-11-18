@@ -34,6 +34,10 @@ public class PlusOne {
        //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int[] plusOne(int[] digits) {
+        /**
+         * 倒着遍历
+         * 求除10余数 如果为0 那么数字加1已经超过10 继续遍历直到不为0，如果遍历到了首部依旧为0 那么新建一个长度大于1的数组 然后设定首位为1就好了
+         */
         int length = digits.length;
         for (int i = length-1; i >= 0; i--) {
             int num = digits[i];

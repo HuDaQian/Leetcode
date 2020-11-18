@@ -53,6 +53,9 @@ public class ValidParentheses {
        //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public boolean isValid(String s) {
+        /**
+         * 使用栈来保存最后的括号 来判断
+         */
         Stack<Character> mark = new Stack<>();
         int len = s.length();
         for (int i=0; i<len;i++){

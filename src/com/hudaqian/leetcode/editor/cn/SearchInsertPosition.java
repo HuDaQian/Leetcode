@@ -42,6 +42,9 @@ public class SearchInsertPosition {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int searchInsert(int[] nums, int target) {
+            /**
+             * 经典二分法
+             */
             if (nums.length == 0) {
                 return 0;
             }

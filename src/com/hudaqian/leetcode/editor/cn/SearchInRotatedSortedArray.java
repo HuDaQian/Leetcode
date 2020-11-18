@@ -57,6 +57,9 @@ public class SearchInRotatedSortedArray {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int search(int[] nums, int target) {
+            /**
+             * 二分法查找 多一步两端数字的比较
+             */
             int n = nums.length;
             if (n == 0) {
                 return -1;

@@ -74,6 +74,9 @@ public class ValidSudoku {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public boolean isValidSudoku(char[][] board) {
+            /**
+             * 三个hashMap来统计数字出现的位置 横竖宫
+             */
             HashMap<Integer, Integer>[] rows = new HashMap[9];
             HashMap<Integer, Integer>[] colums = new HashMap[9];
             HashMap<Integer, Integer>[] boxs = new HashMap[9];

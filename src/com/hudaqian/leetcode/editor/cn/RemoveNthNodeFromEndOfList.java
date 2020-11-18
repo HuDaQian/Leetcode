@@ -76,6 +76,8 @@ public class RemoveNthNodeFromEndOfList {
         public ListNode removeNthFromEnd(ListNode head, int n) {
             /**
              * 双指针解法
+             * 快指针先走n步
+             * 慢指针再跟随快指针走 这样 快指针到达终点以后 慢指针就到了倒数第n格
              */
             ListNode dummy = new ListNode(0, head);
             ListNode first = head;

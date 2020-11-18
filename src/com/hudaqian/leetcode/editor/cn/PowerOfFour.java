@@ -29,10 +29,13 @@ public class PowerOfFour {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public boolean isPowerOfFour(int n) {
+            /**
+             * 迭代
+             * 位运算待补充
+             */
             if (n == 0) return false;
             while (n % 4 == 0) n /= 4;
             return n == 1;
-//            return (n > 0) && (Math.log(n) / Math.log(2) % 2 == 0);
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)

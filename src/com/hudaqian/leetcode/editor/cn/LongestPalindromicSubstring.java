@@ -28,6 +28,10 @@ public class LongestPalindromicSubstring {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public String longestPalindrome(String s) {
+            /**
+             * 动态规划
+             * 中心扩散方法待补充
+             */
             if (s == null || s.length() == 0) return "";
             int len = s.length();
             boolean[][] isPalindrom = new boolean[len + 1][len + 1];

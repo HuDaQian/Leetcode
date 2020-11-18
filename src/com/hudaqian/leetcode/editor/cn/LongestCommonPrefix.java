@@ -35,6 +35,11 @@ public class LongestCommonPrefix {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public String longestCommonPrefix(String[] strs) {
+            /**
+             * 二分法
+             * 先寻找字符串最短长度
+             * 然后使用二分法查找公共前缀
+             */
             if (strs == null || strs.length == 0) return "";
             int minLen = Integer.MAX_VALUE;
             for (String str:strs) {
