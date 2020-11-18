@@ -47,7 +47,48 @@ public class ZeroMatrixLcci {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public void setZeroes(int[][] matrix) {
-
+            /**
+             * 解法：通过首行和首列来记录当行或者当列是否有0，首先把首行列中是否有0记录出来
+             */
+            boolean isFirstColHasZero = false;
+            boolean isFirstRowHasZero = false;
+            int m = matrix.length;
+            int n = matrix[0].length;
+            for (int i = 0; i < m; i++) {
+                if (matrix[i][0] == 0) {
+                    isFirstColHasZero = true;
+                }
+            }
+            for (int i = 0; i < n; i++) {
+                if (matrix[0][i] == 0) {
+                    isFirstRowHasZero = true;
+                }
+            }
+            for (int i = 1; i < m; i++) {
+                for (int j = 1; j < n; j++) {
+                    if (matrix[i][j] == 0) {
+                        matrix[i][0] = 0;
+                        matrix[0][j] = 0;
+                    }
+                }
+            }
+            for (int i = 1; i < m; i++) {
+                for (int j = 1; j < n; j++) {
+                    if (matrix[i][0] == 0 || matrix[0][j] == 0) {
+                        matrix[i][j] = 0;
+                    }
+                }
+            }
+            if (isFirstColHasZero) {
+                for (int i = 0; i < m; i++) {
+                    matrix[i][0] = 0;
+                }
+            }
+            if (isFirstRowHasZero) {
+                for (int i = 0; i < n; i++) {
+                    matrix[0][i] = 0;
+                }
+            }
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
