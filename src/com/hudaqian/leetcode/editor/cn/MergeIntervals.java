@@ -30,15 +30,42 @@
 
 package com.hudaqian.leetcode.editor.cn;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+
 public class MergeIntervals {
     public static void main(String[] args) {
         Solution solution = new MergeIntervals().new Solution();
+        int[][] intervals = {{1,3},{2,6},{8,10},{15,18}};
+        System.out.print(Arrays.toString(solution.merge(intervals)));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int[][] merge(int[][] intervals) {
-            return new int[1][1];
+            /**
+             * 排序然后合并
+             * 合并的时候 拿结果数组最后一个元素的右边跟所取元素的左边比较
+             */
+            if (intervals == null || intervals.length == 0) return new int[0][2];
+            Arrays.sort(intervals, new Comparator<int[]>() {
+                @Override
+                public int compare(int[] o1, int[] o2) {
+                    return o1[0] - o2[0];
+                }
+            });
+            List<int[]> mergedList = new ArrayList<>();
+            for (int[] interval : intervals) {
+                int l = interval[0], r = interval[1];
+                if (mergedList.size() == 0 || mergedList.get(mergedList.size() - 1)[1] < l) {
+                    mergedList.add(new int[]{l, r});
+                } else {
+                    mergedList.get(mergedList.size() - 1)[1] = Math.max(mergedList.get(mergedList.size() - 1)[1], r);
+                }
+            }
+            return mergedList.toArray(new int[mergedList.size()][]);
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
