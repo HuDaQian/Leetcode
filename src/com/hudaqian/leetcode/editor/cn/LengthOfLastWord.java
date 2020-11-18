@@ -20,12 +20,27 @@ package com.hudaqian.leetcode.editor.cn;
 public class LengthOfLastWord {
     public static void main(String[] args) {
         Solution solution = new LengthOfLastWord().new Solution();
+        String s = " ";
+        System.out.print(solution.lengthOfLastWord(s));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int lengthOfLastWord(String s) {
-            return 0;
+            /**
+             * 解法1 指针
+             */
+//            if (s == null || s.length() == 0) return 0;
+//            int start = 0, end = s.length() - 1;
+//            while (s.charAt(end) == ' ' && end > 0) end--;
+//            start = end;
+//            while (s.charAt(end) != ' ' && end > 0) end--;
+//            return start - end;
+            /**
+             * 解法2 字符串分割
+             */
+            String[] strs = s.split(" ");
+            return strs.length == 0 ? 0 : strs[strs.length-1].length();
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)

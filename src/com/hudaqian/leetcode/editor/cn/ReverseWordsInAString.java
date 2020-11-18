@@ -68,15 +68,28 @@
 
 package com.hudaqian.leetcode.editor.cn;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 public class ReverseWordsInAString {
     public static void main(String[] args) {
         Solution solution = new ReverseWordsInAString().new Solution();
+        String s = "Hello World";
+        System.out.print(solution.reverseWords(s));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public String reverseWords(String s) {
-            return "";
+            /**
+             * 语言特性 去首位空格 分割 翻转 拼接
+             */
+            s = s.trim();
+            List<String> resultArray = Arrays.asList(s.split("\\s+"));
+            Collections.reverse(resultArray);
+            return String.join(" ",resultArray);
+
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
