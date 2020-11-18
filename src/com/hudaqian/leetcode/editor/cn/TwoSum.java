@@ -33,6 +33,9 @@ public class TwoSum {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int[] twoSum(int[] nums, int target) {
+            /**
+             * hashmap记录已经出现过的数字
+             */
             int[] result = new int[2];
             if (nums == null || nums.length < 2) return result;
             Map<Integer, Integer> map = new HashMap<Integer, Integer>();

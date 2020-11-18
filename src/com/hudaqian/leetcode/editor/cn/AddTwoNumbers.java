@@ -49,6 +49,10 @@ public class AddTwoNumbers {
 
     class Solution {
         public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+            /**
+             * 倒着计算
+             * 当前链表的数字+前节点数字的和是否超过十
+             */
             ListNode dummy = new ListNode(0);
             ListNode current = dummy;
             int carry = 0;

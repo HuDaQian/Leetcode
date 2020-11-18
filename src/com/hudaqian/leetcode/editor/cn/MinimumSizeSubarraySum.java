@@ -35,6 +35,9 @@ public class MinimumSizeSubarraySum {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int minSubArrayLen(int s, int[] nums) {
+            /**
+             * 双指针 如果指针内数字和sum大于s 那么左边向右走 小于s那么右边向右走
+             */
             int n = nums.length;
             if (n == 0) {
                 return 0;

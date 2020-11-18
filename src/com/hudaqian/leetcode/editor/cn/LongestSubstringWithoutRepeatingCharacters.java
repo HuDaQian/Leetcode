@@ -27,6 +27,9 @@
 
 package com.hudaqian.leetcode.editor.cn;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class LongestSubstringWithoutRepeatingCharacters {
     public static void main(String[] args) {
         Solution solution = new LongestSubstringWithoutRepeatingCharacters().new Solution();
@@ -39,6 +42,9 @@ public class LongestSubstringWithoutRepeatingCharacters {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int lengthOfLongestSubstring(String s) {
+            /**
+             * 双指针滑动窗口，通过一个boolean的数组来判断是否已经有了字符
+             */
             if (s == null || s.length() == 0) return 0;
             int left = 0, right = 0, max = 0;
             int sLength = s.length();
@@ -59,6 +65,26 @@ public class LongestSubstringWithoutRepeatingCharacters {
             }
             max = Math.max(max, right - left);
             return max;
+            /**
+             * 双指针2
+             */
+//            if(s == null || s.length() == 0) return 0;
+//            int left = 0,right = 0,max = 0;
+//            Set<Character> set = new HashSet<>();
+//            int sLength = s.length();
+//            while (right < sLength) {
+//                if (!set.contains(s.charAt(right))) {
+//                    set.add(s.charAt(right));
+//                    right++;
+//                } else  {
+//                    while (set.contains(s.charAt(right))) {
+//                        set.remove(s.charAt(left));
+//                        left++;
+//                    }
+//                }
+//                max = Math.max(max, right-left);
+//            }
+//            return max;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
