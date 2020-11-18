@@ -35,6 +35,9 @@ class Solution {
             if (nums[i] == 1) {
                 count++;
             } else {
+                /**
+                 * 这里统计比count数值改变统计要少一些计算
+                 */
                 max = Math.max(max, count);
                 count = 0;
             }
