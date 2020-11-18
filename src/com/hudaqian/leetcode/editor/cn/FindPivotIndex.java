@@ -36,17 +36,39 @@
 // 👍 231 👎 0
 
 
-    package com.hudaqian.leetcode.editor.cn;
-    public class FindPivotIndex {
-        public static void main(String[] args) {
-            Solution solution = new FindPivotIndex().new Solution();
-        }
-       //leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
-    public int pivotIndex(int[] nums) {
-return 0;
+package com.hudaqian.leetcode.editor.cn;
+
+public class FindPivotIndex {
+    public static void main(String[] args) {
+        Solution solution = new FindPivotIndex().new Solution();
+        int[] nums = {1, 2, 4, 3};
+        System.out.print(solution.pivotIndex(nums));
     }
-}
+
+    //leetcode submit region begin(Prohibit modification and deletion)
+    class Solution {
+        public int pivotIndex(int[] nums) {
+            /**
+             * 前缀和等于总和减去前缀和 再减去当前值
+             */
+            if (nums == null || nums.length == 0) return -1;
+            if (nums.length == 1) return 0;
+            int sum = 0;
+            for (int num : nums) {
+                sum += num;
+            }
+            int leftSum = 0;
+            for (int i = 0; i < nums.length; i++) {
+                if (leftSum == sum - nums[i]) {
+                    return i;
+                } else {
+                    sum -= nums[i];
+                    leftSum += nums[i];
+                }
+            }
+            return -1;
+        }
+    }
 //leetcode submit region end(Prohibit modification and deletion)
 
-    }
+}
