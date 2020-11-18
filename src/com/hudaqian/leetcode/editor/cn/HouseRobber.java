@@ -42,7 +42,33 @@ public class HouseRobber {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int rob(int[] nums) {
-            return 0;
+            /**
+             * 解法1：两个数字 来保存偷或者不偷的最大值
+             */
+//            if (nums == null || nums.length == 0) return 0;
+//            int evenNumber = 0, oddNumber = 0, index = 0;
+//            while (index < nums.length) {
+//                int currentNumber = nums[index];
+//                if (index % 2 == 0) {
+//                    evenNumber += currentNumber;
+//                    evenNumber = Math.max(evenNumber, oddNumber);
+//                } else  {
+//                    oddNumber += currentNumber;
+//                    oddNumber = Math.max(evenNumber, oddNumber);
+//                }
+//                index++;
+//            }
+//            return Math.max(oddNumber, evenNumber);
+            /**
+             * 解法2：动态规划
+             */
+            if (nums == null || nums.length == 0) return 0;
+            int[] dp = new int[nums.length+1];
+            dp[1] = nums[0];
+            for (int i = 2; i < nums.length+1; i++) {
+                dp[i] = Math.max(dp[i-2]+nums[i-1], dp[i-1]);
+            }
+            return dp[nums.length];
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)

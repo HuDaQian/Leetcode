@@ -89,6 +89,9 @@ public class ReverseWordsInAString {
             List<String> resultArray = Arrays.asList(s.split("\\s+"));
             Collections.reverse(resultArray);
             return String.join(" ",resultArray);
+            /**
+             * 解法2：手动方法待补充
+             */
 
         }
     }
