@@ -38,17 +38,32 @@
 // 👍 197 👎 0
 
 
-    package com.hudaqian.leetcode.editor.cn;
-    public class ArrayPartitionI {
-        public static void main(String[] args) {
-            Solution solution = new ArrayPartitionI().new Solution();
-        }
-       //leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
-    public int arrayPairSum(int[] nums) {
-        return 0;
+package com.hudaqian.leetcode.editor.cn;
+
+import java.util.Arrays;
+
+public class ArrayPartitionI {
+    public static void main(String[] args) {
+        Solution solution = new ArrayPartitionI().new Solution();
     }
-}
+
+    //leetcode submit region begin(Prohibit modification and deletion)
+    class Solution {
+        public int arrayPairSum(int[] nums) {
+            /**
+             * 排序法
+             */
+            Arrays.sort(nums);
+            int result = 0;
+            for (int i = 0; i < nums.length; i += 2) {
+                result += nums[i];
+            }
+            return result;
+            /**
+             * 计数排序待补充
+             */
+        }
+    }
 //leetcode submit region end(Prohibit modification and deletion)
 
-    }
+}
