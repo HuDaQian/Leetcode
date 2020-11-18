@@ -22,11 +22,25 @@
     public class MaxConsecutiveOnes {
         public static void main(String[] args) {
             Solution solution = new MaxConsecutiveOnes().new Solution();
+            int[] nums = {1,1,1,0,1,1,0,1,1,0,1,1,1,1,1};
+            System.out.print(solution.findMaxConsecutiveOnes(nums));
         }
        //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int findMaxConsecutiveOnes(int[] nums) {
-return 0;
+        if (nums == null || nums.length == 0) return 0;
+        int numsLength = nums.length;
+        int count = 0,max = 0;
+        for (int i = 0; i < numsLength; i++) {
+            if (nums[i] == 1) {
+                count++;
+            } else {
+                max = Math.max(max, count);
+                count = 0;
+            }
+        }
+        max = Math.max(max, count);
+        return max;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

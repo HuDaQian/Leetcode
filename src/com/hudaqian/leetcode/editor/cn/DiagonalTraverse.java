@@ -49,8 +49,9 @@ public class DiagonalTraverse {
             int n = matrix[0].length;
             int[] result = new int[m*n];
             int index = 0;
+            List<Integer> nums = new ArrayList<>();
             for (int i = 0; i < n + m - 1; i++) {
-                List<Integer> nums = new ArrayList<>();
+                nums.clear();
                 int nIndex = i < m ? 0 : (i-m)+1;
                 int mIndex = i < m ? i : m-1;
                 while (mIndex >= 0 && nIndex <= (n-1) ) {
