@@ -51,11 +51,13 @@ public class HappyNumber {
         }
 
         private int getSqure(int num) {
-            if (num / 10 == 0) {
-                return num * num;
+            int totalSum = 0;
+            while (num > 0) {
+                int d = num % 10;
+                num = num / 10;
+                totalSum += d * d;
             }
-            int last = num % 10;
-            return last * last + getSqure(num/10);
+            return totalSum;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
