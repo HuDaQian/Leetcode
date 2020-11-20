@@ -29,25 +29,34 @@ import java.util.Set;
 public class HappyNumber {
     public static void main(String[] args) {
         Solution solution = new HappyNumber().new Solution();
-        System.out.print(solution.isHappy(19));
+        System.out.print(solution.isHappy(1));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public boolean isHappy(int n) {
             /**
+             * 快慢指针解法
+             */
+            int fast = n, slow = n;
+            do {
+                slow = getSqure(slow);
+                fast = getSqure(getSqure(fast));
+            } while (fast != slow);
+            return fast == 1;
+            /**
              * 不快乐数终会重复
              * 递归+哈希表记录
              */
-            Set<Integer> set = new HashSet<>();
-            int current = n;
-            while (current != 1) {
-                if (!set.add(current)){
-                    return false;
-                }
-                current = getSqure(current);
-            }
-            return true;
+//            Set<Integer> set = new HashSet<>();
+//            int current = n;
+//            while (current != 1) {
+//                if (!set.add(current)){
+//                    return false;
+//                }
+//                current = getSqure(current);
+//            }
+//            return true;
         }
 
         private int getSqure(int num) {
