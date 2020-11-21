@@ -35,21 +35,38 @@ import java.util.Map;
 public class IsomorphicStrings {
     public static void main(String[] args) {
         Solution solution = new IsomorphicStrings().new Solution();
-        String s = "aba";
-        String t = "baa";
-        System.out.print(solution.isIsomorphic(s,t));
+        String s = "egg";
+        String t = "dda";
+        System.out.print(solution.isIsomorphic(s, t));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public boolean isIsomorphic(String s, String t) {
-            char[] ch1 = s.toCharArray();
-            char[] ch2 = t.toCharArray();
-            int len = s.length();
-            for (int i = 0; i < len; i++) {
-                if(s.indexOf(ch1[i]) != t.indexOf(ch2[i])){
-                    return false;
+            /**
+             * 注意题目的意思 ad => ad 结果是true
+             */
+            if (s == null || t == null || s.length() != t.length()) {
+                return false;
+            }
+            int[] snums = new int[128];
+            int[] tnums = new int[128];
+
+            char[] schar = s.toCharArray();
+            char[] tchar = t.toCharArray();
+
+            for (int i = 0; i < s.length(); i++) {
+                char a = schar[i];
+                char b = tchar[i];
+                if (snums[a] == 0 && tnums[b] == 0) {
+                    snums[a] = b;
+                    tnums[b] = a;
+                } else {
+                    if (snums[a] !=b || tnums[b] != a) {
+                        return false;
+                    }
                 }
+
             }
             return true;
         }
