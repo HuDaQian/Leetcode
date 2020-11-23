@@ -39,7 +39,11 @@ public class ThreeSum {
              * 排序+双指针法
              */
             List<List<Integer>> result = new ArrayList<>();
-            if (nums.length < 2) return result;
+            /**
+             * 错误调整
+             * 小于三个数字 直接退出
+             */
+            if (nums.length < 3) return result;
             Arrays.sort(nums);
             int n = nums.length;
             int left, right;
@@ -49,10 +53,22 @@ public class ThreeSum {
                 if (currentStart == nums[i]){
                     continue;
                 }
-                currentStart = nums[i];
-                if (currentStart > 0) {
+                /**
+                 * 此处调整一下 如果起始点+后边的两位数字大于0 那么后边的肯定都大于0
+                 * 跳出所有循环
+                 */
+                if (nums[i] + nums[i+1] + nums[i+2] > 0) {
                     break;
                 }
+                /**
+                 * 如果起点+最后的两个数小于0 那么肯定没有符合条件的组合
+                 * 跳出本次循环
+                 */
+                if (nums[i]+nums[n-2]+nums[n-1] < 0) {
+                    continue;
+                }
+
+                currentStart = nums[i];
                 left = i + 1;
                 right = n - 1;
                 while (left < right) {
