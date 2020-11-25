@@ -28,25 +28,55 @@
 // 👍 548 👎 0
 
 
-    package com.hudaqian.leetcode.editor.cn;
-    public class PowxN {
-        public static void main(String[] args) {
-            Solution solution = new PowxN;
-        }
-       //leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
-    public double myPow(double x, int n) {
-        long ln = n;
-        return QuickMul(x,ln);
+package com.hudaqian.leetcode.editor.cn;
+
+public class PowxN {
+    public static void main(String[] args) {
+        Solution solution = new PowxN().new Solution();
+        double x = 2.1;
+        int n = 3;
+        System.out.print(solution.myPow(x, n));
     }
-    private double QuickMul(double x, long n) {
-        if (n == 0) {
-            return 1.0;
+
+    //leetcode submit region begin(Prohibit modification and deletion)
+    class Solution {
+        public double myPow(double x, int n) {
+            /**
+             * 解法1：递归
+             */
+//        long ln = n;
+//        return QuickMul(x,ln);
+            /**
+             * 解法2：迭代
+             */
+            long ln = n;
+            return ln >= 0 ? QuickMul2(x, ln) : 1.0 / QuickMul2(x, -ln);
         }
-        double y = QuickMul(x, n/2);
-        return n/2 == 0 ? y * y : y * y * x;
+
+        private double QuickMul2(double x, long n) {
+            double temp = x;
+            double ans = 1.0;
+            while (n > 0) {
+                if (n%2 != 0) {
+                    ans *= temp;
+                }
+                temp *= temp;
+                n /= 2;
+            }
+            return ans;
+        }
+
+        private double QuickMul(double x, long n) {
+            /**
+             * 递归解法的方法
+             */
+            if (n == 0) {
+                return 1.0;
+            }
+            double y = QuickMul(x, n / 2);
+            return n / 2 == 0 ? y * y : y * y * x;
+        }
     }
-}
 //leetcode submit region end(Prohibit modification and deletion)
 
-    }
+}
