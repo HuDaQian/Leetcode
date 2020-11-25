@@ -17,51 +17,76 @@
 // 👍 669 👎 0
 
 
-    package com.hudaqian.leetcode.editor.cn;
+package com.hudaqian.leetcode.editor.cn;
 
 import java.util.Arrays;
 
 public class FindFirstAndLastPositionOfElementInSortedArray {
-        public static void main(String[] args) {
-            Solution solution = new FindFirstAndLastPositionOfElementInSortedArray().new Solution();
-            int[] nums = {1,2,2,3,4,4,4,5,6};
-            System.out.print(Arrays.toString(solution.searchRange(nums,4)));
+    public static void main(String[] args) {
+        Solution solution = new FindFirstAndLastPositionOfElementInSortedArray().new Solution();
+        int[] nums = {5, 7, 7, 8, 8, 10};
+        System.out.print(Arrays.toString(solution.searchRange(nums, 4)));
+    }
+
+    //leetcode submit region begin(Prohibit modification and deletion)
+    class Solution {
+        public int[] searchRange(int[] nums, int target) {
+            /**
+             * 解法1：线性扫描
+             */
+//        int[] res = new int[2];
+//        Arrays.fill(res,-1);
+//        boolean isSearched = false;
+//        for (int i = 0; i < nums.length; i++) {
+//            if (isSearched) {
+//                /**
+//                 * 搜索到了的时候
+//                 */
+//                if (nums[i] != target) {
+//                    res[1] = i-1;
+//                    isSearched = false;
+//                    break;
+//                }
+//            } else  {
+//                /**
+//                 * 未搜索到的时候
+//                 */
+//                if (nums[i] == target) {
+//                    res[0] = i;
+//                    isSearched = true;
+//                }
+//            }
+//        }
+//        if (isSearched) {
+//            res[1] = nums.length-1;
+//        }
+//        return res;
+            /**
+             * 二分查找 思路是查一下左边 再查一下右边
+             */
+            int[] res = new int[2];
+            Arrays.fill(res, -1);
+            int leftIndex = GetTargetIndex(nums, target, true);
+            if (leftIndex == nums.length || nums[leftIndex] != target) return res;
+            res[0] = leftIndex;
+            res[1] = GetTargetIndex(nums, target, false) - 1;
+            return res;
         }
-       //leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
-    public int[] searchRange(int[] nums, int target) {
-        /**
-         * 解法1：线性扫描
-         */
-        int[] res = new int[2];
-        Arrays.fill(res,-1);
-        boolean isSearched = false;
-        for (int i = 0; i < nums.length; i++) {
-            if (isSearched) {
-                /**
-                 * 搜索到了的时候
-                 */
-                if (nums[i] != target) {
-                    res[1] = i-1;
-                    isSearched = false;
-                    break;
-                }
-            } else  {
-                /**
-                 * 未搜索到的时候
-                 */
-                if (nums[i] == target) {
-                    res[0] = i;
-                    isSearched = true;
+
+        private int GetTargetIndex(int[] nums, int target, boolean isLeft) {
+            int left = 0, right = nums.length;
+            while (left < right) {
+                int mid = left + (right - left) / 2;
+                int midNum = nums[mid];
+                if (midNum > target || (isLeft && midNum == target)) {
+                    right = mid;
+                } else {
+                    left = mid + 1;
                 }
             }
+            return left;
         }
-        if (isSearched) {
-            res[1] = nums.length-1;
-        }
-        return res;
     }
-}
 //leetcode submit region end(Prohibit modification and deletion)
 
-    }
+}
