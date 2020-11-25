@@ -51,16 +51,29 @@ public class FindPeakElement {
             /**
              * 解法2：迭代二分查找
              */
-            int left = 0, right = nums.length - 1;
-            if (left < right) {
-                int mid = left + (right - left) / 2;
-                if (nums[mid] > nums[mid + 1]) {
-                    return mid;
-                } else {
-                    left = mid + 1;
-                }
+//            int left = 0, right = nums.length - 1;
+//            if (left < right) {
+//                int mid = left + (right - left) / 2;
+//                if (nums[mid] > nums[mid + 1]) {
+//                    return mid;
+//                } else {
+//                    left = mid + 1;
+//                }
+//            }
+//            return left;
+            /**
+             * 解法3：递归二分查找
+             */
+            return search(nums, 0, nums.length - 1);
+        }
+
+        private int search(int[] nums, int left, int right) {
+            if (left == right) return left;
+            int mid = left + (right - left) / 2;
+            if (nums[mid] > nums[mid + 1]) {
+                return search(nums, left, mid);
             }
-            return left;
+            return search(nums, mid + 1, right);
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
