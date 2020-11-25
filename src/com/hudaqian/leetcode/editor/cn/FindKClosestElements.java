@@ -56,15 +56,33 @@ class Solution {
          * 根据相差的绝对值排序 然后取前k个数字
          * 然后排序输出
          */
-        List<Integer> res = Arrays.stream(arr).boxed().collect(Collectors.toList());
-        Collections.sort(res, new Comparator<Integer>() {
-            @Override
-            public int compare(Integer o1, Integer o2) {
-                return Math.abs(o1-x) - Math.abs(o2 - x);
+//        List<Integer> res = Arrays.stream(arr).boxed().collect(Collectors.toList());
+//        Collections.sort(res, new Comparator<Integer>() {
+//            @Override
+//            public int compare(Integer o1, Integer o2) {
+//                return Math.abs(o1-x) - Math.abs(o2 - x);
+//            }
+//        });
+//        res = res.subList(0,k);
+//        Collections.sort(res);
+//        return res;
+        /**
+         * 解法2：二分查找来查找 先找到左边索引 然后向右边添加k个元素即可
+         */
+        int left = 0,right = arr.length-k;
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (x - arr[mid] > arr[mid + k] - x) {
+                left = mid + 1;
+            } else {
+                right = mid;
             }
-        });
-        res = res.subList(0,k);
-        Collections.sort(res);
+        }
+        //以left作为起始索引，长度为k
+        List<Integer> res = new LinkedList<>();
+        for (int i = 0; i < k; i++) {
+            res.add(arr[i + left]);
+        }
         return res;
     }
 }
