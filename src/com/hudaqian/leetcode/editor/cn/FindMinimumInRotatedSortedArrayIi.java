@@ -51,13 +51,29 @@ public class FindMinimumInRotatedSortedArrayIi {
             /**
              * 线性搜索 不符合题目要求
              */
-            if (nums.length < 2) return nums[0];
-            for (int i=0;i<nums.length-1;i++) {
-                if (nums[i+1] < nums[i]) {
-                    return nums[i+1];
+//            if (nums.length < 2) return nums[0];
+//            for (int i=0;i<nums.length-1;i++) {
+//                if (nums[i+1] < nums[i]) {
+//                    return nums[i+1];
+//                }
+//            }
+//            return nums[0];
+            /**
+             * 二分搜索
+             */
+            int left = 0,right = nums.length-1;
+            while (left < right) {
+                int mid = left + (right-left)/2;
+                int num = nums[mid];
+                if (num > nums[right]) {
+                    left = mid+1;
+                } else  if (num < nums[right]) {
+                    right = mid;
+                } else  {
+                    right -= 1;
                 }
             }
-            return nums[0];
+            return nums[left];
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
