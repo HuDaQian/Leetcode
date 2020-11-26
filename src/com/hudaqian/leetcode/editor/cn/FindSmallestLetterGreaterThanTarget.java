@@ -70,17 +70,46 @@ public class FindSmallestLetterGreaterThanTarget {
             /**
              * 线性搜索
              */
-            int minValue = Integer.MAX_VALUE;
-            int minIndex = -1;
-            for (int i = 0; i < letters.length; i++) {
-                Character c = letters[i];
-                int value = (c-target) <= 0 ? (26+c-target) : (c-target);
-                if (minValue > value) {
-                    minIndex = i;
-                    minValue = value;
-                }
+//            int minValue = Integer.MAX_VALUE;
+//            int minIndex = -1;
+//            for (int i = 0; i < letters.length; i++) {
+//                Character c = letters[i];
+//                int value = (c-target) <= 0 ? (26+c-target) : (c-target);
+//                if (minValue > value) {
+//                    minIndex = i;
+//                    minValue = value;
+//                }
+//            }
+//            return letters[minIndex];
+            /**
+             * 线性搜索 最优
+             */
+            for (Character c : letters) {
+                if (c > target) return c;
             }
-            return letters[minIndex];
+            return letters[0];
+            /**
+             * 线性搜索 改
+             */
+//            boolean[] chars = new boolean[26];
+//            for (Character c : letters) {
+//                chars[c-'a'] = true;
+//            }
+//            while (true) {
+//                target ++;
+//                if (target > 'z') target = 'a';
+//                if (chars[target-'a']) return target;
+//            }
+            /**
+             * 二分法
+             */
+//            int lo = 0, hi = letters.length;
+//            while (lo < hi) {
+//                int mi = lo + (hi - lo) / 2;
+//                if (letters[mi] <= target) lo = mi + 1;
+//                else hi = mi;
+//            }
+//            return letters[lo % letters.length];
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
