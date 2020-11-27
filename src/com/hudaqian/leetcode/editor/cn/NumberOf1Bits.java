@@ -59,27 +59,29 @@
 // 👍 238 👎 0
 
 
-    package com.hudaqian.leetcode.editor.cn;
-    public class NumberOf1Bits {
-        public static void main(String[] args) {
-            Solution solution = new NumberOf1Bits().new Solution();
-            System.out.print(solution.hammingWeight(101010));
-        }
-       //leetcode submit region begin(Prohibit modification and deletion)
-public class Solution {
-    // you need to treat n as an unsigned value
-    public int hammingWeight(int n) {
-        int bits = 0;
-        int mask = 1;
-        for (int i = 0; i < 32; i++) {
-            if ((n & mask) != 0) {
-                bits++;
-            }
-            mask <<= 1;
-        }
-        return bits;
+package com.hudaqian.leetcode.editor.cn;
+
+public class NumberOf1Bits {
+    public static void main(String[] args) {
+        Solution solution = new NumberOf1Bits().new Solution();
+        System.out.print(solution.hammingWeight(101010));
     }
-}
+
+    //leetcode submit region begin(Prohibit modification and deletion)
+    public class Solution {
+        // you need to treat n as an unsigned value
+        public int hammingWeight(int n) {
+            int bits = 0;
+            int mask = 1;
+            for (int i = 0; i < 32; i++) {
+                if ((n & mask) != 0) {
+                    bits++;
+                }
+                mask <<= 1;
+            }
+            return bits;
+        }
+    }
 //leetcode submit region end(Prohibit modification and deletion)
 
-    }
+}
