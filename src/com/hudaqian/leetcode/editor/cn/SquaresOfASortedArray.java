@@ -30,6 +30,10 @@
 package com.hudaqian.leetcode.editor.cn;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class SquaresOfASortedArray {
     public static void main(String[] args) {
@@ -51,7 +55,22 @@ public class SquaresOfASortedArray {
             }
             Arrays.sort(result);
             return result;
-
+            /**
+             * 解法2：排序完平方
+             */
+//            int len = A.length;
+//            List<Integer> list = Arrays.stream(A).boxed().collect(Collectors.toList());
+//            Collections.sort(list, new Comparator<Integer>() {
+//                @Override
+//                public int compare(Integer o1, Integer o2) {
+//                    return Math.abs(o1) - Math.abs(o2);
+//                }
+//            });
+//            int[] result = new int[len];
+//            for (int i = 0; i < len; i++) {
+//                result[i] = list.get(i) * list.get(i);
+//            }
+//            return result;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
