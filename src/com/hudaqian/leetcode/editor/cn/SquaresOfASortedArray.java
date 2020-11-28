@@ -74,40 +74,59 @@ public class SquaresOfASortedArray {
             /**
              * 解法3：双指针 从小到大
              */
+//            int len = A.length;
+//            int[] result = new int[len];
+//            if (len == 0) return result;
+//            int left = 0,right = 0;
+//            for (int i = 0; i < len; i++) {
+//                if (Math.abs(A[i]) < Math.abs(A[left])) {
+//                    left = i;
+//                }
+//            }
+//            right = left+1;
+//            int index = 0;
+//            while (left >= 0 && right <= len-1) {
+//                if (Math.abs(A[left]) < Math.abs(A[right])) {
+//                    result[index] = A[left] * A[left];
+//                    left -- ;
+//                } else {
+//                    result[index] = A[right] * A[right];
+//                    right++ ;
+//                }
+//                index++;
+//            }
+//            if (left < 0) {
+//                //  左边到了
+//                while (right <= len-1) {
+//                    result[index] = A[right] * A[right];
+//                    right++ ;
+//                    index++;
+//                }
+//            } else  {
+//                while (left >= 0) {
+//                    result[index] = A[left] * A[left];
+//                    left-- ;
+//                    index++;
+//                }
+//            }
+//            return result;
+            /**
+             * 解法4：从大到小
+             */
             int len = A.length;
             int[] result = new int[len];
             if (len == 0) return result;
-            int left = 0,right = 0;
-            for (int i = 0; i < len; i++) {
-                if (Math.abs(A[i]) < Math.abs(A[left])) {
-                    left = i;
-                }
-            }
-            right = left+1;
-            int index = 0;
-            while (left >= 0 && right <= len-1) {
+            int left = 0,right = len -1;
+            int index = len-1;
+            while (left <= right) {
                 if (Math.abs(A[left]) < Math.abs(A[right])) {
-                    result[index] = A[left] * A[left];
-                    left -- ;
-                } else {
                     result[index] = A[right] * A[right];
-                    right++ ;
-                }
-                index++;
-            }
-            if (left < 0) {
-                //  左边到了
-                while (right <= len-1) {
-                    result[index] = A[right] * A[right];
-                    right++ ;
-                    index++;
-                }
-            } else  {
-                while (left >= 0) {
+                    right --;
+                } else  {
                     result[index] = A[left] * A[left];
-                    left-- ;
-                    index++;
+                    left ++;
                 }
+                index --;
             }
             return result;
         }
