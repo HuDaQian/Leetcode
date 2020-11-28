@@ -38,7 +38,7 @@ import java.util.stream.Collectors;
 public class SquaresOfASortedArray {
     public static void main(String[] args) {
         Solution solution = new SquaresOfASortedArray().new Solution();
-        int[] nums = {-1, 0, 1, 2, 3};
+        int[] nums = {-4, -1, 0, 3, 10};
         System.out.print(Arrays.toString(solution.sortedSquares(nums)));
     }
 
@@ -48,13 +48,13 @@ public class SquaresOfASortedArray {
             /**
              * 解法1：直接排序
              */
-            int len = A.length;
-            int[] result = new int[len];
-            for (int i = 0; i < len; i++) {
-                result[i] = A[i] * A[i];
-            }
-            Arrays.sort(result);
-            return result;
+//            int len = A.length;
+//            int[] result = new int[len];
+//            for (int i = 0; i < len; i++) {
+//                result[i] = A[i] * A[i];
+//            }
+//            Arrays.sort(result);
+//            return result;
             /**
              * 解法2：排序完平方
              */
@@ -71,6 +71,45 @@ public class SquaresOfASortedArray {
 //                result[i] = list.get(i) * list.get(i);
 //            }
 //            return result;
+            /**
+             * 解法3：双指针 从小到大
+             */
+            int len = A.length;
+            int[] result = new int[len];
+            if (len == 0) return result;
+            int left = 0,right = 0;
+            for (int i = 0; i < len; i++) {
+                if (Math.abs(A[i]) < Math.abs(A[left])) {
+                    left = i;
+                }
+            }
+            right = left+1;
+            int index = 0;
+            while (left >= 0 && right <= len-1) {
+                if (Math.abs(A[left]) < Math.abs(A[right])) {
+                    result[index] = A[left] * A[left];
+                    left -- ;
+                } else {
+                    result[index] = A[right] * A[right];
+                    right++ ;
+                }
+                index++;
+            }
+            if (left < 0) {
+                //  左边到了
+                while (right <= len-1) {
+                    result[index] = A[right] * A[right];
+                    right++ ;
+                    index++;
+                }
+            } else  {
+                while (left >= 0) {
+                    result[index] = A[left] * A[left];
+                    left-- ;
+                    index++;
+                }
+            }
+            return result;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
