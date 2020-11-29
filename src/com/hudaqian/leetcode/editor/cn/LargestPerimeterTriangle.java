@@ -58,37 +58,37 @@ public class LargestPerimeterTriangle {
     class Solution {
         public int largestPerimeter(int[] A) {
             /**
-             * 解法1：排序+三指针
+             * 解法1：排序+暴力解法
              * 超时
              */
-            Arrays.sort(A);
-            if (A.length < 2) return 0;
-            int max = 0;
-            for (int i = 0; i < A.length - 2; i++) {
-                for (int j = i + 1; j < A.length - 1; j++) {
-                    for (int k = j + 1; k < A.length; k++) {
-                        if (A[k] >= A[j] + A[i]) {
-                            break;
-                        } else {
-                            max = Math.max(max, A[k] + A[j] + A[i]);
-                        }
-                    }
-                }
-            }
-            return max;
+//            Arrays.sort(A);
+//            if (A.length < 2) return 0;
+//            int max = 0;
+//            for (int i = 0; i < A.length - 2; i++) {
+//                for (int j = i + 1; j < A.length - 1; j++) {
+//                    for (int k = j + 1; k < A.length; k++) {
+//                        if (A[k] >= A[j] + A[i]) {
+//                            break;
+//                        } else {
+//                            max = Math.max(max, A[k] + A[j] + A[i]);
+//                        }
+//                    }
+//                }
+//            }
+//            return max;
             /**
              * 解法2：排序+贪心
              * 如果要想得到最大的周长
              * 那么 排序完成之后 最大的三个数字 如果能组成三角形 那么肯定是最大的
              * 如果不能 那么最后一个数字肯定不能与其他数字组成三角形 所以窗口向左移动一位
              */
-//        Arrays.sort(A);
-//        for (int i = A.length-1; i >1 ; i--) {
-//            if (A[i-2] + A[i-1] > A[i]) {
-//                return A[i] + A[i-1] + A[i-2];
-//            }
-//        }
-//        return 0;
+        Arrays.sort(A);
+        for (int i = A.length-1; i >1 ; i--) {
+            if (A[i-2] + A[i-1] > A[i]) {
+                return A[i] + A[i-1] + A[i-2];
+            }
+        }
+        return 0;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
