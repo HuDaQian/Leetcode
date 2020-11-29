@@ -34,19 +34,24 @@
 // 👍 187 👎 0
 
 
-    package com.hudaqian.leetcode.editor.cn;
-    public class ThirdMaximumNumber {
-        public static void main(String[] args) {
-            Solution solution = new ThirdMaximumNumber().new Solution();
-            int[] nums = {1,2,-2147483648};
-            System.out.print(solution.thirdMax(nums));
-        }
-       //leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
-    public int thirdMax(int[] nums) {
-        /**
-         * 三个数字代表第一大 第二大 和第三大数字
-         */
+package com.hudaqian.leetcode.editor.cn;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class ThirdMaximumNumber {
+    public static void main(String[] args) {
+        Solution solution = new ThirdMaximumNumber().new Solution();
+        int[] nums = {1, 2, -2147483648};
+        System.out.print(solution.thirdMax(nums));
+    }
+
+    //leetcode submit region begin(Prohibit modification and deletion)
+    class Solution {
+        public int thirdMax(int[] nums) {
+            /**
+             * 三个数字代表第一大 第二大 和第三大数字
+             */
         long first = Long.MIN_VALUE,second = Long.MIN_VALUE,third = Long.MIN_VALUE;
         for (int num : nums) {
             if (num == first || num == second || num == third) {
@@ -64,8 +69,22 @@ class Solution {
             }
         }
         return third == Long.MIN_VALUE ? (int)first : (int)third;
+            /**
+             * 哈希表
+             */
+//            Arrays.sort(nums);
+//            ArrayList<Integer> list = new ArrayList<>();
+//            for(int i = 0;i < nums.length;i++){
+//                if(!list.contains(nums[i])){
+//                    list.add(nums[i]);
+//                }
+//            }
+//            if(list.size() < 3){
+//                return list.get(list.size()-1);
+//            }
+//            return list.get(list.size()-3);
+        }
     }
-}
 //leetcode submit region end(Prohibit modification and deletion)
 
-    }
+}
