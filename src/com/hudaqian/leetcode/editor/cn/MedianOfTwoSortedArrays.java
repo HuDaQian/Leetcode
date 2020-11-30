@@ -54,50 +54,37 @@
 
 package com.hudaqian.leetcode.editor.cn;
 
+import java.util.Arrays;
+
 public class MedianOfTwoSortedArrays {
     public static void main(String[] args) {
         Solution solution = new MedianOfTwoSortedArrays().new Solution();
-        int[] nums1 = {1,2,3};
-        int[] nums2 = {2,3,4};
-        System.out.print(solution.findMedianSortedArrays(nums1,nums2));
+        int[] nums1 = {1, 2, 3};
+        int[] nums2 = {2, 3, 4};
+        System.out.print(solution.findMedianSortedArrays(nums1, nums2));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-            int m = nums1.length, n = nums2.length;
-            if (m == 0 || n == 0) return GetMidNumber(m / 2 + n / 2, (m + 1) / 2 + (n + 1) / 2 -1);
-            int nums1Index = 0, nums2Index = 0;
-            boolean isNums1 = true;
-            while (nums1Index + nums2Index <= (m + n) / 2) {
-                if (nums1[nums1Index] > nums2[nums2Index]) {
-                    isNums1 = false;
-                    nums2Index++;
-                } else  {
-                    isNums1 = true;
-                    nums1Index++;
-                }
+            /**
+             * 解法1：组合成一个数组 然后取中位数
+             */
+            int count1 = nums1.length;
+            int count2 = nums2.length;
+            int[] newNums = new int[count1 + count2];
+            System.arraycopy(nums1, 0, newNums, 0, count1);
+            System.arraycopy(nums2, 0, newNums, count1, count2);
+            Arrays.sort(newNums);
+            int allCount = count1 + count2;
+            int index = allCount / 2;
+            double result = 0;
+            if (allCount == 0) return result;
+            if (allCount % 2 == 1) {
+                return newNums[index];
+            } else {
+                return ((double) newNums[index] + (double) newNums[index - 1]) / 2;
             }
-            int left = isNums1?nums1[nums1Index] : nums2[nums2Index];
-            int right = 0;
-            if (isNums1) {
-                if (nums1Index == nums1.length) {
-                    right = nums2[nums2Index];
-                } else {
-                    right = Math.min(nums1[nums1Index+1],nums2[nums2Index]);
-                }
-            } else  {
-                if (nums2Index == nums2.length) {
-                    right = nums1[nums1Index];
-                } else {
-                    right = Math.min(nums2[nums2Index+1],nums1[nums1Index]);
-                }
-            }
-            return GetMidNumber(left, right);
-        }
-
-        private double GetMidNumber(int left, int right) {
-            return left + (double) (right - left) / 2;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
