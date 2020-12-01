@@ -28,42 +28,56 @@
 // 👍 200 👎 0
 
 
-    package com.hudaqian.leetcode.editor.cn;
-    public class CanPlaceFlowers {
-        public static void main(String[] args) {
-            Solution solution = new CanPlaceFlowers().new Solution();
-            int[] nums = {0,0,0};
-            int n = 2;
-            System.out.print(solution.canPlaceFlowers(nums, n));
-        }
-       //leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
-    public boolean canPlaceFlowers(int[] flowerbed, int n) {
-        /**
-         * 从1个0之后开始计数 有n个0 就是能种n/2朵
-         * 10 000 1 中间三个0就是只能种1朵
-         * 10 0000 1 中间四个0 就是能种2朵
-         */
-        int current = 0;
-        for (int num : flowerbed) {
-            if (num == 1) {
-                //  -1/2 == 0 所以不用判断负号
-                int flowers = current /2;
-                n -= flowers;
-                //  种完早点收工
-                if (n <= 0) return true;
-                current = -1;
-            } else  {
-                current++;
-            }
-        }
-        //  边界效应 前后各补一个0
-        current++;
-        int flowers = current /2;
-        n -= flowers;
-        return n <= 0;
+package com.hudaqian.leetcode.editor.cn;
+
+public class CanPlaceFlowers {
+    public static void main(String[] args) {
+        Solution solution = new CanPlaceFlowers().new Solution();
+        int[] nums = {0, 0, 0};
+        int n = 2;
+        System.out.print(solution.canPlaceFlowers(nums, n));
     }
-}
+
+    //leetcode submit region begin(Prohibit modification and deletion)
+    class Solution {
+        public boolean canPlaceFlowers(int[] flowerbed, int n) {
+            /**
+             * 从1个0之后开始计数 有n个0 就是能种n/2朵
+             * 10 000 1 中间三个0就是只能种1朵
+             * 10 0000 1 中间四个0 就是能种2朵
+             */
+//        int current = 0;
+//        for (int num : flowerbed) {
+//            if (num == 1) {
+//                //  -1/2 == 0 所以不用判断负号
+//                int flowers = current /2;
+//                n -= flowers;
+//                //  种完早点收工
+//                if (n <= 0) return true;
+//                current = -1;
+//            } else  {
+//                current++;
+//            }
+//        }
+//        //  边界效应 前后各补一个0
+//        current++;
+//        int flowers = current /2;
+//        n -= flowers;
+//        return n <= 0;
+            /**
+             * 贪心解法
+             */
+            if (n == 0) return true;
+            for (int i = 0; i < flowerbed.length; i++) {
+                if (flowerbed[i] == 0 && (i == 0 || flowerbed[i - 1] == 0) && (i == flowerbed.length - 1 || flowerbed[i + 1] == 0)) {
+                    flowerbed[i] = 1;
+                    n--;
+                    if (n == 0) return true;
+                }
+            }
+            return false;
+        }
+    }
 //leetcode submit region end(Prohibit modification and deletion)
 
-    }
+}
