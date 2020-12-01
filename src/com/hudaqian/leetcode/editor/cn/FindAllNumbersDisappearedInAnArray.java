@@ -34,14 +34,29 @@ public class FindAllNumbersDisappearedInAnArray {
             /**
              * 解法1：使用额外空间的做法1 哈希表
              */
-            Map<Integer, Integer> map = new HashMap<>();
+//            Map<Integer, Integer> map = new HashMap<>();
+//            for (int num:nums) {
+//                map.put(num,map.getOrDefault(num,0)+1);
+//            }
+//            List<Integer> result = new ArrayList<>();
+//            for (int i = 1; i <= nums.length; i++) {
+//                if (!map.containsKey(i)) {
+//                    result.add(i);
+//                }
+//            }
+//            return result;
+            /**
+             * 解法2：使用了额外的空间2 数组
+             */
+            //  注意最后比较的时候 要排除0 并加上后边的数字
+            boolean[] temp = new boolean[nums.length];
             for (int num:nums) {
-                map.put(num,map.getOrDefault(num,0)+1);
+                temp[num-1] = true;
             }
             List<Integer> result = new ArrayList<>();
-            for (int i = 1; i <= nums.length; i++) {
-                if (!map.containsKey(i)) {
-                    result.add(i);
+            for (int i=0;i<temp.length;i++) {
+                if (!temp[i]) {
+                    result.add(i+1);
                 }
             }
             return result;
