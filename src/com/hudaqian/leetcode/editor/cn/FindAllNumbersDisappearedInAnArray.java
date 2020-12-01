@@ -49,13 +49,30 @@ public class FindAllNumbersDisappearedInAnArray {
              * 解法2：使用了额外的空间2 数组
              */
             //  注意最后比较的时候 要排除0 并加上后边的数字
-            boolean[] temp = new boolean[nums.length];
-            for (int num:nums) {
-                temp[num-1] = true;
+//            boolean[] temp = new boolean[nums.length];
+//            for (int num:nums) {
+//                temp[num-1] = true;
+//            }
+//            List<Integer> result = new ArrayList<>();
+//            for (int i=0;i<temp.length;i++) {
+//                if (!temp[i]) {
+//                    result.add(i+1);
+//                }
+//            }
+//            return result;
+            /**
+             * 解法3：在原有的数组上修改 不使用额外的空间
+             * 思路是 将数组的下标和元素对应起来 用下标来记录谁出现过了
+             */
+            for (int i = 0; i < nums.length; i++) {
+                int index = Math.abs(nums[i]);
+                if (nums[index-1] > 0) {
+                    nums[index-1] *= -1;
+                }
             }
             List<Integer> result = new ArrayList<>();
-            for (int i=0;i<temp.length;i++) {
-                if (!temp[i]) {
+            for (int i = 0; i < nums.length; i++) {
+                if (nums[i] > 0) {
                     result.add(i+1);
                 }
             }
