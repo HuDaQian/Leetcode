@@ -32,7 +32,7 @@
     public class MinCostClimbingStairs {
         public static void main(String[] args) {
             Solution solution = new MinCostClimbingStairs().new Solution();
-            int[] cost = {1, 100, 1, 1, 1, 100, 1, 1, 100, 1};
+            int[] cost = {841,462,566,398,243,248,238,650,989,501,54,189,451,179,849,760,689,539,453,450,404,852,707,191};
             System.out.print(solution.minCostClimbingStairs(cost));
         }
        //leetcode submit region begin(Prohibit modification and deletion)
@@ -48,6 +48,22 @@ class Solution {
             dp[i] = Math.min(dp[i-1],dp[i-2]) + cost[i-1];
         }
         return Math.min(dp[cost.length-1],dp[cost.length]);
+        /**
+         * 解法2：递归
+         * 超时
+         */
+//        return getMinStairs(cost, cost.length+1);
+    }
+    private int getMinStairs(int[] cost, int k) {
+        if (k==0) return 0;
+        if (k==1) return cost[0];
+        int costOne = 0;
+        if (k<=cost.length) {
+            costOne = cost[k-1];
+        }
+        int last1 = getMinStairs(cost,k-1);
+        int last2 = getMinStairs(cost,k-2);
+        return Math.min(last1,last2)+costOne;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
