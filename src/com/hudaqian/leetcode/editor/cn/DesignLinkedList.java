@@ -45,72 +45,112 @@ public class DesignLinkedList {
         MyLinkedList myLinkedList = new DesignLinkedList().new MyLinkedList();
         myLinkedList.addAtHead(1);
         myLinkedList.addAtTail(3);
-        myLinkedList.addAtIndex(1,2);
+        myLinkedList.addAtIndex(1, 2);
         myLinkedList.get(1);
         myLinkedList.deleteAtIndex(1);
         myLinkedList.get(1);
     }
 
-    private static class ListNode{
-        int val;
-        ListNode next;
-        ListNode() {
-        }
-        ListNode(int val) {
-            this.val = val;
-        }
-        ListNode(int val, ListNode next) {
-            this.val = val;
-            this.next = next;
-        }
-    }
+
 
     //leetcode submit region begin(Prohibit modification and deletion)
+    class DoubleNode {
+        int val;
+        DoubleNode next;
+        DoubleNode prev;
+
+        DoubleNode(int val) {
+            this.val = val;
+        }
+    }
     class MyLinkedList {
         int size;
-        ListNode head;
+        DoubleNode head, tail;
 
         public MyLinkedList() {
             size = 0;
-            head = new ListNode(0);
+            head = new DoubleNode(0);
+            tail = new DoubleNode(0);
+            head.next = tail;
+            tail.prev = head;
         }
+
         public int get(int index) {
             if (index < 0 || index >= size) return -1;
-            ListNode current  = head;
-            while (index > 0) {
-                current = current.next;
-                index --;
+            DoubleNode current = head;
+            //  调整一下  如果index>size/2 那么从后边开始搜索
+            if (index > size / 2) {
+                current = tail;
+                //  结尾开始
+                while (index < size) {
+                    current = current.prev;
+                    index++;
+                }
+            } else {
+                while (index >= 0) {
+                    current = current.next;
+                    index--;
+                }
             }
-            return current.next.val;
+
+            return current.val;
         }
+
         public void addAtIndex(int index, int val) {
             if (index > size) return;
             if (index < 0) index = 0;
-            size++;
-            ListNode newNode = new ListNode(val);
-            ListNode prev = head;
-            while (index > 0) {
-                prev = prev.next;
-                index --;
+            DoubleNode temp = head;
+            if (index > size / 2) {
+                //  从后往前搜索 这次是搜索前一个结点 在其之后插入 所以多走一步
+                temp = tail;
+                while (index <= size) {
+                    temp = temp.prev;
+                    index++;
+                }
+            } else {
+                while (index > 0) {
+                    temp = temp.next;
+                    index--;
+                }
             }
-            newNode.next = prev.next;
-            prev.next = newNode;
+            size++;
+            DoubleNode newNode = new DoubleNode(val);
+            DoubleNode backNode = temp.next;
+            temp.next = newNode;
+            newNode.prev = temp;
+            newNode.next = backNode;
+            backNode.prev = newNode;
         }
+
         public void addAtHead(int val) {
             addAtIndex(0, val);
         }
+
         public void addAtTail(int val) {
-            addAtIndex(size ,val);
+            addAtIndex(size, val);
         }
+
         public void deleteAtIndex(int index) {
-            if(index < 0 || index > size-1) return;
-            size --;
-            ListNode prev = head;
-            while (index > 0) {
-                prev = prev.next;
-                index --;
+            if (index < 0 || index > size - 1) return;
+            DoubleNode temp = head;
+            if (index > size / 2) {
+                //  从后往前搜索
+                temp = tail;
+                while (index < size) {
+                    temp = temp.prev;
+                    index++;
+                }
+            } else {
+                while (index >= 0) {
+                    temp = temp.next;
+                    index--;
+                }
             }
-            prev.next = prev.next.next;
+            size--;
+            DoubleNode foreNode = temp.prev;
+            DoubleNode backNode = temp.next;
+            foreNode.next = backNode;
+            backNode.prev = foreNode;
         }
     }
 
