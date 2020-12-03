@@ -61,15 +61,7 @@ public class DesignLinkedList {
             this.val = val;
             this.next = next;
         }
-
-        private static String print(ListNode listNode) {
-            StringBuilder sb = new StringBuilder();
-            while (listNode != null) {
-                sb.append(listNode.val);
-                listNode = listNode.next;
-            }
-            return sb.toString();
-        }
+        
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
