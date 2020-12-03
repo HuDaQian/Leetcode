@@ -43,105 +43,72 @@ package com.hudaqian.leetcode.editor.cn;
 public class DesignLinkedList {
     public static void main(String[] args) {
         MyLinkedList myLinkedList = new DesignLinkedList().new MyLinkedList();
-
+        myLinkedList.addAtHead(1);
+        myLinkedList.addAtTail(3);
+        myLinkedList.addAtIndex(1,2);
+        myLinkedList.get(1);
+        myLinkedList.deleteAtIndex(1);
+        myLinkedList.get(1);
     }
 
-    private static class ListNode {
+    private static class ListNode{
         int val;
         ListNode next;
-
         ListNode() {
         }
-
         ListNode(int val) {
             this.val = val;
         }
-
         ListNode(int val, ListNode next) {
             this.val = val;
             this.next = next;
         }
-        
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class MyLinkedList {
-
-        /**
-         * Initialize your data structure here.
-         */
         int size;
-        ListNode head;  // sentinel node as pseudo-head
+        ListNode head;
 
         public MyLinkedList() {
             size = 0;
-            head = new ListNode();
+            head = new ListNode(0);
         }
-
-
-        /**
-         * Get the value of the index-th node in the linked list. If the index is invalid, return -1.
-         */
         public int get(int index) {
             if (index < 0 || index >= size) return -1;
-            ListNode current = this.head;
+            ListNode current  = head;
             while (index > 0) {
                 current = current.next;
-                index--;
+                index --;
             }
-            return current.val;
+            return current.next.val;
         }
-
-        /**
-         * Add a node of value val before the first element of the linked list. After the insertion, the new node will be the first node of the linked list.
-         */
-        public void addAtHead(int val) {
-            addAtIndex(0, val);
-        }
-
-        /**
-         * Append a node of value val to the last element of the linked list.
-         */
-        public void addAtTail(int val) {
-            addAtIndex(size, val);
-        }
-
-        /**
-         * Add a node of value val before the index-th node in the linked list. If index equals to the length of linked list, the node will be appended to the end of linked list. If index is greater than the length, the node will not be inserted.
-         */
         public void addAtIndex(int index, int val) {
             if (index > size) return;
             if (index < 0) index = 0;
-            ++size;
+            size++;
             ListNode newNode = new ListNode(val);
             ListNode prev = head;
-            if (index == 0) {
-                newNode.next = prev;
-                head = newNode;
-                return;
-            }
-            while (index > 1) {
+            while (index > 0) {
                 prev = prev.next;
-                index--;
+                index --;
             }
             newNode.next = prev.next;
             prev.next = newNode;
         }
-
-        /**
-         * Delete the index-th node in the linked list, if the index is valid.
-         */
+        public void addAtHead(int val) {
+            addAtIndex(0, val);
+        }
+        public void addAtTail(int val) {
+            addAtIndex(size ,val);
+        }
         public void deleteAtIndex(int index) {
-            if (index < 0 || index > size-1) return;
+            if(index < 0 || index > size-1) return;
             size --;
             ListNode prev = head;
-            if (index == 0) {
-                head = prev.next;
-                return;
-            }
-            while (index > 1) {
+            while (index > 0) {
                 prev = prev.next;
-                index--;
+                index --;
             }
             prev.next = prev.next.next;
         }
