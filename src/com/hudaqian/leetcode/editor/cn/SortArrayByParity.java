@@ -67,15 +67,33 @@ public class SortArrayByParity {
             /**
              * 解法1再优化
              */
-            Integer[] integers = new Integer[A.length];
+//            Integer[] integers = new Integer[A.length];
+//            for (int i = 0; i < A.length; i++) {
+//                integers[i] = A[i];
+//            }
+//            Arrays.sort(integers, (o1, o2) -> Integer.compare(o1 % 2, o2 % 2));
+//            for (int i = 0; i < integers.length; i++) {
+//                A[i] = integers[i];
+//            }
+//            return A;
+            /**
+             * 解法2：新建数组 两次遍历
+             */
+            int[] res = new int[A.length];
+            int index = 0;
             for (int i = 0; i < A.length; i++) {
-                integers[i] = A[i];
+                if (A[i]%2 == 0){
+                    res[index] = A[i];
+                    index++;
+                }
             }
-            Arrays.sort(integers, (o1, o2) -> Integer.compare(o1 % 2, o2 % 2));
-            for (int i = 0; i < integers.length; i++) {
-                A[i] = integers[i];
+            for (int i=0;i<A.length;i++) {
+                if (A[i]%2 == 1) {
+                    res[index] = A[i];
+                    index++;
+                }
             }
-            return A;
+            return res;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
