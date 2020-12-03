@@ -79,21 +79,58 @@ public class SortArrayByParity {
             /**
              * 解法2：新建数组 两次遍历
              */
-            int[] res = new int[A.length];
-            int index = 0;
-            for (int i = 0; i < A.length; i++) {
-                if (A[i]%2 == 0){
-                    res[index] = A[i];
-                    index++;
+//            int[] res = new int[A.length];
+//            int index = 0;
+//            for (int i = 0; i < A.length; i++) {
+//                if (A[i]%2 == 0){
+//                    res[index] = A[i];
+//                    index++;
+//                }
+//            }
+//            for (int i=0;i<A.length;i++) {
+//                if (A[i]%2 == 1) {
+//                    res[index] = A[i];
+//                    index++;
+//                }
+//            }
+//            return res;
+            /**
+             * 解法2优化
+             */
+//            int[] res = new int[A.length];
+//            int index = 0,lastIndex = A.length-1;
+//            for (int i = 0; i < A.length; i++) {
+//                if (A[i]%2 == 0) {
+//                    res[index] = A[i];
+//                    index++;
+//                } else  {
+//                    res[lastIndex] = A[i];
+//                    lastIndex--;
+//                }
+//            }
+//            return res;
+            /**
+             * 解法3：双指针
+             * A[left]%2 A[right]%2
+             * （1，0） 交换两个数字的位置
+             * （0，1） 左右两个数字都对 那么向中间靠拢 left++ right--
+             * （0，0） 左边数字正确 left++ 右边数字等待交换
+             * （1，1） 右边数字正确 right-- 左边数字等待交换
+             * 此处使用了快速排序的思想 即把每个数字当成游标来计算
+             */
+            int left = 0, right = A.length - 1;
+            while (left < right) {
+                if (A[left] % 2 - A[right] % 2 > 0) {
+                    int temp = A[left];
+                    A[left] = A[right];
+                    A[right] = temp;
+                    left++;
+                    right--;
                 }
+                if (A[left] % 2 == 0) left++;
+                if (A[right] % 2 == 1) right--;
             }
-            for (int i=0;i<A.length;i++) {
-                if (A[i]%2 == 1) {
-                    res[index] = A[i];
-                    index++;
-                }
-            }
-            return res;
+            return A;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
