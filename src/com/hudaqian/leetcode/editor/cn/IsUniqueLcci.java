@@ -24,6 +24,8 @@
     package com.hudaqian.leetcode.editor.cn;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class IsUniqueLcci {
         public static void main(String[] args) {
@@ -53,7 +55,16 @@ class Solution {
 //            }
 //        }
 //        return true;
-        
+        /**
+         * set
+         */
+        Set<Character> set = new HashSet<>();
+        for (int i = 0; i < astr.length(); i++) {
+            if (!set.add(astr.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
