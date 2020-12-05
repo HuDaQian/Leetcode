@@ -58,10 +58,31 @@ class Solution {
         /**
          * set
          */
-        Set<Character> set = new HashSet<>();
+//        Set<Character> set = new HashSet<>();
+//        for (int i = 0; i < astr.length(); i++) {
+//            if (!set.add(astr.charAt(i))) {
+//                return false;
+//            }
+//        }
+//        return true;
+        /**
+         * 数组
+         */
+        boolean[] arr = new boolean[53];
         for (int i = 0; i < astr.length(); i++) {
-            if (!set.add(astr.charAt(i))) {
+            char c = astr.charAt(i);
+            int index = -1;
+            if (c >= 'a' && c <= 'z') {
+                index = c - 'a';
+            } else if (c >= 'A' && c<= 'Z') {
+                index = 26 + c - 'A';
+            } else {
+                index = 52;
+            }
+            if (arr[index]) {
                 return false;
+            } else {
+                arr[index] = true;
             }
         }
         return true;
