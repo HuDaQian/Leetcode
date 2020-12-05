@@ -36,14 +36,24 @@ class Solution {
     public boolean isUnique(String astr) {
         /**
          * 不使用额外的数据结构
-         *
+         * lastIndexOf
          */
-        for (int i = 0; i < astr.length()-1; i++) {
-            if (astr.indexOf(astr.charAt(i)) != astr.lastIndexOf(astr.charAt(i))) {
-                return false;
-            }
-        }
-        return true;
+//        for (int i = 0; i < astr.length()-1; i++) {
+//            if (astr.indexOf(astr.charAt(i)) != astr.lastIndexOf(astr.charAt(i))) {
+//                return false;
+//            }
+//        }
+//        return true;
+        /**
+         * indexOf
+         */
+//        for (int i = 0; i < astr.length() - 1; i++) {
+//            if (astr.indexOf(astr.charAt(i),i+1) != -1){
+//                return false;
+//            }
+//        }
+//        return true;
+        
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
