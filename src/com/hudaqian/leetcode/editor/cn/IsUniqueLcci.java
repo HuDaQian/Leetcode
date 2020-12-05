@@ -68,21 +68,32 @@ class Solution {
         /**
          * 数组
          */
-        boolean[] arr = new boolean[53];
-        for (int i = 0; i < astr.length(); i++) {
-            char c = astr.charAt(i);
-            int index = -1;
-            if (c >= 'a' && c <= 'z') {
-                index = c - 'a';
-            } else if (c >= 'A' && c<= 'Z') {
-                index = 26 + c - 'A';
-            } else {
-                index = 52;
-            }
-            if (arr[index]) {
+//        boolean[] arr = new boolean[53];
+//        for (int i = 0; i < astr.length(); i++) {
+//            char c = astr.charAt(i);
+//            int index = -1;
+//            if (c >= 'a' && c <= 'z') {
+//                index = c - 'a';
+//            } else if (c >= 'A' && c<= 'Z') {
+//                index = 26 + c - 'A';
+//            } else {
+//                index = 52;
+//            }
+//            if (arr[index]) {
+//                return false;
+//            } else {
+//                arr[index] = true;
+//            }
+//        }
+//        return true;
+        /**
+         * 排序
+         */
+        char[] arr = astr.toCharArray();
+        Arrays.sort(arr);
+        for (int i = 0; i < arr.length-1; i++) {
+            if (arr[i] == arr[i+1]) {
                 return false;
-            } else {
-                arr[index] = true;
             }
         }
         return true;
