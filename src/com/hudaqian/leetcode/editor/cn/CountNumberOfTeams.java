@@ -62,18 +62,50 @@ public class CountNumberOfTeams {
             /**
              * 解法1：暴力解法 超时
              */
-            int upNum = countTeams(rating, true);
-            int downNum = countTeams(rating, false);
-            return upNum + downNum;
+//            if (rating.length < 3) return 0;
+//            int upNum = countTeams(rating, true);
+//            int downNum = countTeams(rating, false);
+//            return upNum + downNum;
+            /**
+             * 解法2：寻找中间值
+             */
+            if (rating.length < 3) return 0;
+            int count = 0;
+            for (int i = 1; i < rating.length - 1; i++) {
+                count += countNums(rating, i);
+            }
+            return count;
         }
+
+        private int countNums(int[] nums, int index) {
+            int leftUpNum = 0, leftDownNum = 0, rightUpNum = 0, rightDownNum = 0;
+            int num = nums[index];
+            for (int i = 0; i < nums.length; i++) {
+                if (i < index) {
+                    if (nums[i] > num) {
+                        leftUpNum++;
+                    } else {
+                        leftDownNum++;
+                    }
+                } else if (i > index) {
+                    if (nums[i] > num) {
+                        rightUpNum++;
+                    } else {
+                        rightDownNum++;
+                    }
+                }
+            }
+            return leftUpNum * rightDownNum + leftDownNum * rightUpNum;
+        }
+
 
         private int countTeams(int[] rating, boolean rate) {
             /**
              * 两个参数 一个给数组 一个给从小到大 还是从大到小
              */
             int count = 0;
-            for (int i = 0; i < rating.length; i++) {
-                for (int j = i + 1; j < rating.length; j++) {
+            for (int i = 0; i < rating.length - 2; i++) {
+                for (int j = i + 1; j < rating.length - 1; j++) {
                     int firstNum = rating[i];
                     int secondNum = rating[j];
                     if ((firstNum > secondNum) ^ !rate) {
@@ -83,7 +115,6 @@ public class CountNumberOfTeams {
                     while (index < rating.length) {
                         int thirdNum = rating[index];
                         if ((secondNum < thirdNum) ^ !rate) {
-                            System.out.printf("%d -> %d -> %d \n", firstNum, secondNum, thirdNum);
                             count++;
                         }
                         index++;
