@@ -68,6 +68,9 @@ public class CountNumberOfTeams {
         }
 
         private int countTeams(int[] rating, boolean rate) {
+            /**
+             * 两个参数 一个给数组 一个给从小到大 还是从大到小
+             */
             int count = 0;
             for (int i = 0; i < rating.length; i++) {
                 for (int j = i + 1; j < rating.length; j++) {
