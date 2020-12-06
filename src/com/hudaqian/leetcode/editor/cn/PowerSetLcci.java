@@ -37,13 +37,16 @@ public class PowerSetLcci {
        //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public List<List<Integer>> subsets(int[] nums) {
+        /**
+         * 优化 题目中已经明确 不包含重复元素
+         */
         List<List<Integer>> list = new ArrayList<>();
         list.add(new ArrayList<>());
-        Set<Integer> set = new HashSet<>();
+//        Set<Integer> set = new HashSet<>();
         for (int num : nums) {
-            if (set.add(num)) {
+//            if (set.add(num)) {
                 list.addAll(addSubList(list, num));
-            }
+//            }
         }
         return list;
     }
