@@ -36,7 +36,7 @@ import java.util.Map;
 public class FindMajorityElementLcci {
     public static void main(String[] args) {
         Solution solution = new FindMajorityElementLcci().new Solution();
-        int[] nums = {2,2,1,1,1,2,2};
+        int[] nums = {-1,1,1,1,2,1};
         System.out.print(solution.majorityElement(nums));
     }
 
@@ -56,13 +56,44 @@ public class FindMajorityElementLcci {
             /**
              * 哈希映射
              */
-            Map<Integer, Integer> map = new HashMap<>();
-            for (int num:nums) {
-                map.put(num, map.getOrDefault(num,0)+1);
+//            Map<Integer, Integer> map = new HashMap<>();
+//            for (int num:nums) {
+//                map.put(num, map.getOrDefault(num,0)+1);
+////                if (map.get(num) > nums.length/2) return num;
+//            }
+//            for (int num :map.keySet()) {
+//                if (map.get(num) > nums.length/2) return num;
+//            }
+//            return -1;
+            /**
+             * 数组 Integer数据边界无法处理
+             */
+//            int maxNum = Integer.MIN_VALUE, minNum = Integer.MAX_VALUE;
+//            for (int num : nums) {
+//                maxNum = Math.max(num, maxNum);
+//                minNum = Math.min(num, minNum);
+//            }
+//            long[] temps = new long[maxNum - minNum+1];
+//            for (int num : nums) {
+//                temps[num-minNum]++;
+//            }
+//            for (int i = 0; i < temps.length; i++) {
+//                if (temps[i] > nums.length / 2) return minNum+i;
+//            }
+//            return -1;
+            /**
+             * 排序法优化
+             */
+            if (nums == null || nums.length == 0) return -1;
+            Arrays.sort(nums);
+            int len = nums.length;
+            int mid = nums[len/2];
+            int count=0;
+            for (int num : nums) {
+                if (num == mid) count++;
             }
-            for (int num :map.keySet()) {
-                if (map.get(num) > nums.length/2) return num;
-            }
+            //  下边的这句 放这里 或者放括号里 都可以 时间复杂度差不多
+            if (count > len/2) return mid;
             return -1;
         }
     }
