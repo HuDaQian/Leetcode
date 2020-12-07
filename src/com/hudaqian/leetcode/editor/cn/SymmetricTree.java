@@ -36,7 +36,7 @@ package com.hudaqian.leetcode.editor.cn;
 public class SymmetricTree {
     public static void main(String[] args) {
         Solution solution = new SymmetricTree().new Solution();
-        
+
     }
 
     private class TreeNode {
