@@ -46,17 +46,24 @@ public class FindMajorityElementLcci {
             /**
              * 排序 然后查找前后范围
              */
-            Arrays.sort(nums);
-            int left = nums.length / 2, right = nums.length / 2;
-            int num = nums[left];
-            while (nums[left] == num && left > 0) left--;
-            while (nums[right] == num && right < nums.length-1) right++;
-            if (right - left + 1 - (nums[left] == num ? 0 : 1)- (nums[right] == num ? 0 : 1) > nums.length / 2) return num;
-            return -1;
+//            Arrays.sort(nums);
+//            int left = nums.length / 2, right = nums.length / 2;
+//            int num = nums[left];
+//            while (nums[left] == num && left > 0) left--;
+//            while (nums[right] == num && right < nums.length-1) right++;
+//            if (right - left + 1 - (nums[left] == num ? 0 : 1)- (nums[right] == num ? 0 : 1) > nums.length / 2) return num;
+//            return -1;
             /**
              * 哈希映射
              */
-//            Map<Integer, Integer> map = new HashMap<>();
+            Map<Integer, Integer> map = new HashMap<>();
+            for (int num:nums) {
+                map.put(num, map.getOrDefault(num,0)+1);
+            }
+            for (int num :map.keySet()) {
+                if (map.get(num) > nums.length/2) return num;
+            }
+            return -1;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
