@@ -46,8 +46,8 @@ package com.hudaqian.leetcode.editor.cn;
 public class IsSubsequence {
     public static void main(String[] args) {
         Solution solution = new IsSubsequence().new Solution();
-        String s = "aaaaaa";
-        String t = "bbaaaa";
+        String s = "axc";
+        String t = "ahbgdc";
         System.out.print(solution.isSubsequence(s, t));
     }
 
@@ -103,7 +103,30 @@ public class IsSubsequence {
             /**
              * 动态规划解法
              */
-
+//            int m = s.length(), n = t.length();
+//            int[][] dp = new int[n+1][26];
+//            //  最后一排全部调整成最大值
+//            for (int i = 0; i < 26; i++) {
+//                dp[n][i] = n;
+//            }
+//            char[] tChars = t.toCharArray();
+//            for (int i = n-1; i >=0 ; i--) {
+//                for (int j = 0; j < 26; j++) {
+//                    if (tChars[i] == 'a'+j) {
+//                        dp[i][j] = i;
+//                    } else {
+//                        dp[i][j] = dp[i+1][j];
+//                    }
+//                }
+//            }
+//            int add = 0;
+//            char[] sChars = s.toCharArray();
+//            for (int i = 0; i < m; i++) {
+//                if (dp[add][sChars[i]-'a'] == n) return false;
+//                add = dp[add][sChars[i]-'a']+1;
+//            }
+//            return true;
+            
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
