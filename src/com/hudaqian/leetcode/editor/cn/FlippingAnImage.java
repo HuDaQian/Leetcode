@@ -39,7 +39,7 @@ import java.util.Arrays;
 public class FlippingAnImage {
     public static void main(String[] args) {
         Solution solution = new FlippingAnImage().new Solution();
-        int[][] nums = {{1,0,0},{1,0,0},{1,0,0}};
+        int[][] nums = {{1,1,0,0},{1,0,0,1},{0,1,1,1},{1,0,1,0}};
         System.out.print(Arrays.toString(solution.flipAndInvertImage(nums)));
     }
 
@@ -49,17 +49,34 @@ public class FlippingAnImage {
             /**
              * 解法1：先反转 再翻转
              */
+//            for (int[] row : A) {
+//                int len = row.length;
+//                for (int i = 0; i < len / 2; i++) {
+//                    int temp = row[i];
+//                    row[i] = row[len - i - 1];
+//                    row[len - i - 1] = temp;
+//                }
+//            }
+//            for (int[] row : A) {
+//                for (int i = 0; i < row.length; i++) {
+//                    row[i] = row[i] == 0 ? 1 : 0;
+//                }
+//            }
+//            return A;
+            /**
+             * 解法1优化
+             */
             for (int[] row : A) {
                 int len = row.length;
-                for (int i = 0; i < len / 2; i++) {
-                    int temp = row[i];
-                    row[i] = row[len - i - 1];
-                    row[len - i - 1] = temp;
-                }
-            }
-            for (int[] row : A) {
-                for (int i = 0; i < row.length; i++) {
-                    row[i] = row[i] == 0 ? 1 : 0;
+                for (int i = 0; i < (len + 1) / 2; i++) {
+                    if (i == len - i - 1) {
+                        //  中间值
+                        row[i] = row[i] == 0 ? 1 : 0;
+                    } else {
+                        int temp = row[i];
+                        row[i] = row[len - i - 1] == 0 ? 1 : 0;
+                        row[len - i - 1] = temp == 0 ? 1 : 0;
+                    }
                 }
             }
             return A;
