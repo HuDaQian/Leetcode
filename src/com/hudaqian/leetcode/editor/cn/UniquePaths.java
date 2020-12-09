@@ -40,6 +40,8 @@
 
 package com.hudaqian.leetcode.editor.cn;
 
+import java.util.Arrays;
+
 public class UniquePaths {
     public static void main(String[] args) {
         Solution solution = new UniquePaths().new Solution();
@@ -69,19 +71,32 @@ public class UniquePaths {
              * 使用f(x,y) 来代表到第x，y的格子需要多少步
              * 边界：所有边界值定位1
              */
-            int[][] dp = new int[m][n];
-            for (int i = 0; i < m; i++) {
-                dp[i][0] = 1;
-            }
-            for (int i = 0; i < n; i++) {
-                dp[0][i] = 1;
-            }
+//            int[][] dp = new int[m][n];
+//            for (int i = 0; i < m; i++) {
+//                dp[i][0] = 1;
+//            }
+//            for (int i = 0; i < n; i++) {
+//                dp[0][i] = 1;
+//            }
+//            for (int i = 1; i < m; i++) {
+//                for (int j = 1; j < n; j++) {
+//                    dp[i][j] = dp[i-1][j] + dp [i][j-1];
+//                }
+//            }
+//            return dp[m-1][n-1];
+            /**
+             * 动态规划的优化
+             * 因为到哪里只跟左边格子和上边格子有关 所以维护一个一维数组即可
+             * 思路是 将左边格子和上边格子的数量加起来放到一维数组中
+             */
+            int[] dp = new int[n];
+            Arrays.fill(dp,1);
             for (int i = 1; i < m; i++) {
                 for (int j = 1; j < n; j++) {
-                    dp[i][j] = dp[i-1][j] + dp [i][j-1];
+                    dp[j] += dp[j-1];
                 }
             }
-            return dp[m-1][n-1];
+            return dp[n-1];
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
