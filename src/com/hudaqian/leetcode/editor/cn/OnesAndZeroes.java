@@ -40,44 +40,66 @@
 // 👍 288 👎 0
 
 
-    package com.hudaqian.leetcode.editor.cn;
-    public class OnesAndZeroes {
-        public static void main(String[] args) {
-            Solution solution = new OnesAndZeroes().new Solution();
+package com.hudaqian.leetcode.editor.cn;
 
-        }
-       //leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
-    public int findMaxForm(String[] strs, int m, int n) {
-        /**
-         * 动态规划解法
-         */
-        int strsNum = strs.length;
-        int[][][] dp = new int[strsNum+1][m+1][n+1];
-        for (int i = 1; i <= strsNum; i++) {
-            int[] count = countZero(strs[i-1]);
-            for (int j = 0; j <= m; j++) {
-                for (int k = 0; k <= n; k++) {
-                    if (count[0] > j || count[1] > k) {
-                        dp[i][j][k] = dp[i-1][j][k];
-                    } else {
-                        dp[i][j][k] = Math.max(dp[i-1][j][k],dp[i-1][j-count[0]][k-count[1]]+1);
+public class OnesAndZeroes {
+    public static void main(String[] args) {
+        Solution solution = new OnesAndZeroes().new Solution();
+
+    }
+
+    //leetcode submit region begin(Prohibit modification and deletion)
+    class Solution {
+        public int findMaxForm(String[] strs, int m, int n) {
+            /**
+             * 动态规划解法
+             */
+//        int strsNum = strs.length;
+//        int[][][] dp = new int[strsNum+1][m+1][n+1];
+//        for (int i = 1; i <= strsNum; i++) {
+//            int[] count = countZero(strs[i-1]);
+//            for (int j = 0; j <= m; j++) {
+//                for (int k = 0; k <= n; k++) {
+//                    if (count[0] > j || count[1] > k) {
+//                        dp[i][j][k] = dp[i-1][j][k];
+//                    } else {
+//                        dp[i][j][k] = Math.max(dp[i-1][j][k],dp[i-1][j-count[0]][k-count[1]]+1);
+//                    }
+//                }
+//            }
+//        }
+//        return dp[strsNum][m][n];
+            /**
+             * 动态规划空间优化
+             */
+            int strsNum = strs.length;
+            int[][] dp = new int[m + 1][n + 1];
+
+            for (int i = 1; i <= strsNum; i++) {
+                int[] cnt = countZero(strs[i - 1]);
+                for (int j = m; j >= 0; j--) {
+                    for (int k = n; k >= 0; k--) {
+
+                        if (cnt[0] > j || cnt[1] > k) {
+                            dp[j][k] = dp[j][k];
+                        } else {
+                            dp[j][k] = Math.max(dp[j][k], dp[j - cnt[0]][k - cnt[1]] + 1);
+                        }
                     }
                 }
             }
-        }
-        return dp[strsNum][m][n];
 
-    }
-
-    private int[] countZero(String string) {
-        int[] res = new int[2];
-        for (char c: string.toCharArray()){
-            res[c-'0']++;
+            return dp[m][n];
         }
-        return res;
+
+        private int[] countZero(String string) {
+            int[] res = new int[2];
+            for (char c : string.toCharArray()) {
+                res[c - '0']++;
+            }
+            return res;
+        }
     }
-}
 //leetcode submit region end(Prohibit modification and deletion)
 
-    }
+}
