@@ -57,13 +57,31 @@ public class UniquePaths {
              * 或者说 C(n-1)(m+n-2)
              */
             // 优化一下 m和n 谁小 用谁来计算
-            if (m > n) return uniquePaths(n, m);
-            long ans = 1;
-            //  注意这里 是从1开始 到n
-            for (int i = m, j = 1; j < n; j++, i++) {
-                ans = ans * i / j;
+//            if (m > n) return uniquePaths(n, m);
+//            long ans = 1;
+//            //  注意这里 是从1开始 到n
+//            for (int i = m, j = 1; j < n; j++, i++) {
+//                ans = ans * i / j;
+//            }
+//            return (int)ans;
+            /**
+             * 解法2：动态规划
+             * 使用f(x,y) 来代表到第x，y的格子需要多少步
+             * 边界：所有边界值定位1
+             */
+            int[][] dp = new int[m][n];
+            for (int i = 0; i < m; i++) {
+                dp[i][0] = 1;
             }
-            return (int)ans;
+            for (int i = 0; i < n; i++) {
+                dp[0][i] = 1;
+            }
+            for (int i = 1; i < m; i++) {
+                for (int j = 1; j < n; j++) {
+                    dp[i][j] = dp[i-1][j] + dp [i][j-1];
+                }
+            }
+            return dp[m-1][n-1];
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
