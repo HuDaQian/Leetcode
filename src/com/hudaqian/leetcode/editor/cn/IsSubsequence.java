@@ -56,24 +56,54 @@ public class IsSubsequence {
         public boolean isSubsequence(String s, String t) {
             /**
              * 双指针解法
+             * 时间复杂度为O（n） 只跟t的长度有关
+             * 所以无论t多长 都没有问题
              */
-            if (s == null || s.equals("")) return true;
+//            if (s == null || s.equals("")) return true;
+//            int slowIndex = 0, fastIndex = 0;
+//            char c = s.charAt(slowIndex);
+//            while (fastIndex < t.length()) {
+//                if (t.charAt(fastIndex) == c) {
+//                    slowIndex++;
+//                    if (slowIndex == s.length()) {
+//                        return true;
+//                    } else {
+//                        c = s.charAt(slowIndex);
+//                    }
+//                }
+//                fastIndex++;
+//            }
+//            return false;
+            /**
+             * 双指针优化一下
+             */
+//            int m = s.length(), n = t.length();
+//            int slowIndex = 0, fastIndex = 0;
+//            while (slowIndex < m && fastIndex < n) {
+//                if (t.charAt(fastIndex) == s.charAt(slowIndex)) {
+//                    slowIndex++;
+//                }
+//                fastIndex++;
+//            }
+//            return slowIndex == m;
+            /**
+             * 优化成数组
+             */
+            int m = s.length(), n = t.length();
             int slowIndex = 0, fastIndex = 0;
-            char c = s.charAt(slowIndex);
-            while (fastIndex < t.length()) {
-                if (t.charAt(fastIndex) == c) {
+            char[] mChars = s.toCharArray();
+            char[] nChars = t.toCharArray();
+            while (slowIndex < m && fastIndex < n) {
+                if (mChars[slowIndex] == nChars[fastIndex]) {
                     slowIndex++;
-                    fastIndex++;
-                    if (slowIndex == s.length()) {
-                        return true;
-                    } else {
-                        c = s.charAt(slowIndex);
-                    }
-                } else {
-                    fastIndex++;
                 }
+                fastIndex++;
             }
-            return false;
+            return slowIndex == m;
+            /**
+             * 动态规划解法
+             */
+
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
