@@ -64,8 +64,8 @@ import java.util.Objects;
 public class BackspaceStringCompare {
     public static void main(String[] args) {
         Solution solution = new BackspaceStringCompare().new Solution();
-        String S = "abcdf";
-        String T = "abcd#df#e#gg##f";
+        String S = "a##c";
+        String T = "#a#c";
         System.out.print(solution.backspaceCompare(S, T));
     }
 
@@ -75,7 +75,43 @@ public class BackspaceStringCompare {
             /**
              * 重制字符串解法
              */
-            return Arrays.equals(getRealString(S.toCharArray()), getRealString(T.toCharArray()));
+//            return Arrays.equals(getRealString(S.toCharArray()), getRealString(T.toCharArray()));
+            /**
+             * 双指针解法 从后往前找
+             */
+            char[] sChars = S.toCharArray(), tChars = T.toCharArray();
+            int p = S.length() - 1, q = T.length() - 1;
+            while (p >= 0 || q >= 0) {
+                int nextP = getRealChar(sChars, p);
+                int nextQ = getRealChar(tChars, q);
+                if (nextP < 0 && nextQ < 0) return true;
+                if (nextP < 0 || nextQ < 0) return false;
+                if (sChars[nextP] != tChars[nextQ]) {
+                    return false;
+                } else {
+                    p = nextP - 1;
+                    q = nextQ - 1;
+                }
+            }
+            return true;
+        }
+
+        private int getRealChar(char[] chars, int index) {
+            int count = 0;
+            while (index >= 0) {
+                if (chars[index] != '#') {
+                    if (count == 0) {
+                        return index;
+                    } else {
+                        count--;
+                    }
+                } else {
+                    count++;
+                }
+                index--;
+            }
+            if (count != 0) return -1;
+            return index;
         }
 
         private char[] getRealString(char[] chars) {
@@ -93,7 +129,7 @@ public class BackspaceStringCompare {
                 fast++;
             }
             char[] newRes = new char[slow];
-            System.arraycopy(res,0, newRes,0,slow);
+            System.arraycopy(res, 0, newRes, 0, slow);
             return newRes;
         }
     }
