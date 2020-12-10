@@ -53,13 +53,29 @@ package com.hudaqian.leetcode.editor.cn;
 public class LongPressedName {
     public static void main(String[] args) {
         Solution solution = new LongPressedName().new Solution();
-
+        String name = "a";
+        String typed = "b";
+        System.out.print(solution.isLongPressedName(name, typed));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public boolean isLongPressedName(String name, String typed) {
-            return false;
+            /**
+             * 模拟+双指针
+             */
+            int p = 0, q = 0;
+            while (q < typed.length()) {
+                if (p < name.length() && name.charAt(p) == typed.charAt(q)) {
+                    p++;
+                    q++;
+                } else if (q > 0 && typed.charAt(q) == typed.charAt(q - 1)) {
+                    q++;
+                } else {
+                    return false;
+                }
+            }
+            return p == name.length();
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
