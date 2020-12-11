@@ -70,7 +70,7 @@ import java.util.Queue;
 public class Dota2Senate {
     public static void main(String[] args) {
         Solution solution = new Dota2Senate().new Solution();
-        String senate = "RD";
+        String senate = "DR";
         System.out.print(solution.predictPartyVictory(senate));
     }
 
@@ -105,20 +105,51 @@ public class Dota2Senate {
              * 数组记录淘汰状态 搜索不到需要淘汰的元素的时候 return
              * 时间复杂度有点高
              */
-            char[] arr = senate.toCharArray();
-            int index = 0;
-            while (true) {
-                int banIndex = getBanIndex(arr, index);
-                if (banIndex == -1) {
-                    return arr[index] == 'R' ? "Radiant" : "Dire";
+//            char[] arr = senate.toCharArray();
+//            int index = 0;
+//            while (true) {
+//                int banIndex = getBanIndex(arr, index);
+//                if (banIndex == -1) {
+//                    return arr[index] == 'R' ? "Radiant" : "Dire";
+//                }
+//                arr[banIndex] = ' ';
+//                int nextIndex = getNextIndex(arr, index);
+//                while (arr[nextIndex] == ' ') {
+//                    nextIndex = getNextIndex(arr, nextIndex);
+//                }
+//                index = nextIndex;
+//            }
+            /**
+             * 双数组解法
+             * 思路是 一次ban掉一半 所以最多长度为字符串的长度 多一位存储的是最后表决的议员
+             * 跟队列思路一样 不过数组内元素修改的时间复杂度要比队列插入的时间复杂度低 所以这里时间复杂度要低一些
+             */
+            int len = senate.length();
+            int[] rNums = new int[len+1], dNums = new int[len+1];
+            int rIndex = 0, dIndex = 0;
+            for (int i = 0; i < len; i++) {
+                if (senate.charAt(i) == 'R') {
+                    rNums[rIndex] = i+1;
+                    rIndex++;
+                } else {
+                    dNums[dIndex] = i+1;
+                    dIndex++;
                 }
-                arr[banIndex] = ' ';
-                int nextIndex = getNextIndex(arr, index);
-                while (arr[nextIndex] == ' ') {
-                    nextIndex = getNextIndex(arr, nextIndex);
-                }
-                index = nextIndex;
             }
+
+            int ptr = 0;
+            while (rNums[ptr] != 0 && dNums[ptr] != 0) {
+                int r = rNums[ptr], d = dNums[ptr];
+                if (r > d) {
+                    dNums[dIndex] = d + len;
+                    dIndex++;
+                } else {
+                    rNums[rIndex] = r + len;
+                    rIndex++;
+                }
+                ptr++;
+            }
+            return rNums[ptr] == 0 ? "Dire" : "Radiant";
         }
 
         private int getNextIndex(char[] arr, int index) {
