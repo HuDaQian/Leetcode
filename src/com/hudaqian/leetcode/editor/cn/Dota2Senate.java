@@ -70,7 +70,7 @@ import java.util.Queue;
 public class Dota2Senate {
     public static void main(String[] args) {
         Solution solution = new Dota2Senate().new Solution();
-        String senate = "DDRRRDR";
+        String senate = "RD";
         System.out.print(solution.predictPartyVictory(senate));
     }
 
@@ -82,25 +82,68 @@ public class Dota2Senate {
              * 思路是 向后搜索反对派成员ban掉 如果搜索到尾部 那么从头开始搜索
              * 模拟双队列
              */
-            int len = senate.length();
-            Queue<Integer> radiant = new LinkedList<>();
-            Queue<Integer> dire = new LinkedList<>();
-            for (int i = 0; i < len; i++) {
-                if (senate.charAt(i) == 'R') {
-                    radiant.offer(i);
+//            int len = senate.length();
+//            Queue<Integer> radiant = new LinkedList<>();
+//            Queue<Integer> dire = new LinkedList<>();
+//            for (int i = 0; i < len; i++) {
+//                if (senate.charAt(i) == 'R') {
+//                    radiant.offer(i);
+//                } else {
+//                    dire.offer(i);
+//                }
+//            }
+//            while (!radiant.isEmpty() && !dire.isEmpty()) {
+//                int rIndex = radiant.poll(), dIndex = dire.poll();
+//                if (rIndex < dIndex) {
+//                    radiant.offer(rIndex + len);
+//                } else {
+//                    dire.offer(dIndex + len);
+//                }
+//            }
+//            return radiant.isEmpty() ? "Dire" : "Radiant";
+            /**
+             * 数组记录淘汰状态 搜索不到需要淘汰的元素的时候 return
+             * 时间复杂度有点高
+             */
+            char[] arr = senate.toCharArray();
+            int index = 0;
+            while (true) {
+                int banIndex = getBanIndex(arr, index);
+                if (banIndex == -1) {
+                    return arr[index] == 'R' ? "Radiant" : "Dire";
+                }
+                arr[banIndex] = ' ';
+                int nextIndex = getNextIndex(arr, index);
+                while (arr[nextIndex] == ' ') {
+                    nextIndex = getNextIndex(arr, nextIndex);
+                }
+                index = nextIndex;
+            }
+        }
+
+        private int getNextIndex(char[] arr, int index) {
+            if (index == arr.length - 1) {
+                index = 0;
+            } else {
+                index++;
+            }
+            return index;
+        }
+
+        private int getBanIndex(char[] arr, int index) {
+            int lastIndex = 0;
+            if (index != arr.length - 1) {
+                lastIndex = index + 1;
+            }
+            char c = arr[index];
+            while (lastIndex != index) {
+                if (arr[lastIndex] == ' ' || arr[lastIndex] == c) {
+                    lastIndex = getNextIndex(arr, lastIndex);
                 } else {
-                    dire.offer(i);
+                    return lastIndex;
                 }
             }
-            while (!radiant.isEmpty() && !dire.isEmpty()) {
-                int rIndex = radiant.poll(), dIndex = dire.poll();
-                if (rIndex < dIndex) {
-                    radiant.offer(rIndex + len);
-                } else {
-                    dire.offer(dIndex + len);
-                }
-            }
-            return radiant.isEmpty() ? "Dire" : "Radiant";
+            return -1;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
