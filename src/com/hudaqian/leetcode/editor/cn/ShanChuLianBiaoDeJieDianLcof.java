@@ -75,6 +75,7 @@ public class ShanChuLianBiaoDeJieDianLcof {
      */
     class Solution {
         public ListNode deleteNode(ListNode head, int val) {
+            //  增加一个哨兵节点
             ListNode prev = new ListNode();
             prev.next = head;
             ListNode current = prev;
