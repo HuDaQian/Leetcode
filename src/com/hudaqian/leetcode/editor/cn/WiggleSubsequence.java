@@ -78,18 +78,32 @@ public class WiggleSubsequence {
             /**
              * 动态规划
              */
+//            int len = nums.length;
+//            if (len < 2) return len;
+//            int up = 1, down = 1;
+//            for (int i = 1; i < len; i++) {
+//                if (nums[i] > nums[i - 1]) {
+//                    up = Math.max(up, down + 1);
+//                } else if (nums[i] < nums[i - 1]) {
+//                    down = Math.max(down, up + 1);
+//                }
+//            }
+//            return Math.max(up, down);
+            /**
+             * 贪心解法优化
+             */
             int len = nums.length;
             if (len < 2) return len;
-            int up = 1, down = 1;
-            for (int i = 1; i < len; i++) {
-                if (nums[i] > nums[i - 1]) {
-                    up = Math.max(up, down + 1);
-                } else if (nums[i] < nums[i - 1]) {
-                    down = Math.max(down, up + 1);
+            int prediff = nums[1] - nums[0];
+            int res = prediff == 0 ? 1 : 2;
+            for (int i = 2; i < len; i++) {
+                int diff = nums[i] - nums[i - 1];
+                if ((diff > 0 && prediff <= 0) || (diff < 0 && prediff >= 0)) {
+                    res++;
+                    prediff = diff;
                 }
             }
-            return Math.max(up, down);
-
+            return res;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
