@@ -235,6 +235,14 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/FanZhuanLianBiaoLcof.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/FanZhuanLianBiaoLcof.java" />
+              <option name="questionId" value="100298" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/FibonacciNumber.java">
           <value>
             <LeetcodeEditor>
@@ -1016,6 +1024,14 @@
             <LeetcodeEditor>
               <option name="path" value="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/SearchInsertPosition.java" />
               <option name="questionId" value="35" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/ShanChuLianBiaoDeJieDianLcof.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/ShanChuLianBiaoDeJieDianLcof.java" />
+              <option name="questionId" value="100299" />
             </LeetcodeEditor>
           </value>
         </entry>
