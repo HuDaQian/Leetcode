@@ -5,11 +5,12 @@ import com.hudaqian.leetcode.editor.cn.ThirdMaximumNumber;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 public class SimpleTest {
     public static void main(String[] args) {
         SimpleTest.Solution solution = new SimpleTest().new Solution();
-        int[] nums = {1, 2, 4,3};
+        int[] nums = {3,5,8,1,2,9,4,7,6};
         System.out.print(Arrays.toString(solution.sort(nums)));
     }
 
@@ -54,22 +55,94 @@ public class SimpleTest {
     class Solution {
 
         public int[] sort(int[] nums) {
-            if (nums.length <= 1) {
-                return nums;
-            }
-            int len = nums.length;
-            int[] leftNums = new int[len / 2];
-            int[] rightNums = new int[len - len / 2];
-            System.arraycopy(nums, 0, leftNums, 0, len / 2);
-            System.arraycopy(nums, len / 2, rightNums, 0, len - len / 2);
-            if (leftNums.length != 1) {
-                leftNums = sort(leftNums);
-            }
-            if (rightNums.length != 1) {
-                rightNums = sort(rightNums);
-            }
-            return merge(leftNums, rightNums);
+            sort(nums,0,nums.length-1);
+            return nums;
         }
+
+        private void sort(int[] nums, int startIndex, int endIndex) {
+            if (endIndex <= startIndex) {
+                return;
+            }
+            int partiIndex = partitionV2(nums, startIndex, endIndex);
+            sort(nums, startIndex, partiIndex-1);
+            sort(nums, partiIndex+1, endIndex);
+        }
+
+        // 单边扫描
+        private int partition(int[] nums, int startIndex, int endIndex) {
+            //  随机取一个为基准值
+            Random r = new Random();
+            int rand = startIndex + r.nextInt(endIndex-startIndex);
+            swap(nums, startIndex, rand);
+            int res = startIndex;
+            int pivot = nums[startIndex];
+            for (int i = startIndex+1; i <= endIndex; i++) {
+                if (nums[i] < pivot) {
+                    res++;
+                    swap(nums, res, i);
+                }
+            }
+            //  在循环过程中，指针一直指向最后一个比基准值小的元素
+            //  调换基准和当前指针的数值
+            swap(nums, startIndex, res);
+            return res;
+        }
+
+        //  双边扫描
+        private int partitionV2(int[] nums, int startIndex, int endIndex) {
+            //  随机取一个为基准值
+//            Random r = new Random();
+//            int rand = startIndex + r.nextInt(endIndex-startIndex);
+//            swap(nums, startIndex, rand);
+            int pivot = nums[startIndex];
+
+            int left = startIndex+1,right = endIndex;
+            while(left <= right) {
+                if (nums[left] > pivot && nums[right] < pivot) {
+                    swap(nums, left, right);
+                    left++;
+                    right--;
+                    continue;
+                }
+                if (nums[left] < pivot) {
+                    left++;
+                    continue;
+                }
+                if (nums[right] > pivot) {
+                    right--;
+                    continue;
+                }
+                left++;
+                right--;
+            }
+            swap(nums, startIndex, right);
+            return right;
+        }
+
+        private void swap(int[] nums, int startIndex, int endIndex) {
+            int temp = nums[startIndex];
+            nums[startIndex] = nums[endIndex];
+            nums[endIndex] = temp;
+        }
+
+
+//        public int[] sort(int[] nums) {
+//            if (nums.length <= 1) {
+//                return nums;
+//            }
+//            int len = nums.length;
+//            int[] leftNums = new int[len / 2];
+//            int[] rightNums = new int[len - len / 2];
+//            System.arraycopy(nums, 0, leftNums, 0, len / 2);
+//            System.arraycopy(nums, len / 2, rightNums, 0, len - len / 2);
+//            if (leftNums.length != 1) {
+//                leftNums = sort(leftNums);
+//            }
+//            if (rightNums.length != 1) {
+//                rightNums = sort(rightNums);
+//            }
+//            return merge(leftNums, rightNums);
+//        }
 
 
         private int[] merge(int[] nums1, int[] nums2) {
