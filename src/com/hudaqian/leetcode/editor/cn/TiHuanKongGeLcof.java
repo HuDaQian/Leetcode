@@ -39,15 +39,57 @@ class Solution {
         /**
          * sb
          */
-        StringBuilder sb = new StringBuilder();
-        for (char c : s.toCharArray()) {
+//        StringBuilder sb = new StringBuilder();
+//        for (char c : s.toCharArray()) {
+//            if (c == ' ') {
+//                sb.append("%20");
+//            } else {
+//                sb.append(c);
+//            }
+//        }
+//        return sb.toString();
+        /**
+         * arr
+         */
+//        int len = s.length();
+//        char[] arr = new char[len*3];
+//        int index = 0;
+//        char[] chars = s.toCharArray();
+//        for (char c : chars) {
+//            if (c == ' ') {
+//                arr[index] = '%';
+//                arr[index+1] = '2';
+//                arr[index+2] = '0';
+//                index+=3;
+//            } else  {
+//                arr[index] = c;
+//                index++;
+//            }
+//        }
+//        return new String(arr, 0, index);
+        /**
+         * 多遍历一遍 少开拓一点数组空间
+         */
+        int len = s.length();
+        int count = 0;
+        char[] chars = s.toCharArray();
+        for (char c : chars) {
+            if (c == ' ') count++;
+        }
+        char[] res = new char[len+2*count];
+        int index = 0;
+        for (char c : chars) {
             if (c == ' ') {
-                sb.append("%20");
+                res[index] = '%';
+                res[index + 1] = '2';
+                res[index + 2] = '0';
+                index += 3;
             } else {
-                sb.append(c);
+                res[index] = c;
+                index++;
             }
         }
-        return sb.toString();
+        return new String(res);
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
