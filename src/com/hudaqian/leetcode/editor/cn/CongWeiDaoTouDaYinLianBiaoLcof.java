@@ -20,6 +20,7 @@ package com.hudaqian.leetcode.editor.cn;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 public class CongWeiDaoTouDaYinLianBiaoLcof {
     public static void main(String[] args) {
@@ -50,9 +51,22 @@ public class CongWeiDaoTouDaYinLianBiaoLcof {
             /**
              * 递归解法
              */
-            List<Integer> resList = new ArrayList<>();
-            getVal(head, resList);
-            return resList.stream().mapToInt(Integer::intValue).toArray();
+//            List<Integer> resList = new ArrayList<>();
+//            getVal(head, resList);
+//            return resList.stream().mapToInt(Integer::intValue).toArray();
+            /**
+             * 栈解法
+             */
+            Stack<Integer> stack = new Stack<>();
+            while (head != null) {
+                stack.push(head.val);
+                head = head.next;
+            }
+            int[] res = new int[stack.size()];
+            for (int i = 0; i < res.length; i++) {
+                res[i] = stack.pop();
+            }
+            return res;
         }
         private void getVal(ListNode head, List<Integer> res) {
             if (head != null) {
