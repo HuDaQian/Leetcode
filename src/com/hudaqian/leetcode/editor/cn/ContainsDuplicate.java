@@ -39,24 +39,24 @@ public class ContainsDuplicate {
             /**
              * 解法1：排序并依次判断前后两个数是否相等
              */
-        int[] copyNums = nums.clone();
-        Arrays.sort(copyNums);
-        for (int i = 0; i < copyNums.length-1; i++) {
-            if (copyNums[i] == copyNums[i+1]) {
-                return true;
-            }
-        }
-        return false;
+//        int[] copyNums = nums.clone();
+//        Arrays.sort(copyNums);
+//        for (int i = 0; i < copyNums.length-1; i++) {
+//            if (copyNums[i] == copyNums[i+1]) {
+//                return true;
+//            }
+//        }
+//        return false;
             /**
              * 解法2：set
              */
-//            Set<Integer> set = new HashSet<>();
-//            for (int i : nums) {
-//                if (!set.add(i)) {
-//                    return true;
-//                }
-//            }
-//            return false;
+            Set<Integer> set = new HashSet<>();
+            for (int i : nums) {
+                if (!set.add(i)) {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
