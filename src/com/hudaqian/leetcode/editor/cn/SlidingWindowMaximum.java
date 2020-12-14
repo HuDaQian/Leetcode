@@ -53,25 +53,59 @@ public class SlidingWindowMaximum {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int[] maxSlidingWindow(int[] nums, int k) {
+//            if (nums.length == 0 || k == 0) return new int[0];
+//            int[] res = new int[nums.length - k + 1];
+//            Deque<Integer> queue = new LinkedList<>();
+//            for (int i = 0; i < k; i++) {
+//                int num = nums[i];
+//                QuePushNum(queue, num);
+//            }
+//            res[0] = queue.getFirst();
+//            for (int i = k; i < nums.length; i++) {
+//                /**
+//                 * 先入再出
+//                 */
+//                int num = nums[i];
+//                QuePushNum(queue, num);
+//
+//                if (nums[i - k] == queue.getFirst()) {
+//                    queue.removeFirst();
+//                }
+//                res[i - k + 1] = queue.getFirst();
+//            }
+//            return res;
+            /**
+             * 动态规划解法
+             * 思路见剑指Offer59
+             */
             if (nums.length == 0 || k == 0) return new int[0];
-            int[] res = new int[nums.length - k + 1];
-            Deque<Integer> queue = new LinkedList<>();
-            for (int i = 0; i < k; i++) {
-                int num = nums[i];
-                QuePushNum(queue, num);
-            }
-            res[0] = queue.getFirst();
-            for (int i = k; i < nums.length; i++) {
-                /**
-                 * 先入再出
-                 */
-                int num = nums[i];
-                QuePushNum(queue, num);
-
-                if (nums[i - k] == queue.getFirst()) {
-                    queue.removeFirst();
+            int curLeftNum = nums[0];
+            int len = nums.length;
+            int[] left = new int[len];
+            left[0] = nums[0];
+            int[] right = new int[len];
+            right[len - 1] = nums[len - 1];
+            for (int i = 1; i < nums.length; i++) {
+                if (i % k == 0) {
+                    left[i] = nums[i];
+                } else {
+                    left[i] = Math.max(nums[i], left[i - 1]);
                 }
-                res[i - k + 1] = queue.getFirst();
+
+                int index = len - i - 1;
+                if ((index + 1) % k == 0) {
+                    right[index] = nums[index];
+                } else {
+                    right[index] = Math.max(nums[index], right[index + 1]);
+                }
+            }
+            int[] res = new int[len - k + 1];
+            for (int i = 0; i < len - k + 1; i++) {
+                if (i % k == 0) {
+                    res[i] = left[i + k - 1];
+                } else {
+                    res[i] = Math.max(left[i + k - 1], right[i]);
+                }
             }
             return res;
         }
