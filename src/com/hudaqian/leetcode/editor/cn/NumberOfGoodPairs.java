@@ -54,7 +54,8 @@ public class NumberOfGoodPairs {
             int count = 0;
             for (int i = 0; i < nums.length; i++) {
                 for (int j = i + 1; j < nums.length; j++) {
-                    if (nums[i] == nums[j]) count++;
+                    //  这里使用异或取代减法
+                    if ((nums[i] ^ nums[j]) == 0) count++;
                 }
             }
             return count;
