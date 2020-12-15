@@ -54,16 +54,44 @@ public class ShuffleTheArray {
             /**
              * 新建数组解法
              */
-            if (n == 0) return new int[0];
-            int[] res = new int[2 * n];
-            for (int i = 0; i < 2 * n; i++) {
-                int index = i * 2;
-                if (i >= n) {
-                    index = (i-n)*2+1;
+//            if (n == 0) return new int[0];
+//            int[] res = new int[2 * n];
+//            for (int i = 0; i < 2 * n; i++) {
+//                int index = i * 2;
+//                if (i >= n) {
+//                    index = (i-n)*2+1;
+//                }
+//                res[index] = nums[i];
+//            }
+//            return res;
+            /**
+             * 原地排序
+             */
+            boolean[] status = new boolean[2 * n];
+            for (int i = 1; i < 2 * n - 1; i++) {
+                if (!status[i]) {
+                    int lastIndex = i;
+                    int nextIndex = getNextIndex(lastIndex, n);
+                    int temp = nums[lastIndex];
+                    while (!status[nextIndex]) {
+                        int cur = nums[nextIndex];
+                        nums[nextIndex] = temp;
+                        temp = cur;
+                        status[nextIndex] = true;
+                        lastIndex = nextIndex;
+                        nextIndex = getNextIndex(lastIndex, n);
+                    }
                 }
-                res[index] = nums[i];
             }
-            return res;
+            return nums;
+        }
+
+        private int getNextIndex(int prev, int n) {
+            if (prev >= n) {
+                return 2 * (prev - n) + 1;
+            } else {
+                return 2 * prev;
+            }
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
