@@ -30,7 +30,7 @@ package com.hudaqian.leetcode.editor.cn;
 public class MonotoneIncreasingDigits {
     public static void main(String[] args) {
         Solution solution = new MonotoneIncreasingDigits().new Solution();
-        int N = 989998;
+        int N = 120;
         System.out.print(solution.monotoneIncreasingDigits(N));
     }
 
@@ -45,23 +45,23 @@ public class MonotoneIncreasingDigits {
              * 最后index指定的最后一个不变成9的位置
              */
             char[] nums = Integer.toString(N).toCharArray();
-            int index = -1;
-            for (int i = 0; i < nums.length - 1; i++) {
-                if (nums[i] > nums[i + 1]) {
-                    index = i;
-                    nums[i]--;
-                    break;
-                }
+            int index = 0;
+            while (index < nums.length-1 && nums[index] <= nums[index + 1]) {
+                index++;
             }
-            if (index == -1) return N;
-            for (int i = index; i > 0; i--) {
-                if (nums[i-1] > nums[i]) {
-                    nums[i-1]--;
-                    index--;
-                }
-            }
+            if (index == nums.length-1) return N;
+
+            nums[index]--;
             for (int i = index + 1; i < nums.length; i++) {
                 nums[i] = '9';
+            }
+
+            while (index > 0){
+                if (nums[index-1] > nums[index]) {
+                    nums[index-1]--;
+                    nums[index] = '9';
+                }
+                index--;
             }
             return Integer.parseInt(new String(nums));
         }
