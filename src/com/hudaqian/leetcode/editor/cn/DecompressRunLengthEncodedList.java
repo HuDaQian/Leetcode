@@ -52,16 +52,34 @@ class Solution {
         /**
          * 使用List类
          */
-        List<Integer> list = new ArrayList<>();
+//        List<Integer> list = new ArrayList<>();
+//        for (int i = 0; i < nums.length-1; i+=2) {
+//            int p = nums[i];
+//            int q = nums[i+1];
+//            while (p > 0) {
+//                list.add(q);
+//                p--;
+//            }
+//        }
+//        return list.stream().mapToInt(Integer::intValue).toArray();
+        /**
+         * 遍历两次 第一次确定数组大小 第二次放入数字
+         */
+        int count = 0;
+        for (int i = 0; i < nums.length-1; i+=2) {
+            count+=nums[i];
+        }
+        int[] res = new int[count];
+        int ptr = 0;
         for (int i = 0; i < nums.length-1; i+=2) {
             int p = nums[i];
             int q = nums[i+1];
-            while (p > 0) {
-                list.add(q);
+            while (p>0) {
+                res[ptr++] = q;
                 p--;
             }
         }
-        return list.stream().mapToInt(Integer::intValue).toArray();
+        return res;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
