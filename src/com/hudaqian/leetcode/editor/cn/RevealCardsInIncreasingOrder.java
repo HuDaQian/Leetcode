@@ -53,7 +53,7 @@ import java.util.Arrays;
 public class RevealCardsInIncreasingOrder {
     public static void main(String[] args) {
         Solution solution = new RevealCardsInIncreasingOrder().new Solution();
-        int[] deck = {1,2,3,4,5};
+        int[] deck = {1, 2, 3, 4, 5};
         System.out.print(Arrays.toString(solution.deckRevealedIncreasing(deck)));
     }
 
@@ -68,19 +68,37 @@ public class RevealCardsInIncreasingOrder {
              * 先把底部的牌放到上边 然后再将后边的数字置于顶部
              * 每次都要转动已经排好的数字 所以时间复杂度有点高
              */
+//            if (deck.length < 3) return deck;
+//            Arrays.sort(deck);
+//            int s = deck.length - 2, e = deck.length - 1;
+//            while (s > 0) {
+//                rollNums(deck, s, e);
+//                s--;
+//            }
+//            return deck;
+            /**
+             * 新建一个大的数组
+             * 使用双指针指向已经排列好的前后两端 然后逐渐向前移动
+             * 然后往前调换
+             */
             if (deck.length < 3) return deck;
             Arrays.sort(deck);
-            int s = deck.length - 2, e = deck.length - 1;
-            while (s > 0) {
-                rollNums(deck, s, e);
-                s--;
+            int index = deck.length-1;
+            int[] res = new int[2 * index];
+            int e = res.length - 1, s = res.length - 2;
+            res[e] = deck[index--];
+            res[s] = deck[index--];
+            while (index >= 0) {
+                res[--s] = res[e];
+                e--;
+                res[--s] = deck[index--];
             }
-            return deck;
+            return Arrays.copyOfRange(res, s, e+1);
         }
 
         private void rollNums(int[] nums, int s, int e) {
             int temp = nums[e];
-            for (int i = e; i >s; i--) {
+            for (int i = e; i > s; i--) {
                 nums[i] = nums[i - 1];
             }
             nums[s] = temp;
