@@ -65,8 +65,8 @@ import java.util.*;
 public class CreateTargetArrayInTheGivenOrder {
     public static void main(String[] args) {
         Solution solution = new CreateTargetArrayInTheGivenOrder().new Solution();
-        int[] nums = {5,3,3,5,1};
-        int[] index = {0,0,2,1,2};
+        int[] nums = {0,1,2,3,4};
+        int[] index = {0,1,2,2,1};
         System.out.print(Arrays.toString(solution.createTargetArray(nums, index)));
     }
 
@@ -79,26 +79,84 @@ public class CreateTargetArrayInTheGivenOrder {
              * 从前向后遍历 如果已经处理好的数字 大于当前数字的都加1
              * 因为题目保证了数字插入位置总是存在 所以不用考虑加1之后再和前面重复的情况
              */
-            int[] res = new int[index.length];
-            Set<Integer> set = new HashSet<>();
+//            int[] res = new int[index.length];
+//            Set<Integer> set = new HashSet<>();
+//            for (int i = 0; i < index.length; i++) {
+//                int num = index[i];
+//                if (set.contains(num)) {
+//                    set.clear();
+//                    for (int j = 0; j < i; j++) {
+//                        int temp = index[j];
+//                        if (temp >= num) {
+//                            index[j] = ++temp;
+//                        }
+//                        set.add(temp);
+//                    }
+//                }
+//                set.add(num);
+//            }
+//            for (int i = 0; i < res.length; i++) {
+//                res[index[i]] = nums[i];
+//            }
+//            return res;
+            /**
+             * 使用数组来代替哈希表
+             */
+//            int[] count = new int[index.length];
+//            for (int i = 0; i < index.length; i++) {
+//                if (count[index[i]] != 0) {
+//                    for (int j = 0; j < i; j++) {
+//                        if (index[j] >= index[i]) {
+//                            count[index[j]]--;
+//                        }
+//                    }
+//                    for (int j = 0; j < i; j++) {
+//                        if (index[j] >= index[i]) {
+//                            index[j]++;
+//                            count[index[j]]++;
+//                        }
+//                    }
+//                }
+//                count[index[i]]++;
+//            }
+            /**
+             * 直接双数组不判断
+             */
+            if (index == null || index.length < 1) return new int[0];
             for (int i = 0; i < index.length; i++) {
-                int num = index[i];
-                if (set.contains(num)) {
-                    set.clear();
-                    for (int j = 0; j < i; j++) {
-                        int temp = index[j];
-                        if (temp >= num) {
-                            index[j] = ++temp;
-                        }
-                        set.add(temp);
-                    }
+                for (int j = 0; j <i; j++) {
+                    if (index[j] >= index[i]) index[j]++;
                 }
-                set.add(num);
             }
+            int[] res = new int[index.length];
             for (int i = 0; i < res.length; i++) {
                 res[index[i]] = nums[i];
             }
             return res;
+            /**
+             * 双栈 副栈负责处理主栈暂时抛出的数字
+             */
+//            Stack<Integer> queue = new Stack<>();
+//            Stack<Integer> temp = new Stack<>();
+//            for (int i = 0; i < index.length; i++) {
+//                if (index[i] >= queue.size()) {
+//                    queue.push(index[i]);
+//                } else {
+//                    while (!queue.empty()) {
+//                        temp.push(queue.pop());
+//                    }
+//                    while (!temp.empty()) {
+//                        int num = temp.pop();
+//                        queue.push(num >= index[i] ? num + 1 : num);
+//                    }
+//                    queue.push(index[i]);
+//                }
+//            }
+//            int[] res = new int[index.length];
+//            for (int i = res.length-1; i >=0; i--) {
+//                res[queue.pop()] = nums[i];
+//            }
+//            return res;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
