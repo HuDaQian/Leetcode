@@ -131,6 +131,14 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/ConsecutiveNumbersSum.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/ConsecutiveNumbersSum.java" />
+              <option name="questionId" value="856" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/ContainerWithMostWater.java">
           <value>
             <LeetcodeEditor>
@@ -635,6 +643,14 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/MaskingPersonalInformation.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/MaskingPersonalInformation.java" />
+              <option name="questionId" value="858" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/MaxConsecutiveOnes.java">
           <value>
             <LeetcodeEditor>
@@ -880,6 +896,14 @@
             <LeetcodeEditor>
               <option name="path" value="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/PlusOne.java" />
               <option name="questionId" value="66" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/PositionsOfLargeGroups.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/PositionsOfLargeGroups.java" />
+              <option name="questionId" value="857" />
             </LeetcodeEditor>
           </value>
         </entry>
