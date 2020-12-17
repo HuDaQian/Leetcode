@@ -55,36 +55,53 @@
 package com.hudaqian.leetcode.editor.cn;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class PositionsOfLargeGroups {
     public static void main(String[] args) {
         Solution solution = new PositionsOfLargeGroups().new Solution();
+        String s = "aaa";
+        System.out.print(solution.largeGroupPositions(s));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public List<List<Integer>> largeGroupPositions(String s) {
+//            List<List<Integer>> result = new ArrayList<>();
+//            if (s == null || s.length() == 0) return result;
+//            int p = 0;
+//            char[] arr = s.toCharArray();
+//            for (int i = 1; i < s.length(); i++) {
+//                if (arr[i] != arr[p]) {
+//                    if (i - p >= 3) {
+//                        List<Integer> temp = new ArrayList<>();
+//                        temp.add(p);
+//                        temp.add(i - 1);
+//                        result.add(temp);
+//                    }
+//                    p = i;
+//                }
+//            }
+//            if (arr[s.length()-1] == arr[p] && s.length()-1-p >= 2) {
+//                List<Integer> temp = new ArrayList<>();
+//                temp.add(p);
+//                temp.add(s.length()-1);
+//                result.add(temp);
+//            }
+//            return result;
+            /**
+             * 双指针解法
+             */
             List<List<Integer>> result = new ArrayList<>();
             if (s == null || s.length() == 0) return result;
             int p = 0;
-            char[] arr = s.toCharArray();
-            for (int i = 1; i < s.length(); i++) {
-                if (arr[i] != arr[p]) {
-                    if (i - p >= 3) {
-                        List<Integer> temp = new ArrayList<>();
-                        temp.add(p);
-                        temp.add(i - 1);
-                        result.add(temp);
-                    }
-                    p = i;
+            char[] arrs = s.toCharArray();
+            for (int i = 0; i < arrs.length; i++) {
+                if (i == arrs.length - 1 || arrs[i] != arrs[i + 1]) {
+                    if (i - p + 1 >= 3) result.add(Arrays.asList(p, i));
+                    p = i + 1;
                 }
-            }
-            if (arr[s.length()-1] == arr[p] && s.length()-1-p >= 2) {
-                List<Integer> temp = new ArrayList<>();
-                temp.add(p);
-                temp.add(s.length()-1);
-                result.add(temp);
             }
             return result;
         }
