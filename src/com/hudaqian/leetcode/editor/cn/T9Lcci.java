@@ -46,26 +46,46 @@ public class T9Lcci {
             /**
              * 暴力解法
              */
+//            List<String> list = new ArrayList<>(Arrays.asList(words));
+//            char[] chars = num.toCharArray();
+//            for (int j = 0; j < words.length; j++) {
+//                String str = list.get(j);
+//                if (str.length() != num.length()) {
+//                    list.remove(str);
+//                }
+//            }
+//            for (int i = 0; i < chars.length; i++) {
+//                int tempNum = chars[i] - '0';
+//                for (int j = 0; j < list.size(); j++) {
+//                    String str = list.get(j);
+//                    char[] strs = str.toCharArray();
+//                    int charNum = getCharacterNumber(strs[i]);
+//                    if (charNum != tempNum) {
+//                        list.remove(str);
+//                    }
+//                }
+//            }
+//            return list;
+            /**
+             * 数组
+             */
+            int[] nums = new int[26];
+            nums[25] = 9;
+            for (int i = 0; i < 25; i++) {
+                int tempNum = i >= 18 ? i-1 : i;
+                nums[i] = tempNum/3+2;
+            }
             List<String> list = new ArrayList<>(Arrays.asList(words));
-            char[] chars = num.toCharArray();
-            for (int j = 0; j < words.length; j++) {
-                String str = list.get(j);
-                if (str.length() != num.length()) {
-                    list.remove(str);
-                }
-            }
-            for (int i = 0; i < chars.length; i++) {
-                int tempNum = chars[i] - '0';
-                for (int j = 0; j < list.size(); j++) {
-                    String str = list.get(j);
-                    char[] strs = str.toCharArray();
-                    int charNum = getCharacterNumber(strs[i]);
-                    if (charNum != tempNum) {
-                        list.remove(str);
-                    }
-                }
-            }
+            list.removeIf(word -> word.length() != num.length() || !checkStatus(nums, word, num));
             return list;
+        }
+        private boolean checkStatus(int[] nums, String word, String num) {
+            char[] chars = word.toCharArray();
+            char[] numsC = num.toCharArray();
+            for (int i = 0; i < chars.length; i++) {
+                if (nums[chars[i]-'a'] != (numsC[i] - '0')) return false;
+            }
+            return true;
         }
 
         private int getCharacterNumber(Character c) {
