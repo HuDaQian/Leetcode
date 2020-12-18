@@ -36,11 +36,10 @@ public class SingleNumber {
              * 解法1：排序 待修改
              */
 //            Arrays.sort(nums);
-//            for (int i = 0; i < nums.length; i++) {
+//            for (int i = 0; i < nums.length; i+=2) {
 //                if (i == nums.length - 1 || nums[i] != nums[i + 1]) {
 //                    return nums[i];
 //                }
-//                i++;
 //            }
 //            return -1;
             /**
