@@ -979,6 +979,14 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/RemoveDuplicateLetters.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/RemoveDuplicateLetters.java" />
+              <option name="questionId" value="316" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/RemoveDuplicatesFromSortedArray.java">
           <value>
             <LeetcodeEditor>
@@ -1240,6 +1248,14 @@
             <LeetcodeEditor>
               <option name="path" value="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/SlidingWindowMaximum.java" />
               <option name="questionId" value="239" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/SmallestSubsequenceOfDistinctCharacters.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/SmallestSubsequenceOfDistinctCharacters.java" />
+              <option name="questionId" value="1159" />
             </LeetcodeEditor>
           </value>
         </entry>
