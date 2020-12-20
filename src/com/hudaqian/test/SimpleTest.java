@@ -2,18 +2,18 @@ package com.hudaqian.test;
 
 import com.hudaqian.leetcode.editor.cn.ThirdMaximumNumber;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class SimpleTest {
     public static void main(String[] args) {
         SimpleTest.Solution solution = new SimpleTest().new Solution();
-        int[] nums = {3,5,8,1,2,9,4,7,6};
-        System.out.print(Arrays.toString(solution.sort(nums)));
+//        int[] nums = {3,5,8,1,2,9,4,7,6};
+//        System.out.print(Arrays.toString(solution.sort(nums)));
+//        String number = "789-0469-2731  5107289";
+//        System.out.print(solution.reformatNumber(number));
+        int[] nums = {4,2,4,5,6};
+        System.out.print(solution.maximumUniqueSubarray(nums));
     }
-
 
 
     public class MinHeap <E extends Comparable<E>> {
@@ -53,6 +53,59 @@ public class SimpleTest {
         }
     }
     class Solution {
+        public int maximumUniqueSubarray(int[] nums) {
+            /**
+             * 维护一个map 和sum
+             */
+            int sum = 0,res = sum, start = 0;
+            Map<Integer, Integer> map = new HashMap<>();
+            for (int i = 0; i < nums.length; i++) {
+                int num = nums[i];
+                if (map.getOrDefault(num, 0) != 0) {
+                    while (nums[start] != nums[i]) {
+                        map.put(nums[start],0);
+                        sum-=nums[start];
+                        start++;
+                    }
+                    sum-=nums[start];
+                    start++;
+                }
+                map.put(num, i+1);
+                sum+= num;
+                res = Math.max(res, sum);
+
+            }
+            return res;
+        }
+
+        public String reformatNumber(String number) {
+            String newNumber = number.replace('-',' ').replace(" ","");
+            int len = newNumber.length();
+            StringBuilder sb = new StringBuilder();
+            int ptr = 0;
+            int end = len;
+            if (len%3 == 1) {
+                end-=4;
+            } else if (len%3 == 2) {
+                end-=2;
+            }
+            while(ptr < end) {
+                sb.append(newNumber, ptr, ptr+3);
+                sb.append("-");
+                ptr+=3;
+            }
+            if (end == len-4) {
+                sb.append(newNumber, ptr, ptr+2);
+                sb.append("-");
+                ptr+=2;
+                sb.append(newNumber,ptr, ptr+2);
+            } else if (end == len-2){
+                sb.append(newNumber, ptr, ptr+2);
+            } else {
+                sb.deleteCharAt(sb.lastIndexOf("-"));
+            }
+            return sb.toString();
+        }
 
         public int[] sort(int[] nums) {
             sort(nums,0,nums.length-1);

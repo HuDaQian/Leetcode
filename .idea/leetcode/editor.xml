@@ -683,6 +683,14 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/MaximumErasureValue.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/MaximumErasureValue.java" />
+              <option name="questionId" value="1813" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/MaximumProductOfThreeNumbers.java">
           <value>
             <LeetcodeEditor>
@@ -952,6 +960,14 @@
             <LeetcodeEditor>
               <option name="path" value="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/QueriesOnAPermutationWithKey.java" />
               <option name="questionId" value="1525" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/ReformatPhoneNumber.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/ReformatPhoneNumber.java" />
+              <option name="questionId" value="1812" />
             </LeetcodeEditor>
           </value>
         </entry>
