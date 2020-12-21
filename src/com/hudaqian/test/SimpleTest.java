@@ -11,67 +11,114 @@ public class SimpleTest {
 //        System.out.print(Arrays.toString(solution.sort(nums)));
 //        String number = "789-0469-2731  5107289";
 //        System.out.print(solution.reformatNumber(number));
-        int[] nums = {4,2,4,5,6};
+        int[] nums = {4, 2, 4, 5, 6};
         System.out.print(solution.maximumUniqueSubarray(nums));
     }
 
 
-    public class MinHeap <E extends Comparable<E>> {
+    public class MinHeap<E extends Comparable<E>> {
         private List<E> data;
 
-        public MinHeap(int capacity){
+        public MinHeap(int capacity) {
             data = new ArrayList<>(capacity);
         }
 
-        public MinHeap(){
+        public MinHeap() {
             data = new ArrayList<>();
         }
 
         // 返回堆中的元素个数
-        public int size(){
+        public int size() {
             return data.size();
         }
 
         // 返回一个布尔值, 表示堆中是否为空
-        public boolean isEmpty(){
+        public boolean isEmpty() {
             return data.isEmpty();
         }
 
         // 返回完全二叉树的数组表示中，一个索引所表示的元素的父亲节点的索引
-        private int parent(int index){
+        private int parent(int index) {
             return (index - 1) / 2;
         }
 
         // 返回完全二叉树的数组表示中，一个索引所表示的元素的左孩子节点的索引
-        private int leftChild(int index){
+        private int leftChild(int index) {
             return index * 2 + 1;
         }
 
         // 返回完全二叉树的数组表示中，一个索引所表示的元素的右孩子节点的索引
-        private int rightChild(int index){
+        private int rightChild(int index) {
             return index * 2 + 2;
         }
     }
+
     class Solution {
+        public int getMaxNumber(int[] nums) {
+            /**
+             * 贪心
+             */
+            Arrays.sort(nums);
+            int sum = 0;
+            for (int num : nums) {
+                sum += num;
+            }
+            char[] res = new char[sum * 3];
+            int fir = 0;
+            while (fir < nums[0]) {
+                res[fir * 3] = 'a';
+            }
+            int sec = 0;
+            while (sec < nums[1]) {
+                res[sec * 3 + 1] = 'b';
+            }
+            int last = sum - fir - sec;
+            int index = 0;
+            int ptr = 2;
+            for (int i = 0; i < last; i++) {
+                int temp = 0;
+                if (res[index*3+2] == ' ') {
+                    temp = index*3+2;
+                    if (res[index*3+1] == ' ') {
+                        temp = index+1;
+                        if (res[index*3] == ' ') {
+                            temp = index*3;
+                        }
+                    }
+                }
+                if (nums[ptr]-- <= 0){
+                    ptr++;
+                }
+                res[temp] = (char)('c' + ptr-2);
+            }
+            /**
+             * 交换
+             */
+            while (index >= 0 && res[index*3] != ' ' && res[index*3+1] != ' ' && res[index*3+2] != ' ' ) {
+                index--;
+            }
+            return index;
+        }
+
         public int maximumUniqueSubarray(int[] nums) {
             /**
              * 维护一个map 和sum
              */
-            int sum = 0,res = sum, start = 0;
+            int sum = 0, res = sum, start = 0;
             Map<Integer, Integer> map = new HashMap<>();
             for (int i = 0; i < nums.length; i++) {
                 int num = nums[i];
                 if (map.getOrDefault(num, 0) != 0) {
                     while (nums[start] != nums[i]) {
-                        map.put(nums[start],0);
-                        sum-=nums[start];
+                        map.put(nums[start], 0);
+                        sum -= nums[start];
                         start++;
                     }
-                    sum-=nums[start];
+                    sum -= nums[start];
                     start++;
                 }
-                map.put(num, i+1);
-                sum+= num;
+                map.put(num, i + 1);
+                sum += num;
                 res = Math.max(res, sum);
 
             }
@@ -79,28 +126,28 @@ public class SimpleTest {
         }
 
         public String reformatNumber(String number) {
-            String newNumber = number.replace('-',' ').replace(" ","");
+            String newNumber = number.replace('-', ' ').replace(" ", "");
             int len = newNumber.length();
             StringBuilder sb = new StringBuilder();
             int ptr = 0;
             int end = len;
-            if (len%3 == 1) {
-                end-=4;
-            } else if (len%3 == 2) {
-                end-=2;
+            if (len % 3 == 1) {
+                end -= 4;
+            } else if (len % 3 == 2) {
+                end -= 2;
             }
-            while(ptr < end) {
-                sb.append(newNumber, ptr, ptr+3);
+            while (ptr < end) {
+                sb.append(newNumber, ptr, ptr + 3);
                 sb.append("-");
-                ptr+=3;
+                ptr += 3;
             }
-            if (end == len-4) {
-                sb.append(newNumber, ptr, ptr+2);
+            if (end == len - 4) {
+                sb.append(newNumber, ptr, ptr + 2);
                 sb.append("-");
-                ptr+=2;
-                sb.append(newNumber,ptr, ptr+2);
-            } else if (end == len-2){
-                sb.append(newNumber, ptr, ptr+2);
+                ptr += 2;
+                sb.append(newNumber, ptr, ptr + 2);
+            } else if (end == len - 2) {
+                sb.append(newNumber, ptr, ptr + 2);
             } else {
                 sb.deleteCharAt(sb.lastIndexOf("-"));
             }
@@ -108,7 +155,7 @@ public class SimpleTest {
         }
 
         public int[] sort(int[] nums) {
-            sort(nums,0,nums.length-1);
+            sort(nums, 0, nums.length - 1);
             return nums;
         }
 
@@ -117,19 +164,19 @@ public class SimpleTest {
                 return;
             }
             int partiIndex = partitionV2(nums, startIndex, endIndex);
-            sort(nums, startIndex, partiIndex-1);
-            sort(nums, partiIndex+1, endIndex);
+            sort(nums, startIndex, partiIndex - 1);
+            sort(nums, partiIndex + 1, endIndex);
         }
 
         // 单边扫描
         private int partition(int[] nums, int startIndex, int endIndex) {
             //  随机取一个为基准值
             Random r = new Random();
-            int rand = startIndex + r.nextInt(endIndex-startIndex);
+            int rand = startIndex + r.nextInt(endIndex - startIndex);
             swap(nums, startIndex, rand);
             int res = startIndex;
             int pivot = nums[startIndex];
-            for (int i = startIndex+1; i <= endIndex; i++) {
+            for (int i = startIndex + 1; i <= endIndex; i++) {
                 if (nums[i] < pivot) {
                     res++;
                     swap(nums, res, i);
@@ -149,8 +196,8 @@ public class SimpleTest {
 //            swap(nums, startIndex, rand);
             int pivot = nums[startIndex];
 
-            int left = startIndex+1,right = endIndex;
-            while(left <= right) {
+            int left = startIndex + 1, right = endIndex;
+            while (left <= right) {
                 if (nums[left] > pivot && nums[right] < pivot) {
                     swap(nums, left, right);
                     left++;
@@ -218,9 +265,9 @@ public class SimpleTest {
                 index++;
             }
             if (a == len1) {
-                System.arraycopy(nums2, b, res, index, len1+len2-index);
+                System.arraycopy(nums2, b, res, index, len1 + len2 - index);
             } else {
-                System.arraycopy(nums1, a, res, index, len1+len2-index);
+                System.arraycopy(nums1, a, res, index, len1 + len2 - index);
             }
             return res;
         }

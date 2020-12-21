@@ -34,10 +34,12 @@
 
 package com.hudaqian.leetcode.editor.cn;
 
+import java.util.Map;
+
 public class HouseRobber {
     public static void main(String[] args) {
         Solution solution = new HouseRobber().new Solution();
-        int[] nums = {1,2,3,1};
+        int[] nums = {1, 2, 3, 1};
         System.out.print(solution.rob(nums));
     }
 
@@ -64,7 +66,7 @@ public class HouseRobber {
             /**
              * 解法2：动态规划
              */
-            if (nums == null || nums.length == 0) return 0;
+//            if (nums == null || nums.length == 0) return 0;
 //            int[] dp = new int[nums.length+1];
 //            dp[1] = nums[0];
 //            for (int i = 2; i < nums.length+1; i++) {
@@ -74,16 +76,35 @@ public class HouseRobber {
             /**
              * 解法2的空间优化 集合了解法1和动态规划的特性
              */
-            int numsLength = nums.length;
-            if (numsLength == 1) return nums[0];
-            //  前面数字记录不偷本元素的记录 后边记录偷本元素的记录
-            int prev = 0, current = nums[0];
-            for (int i = 1; i < numsLength; i++) {
-                int temp = current;
-                current = Math.max(prev + nums[i], current);
+//            int numsLength = nums.length;
+//            if (numsLength == 1) return nums[0];
+//            //  前面数字记录不偷本元素的记录 后边记录偷本元素的记录
+//            int prev = 0, current = nums[0];
+//            for (int i = 1; i < numsLength; i++) {
+//                int temp = current;
+//                current = Math.max(prev + nums[i], current);
+//                prev = temp;
+//            }
+//            return Math.max(prev, current);
+            /**
+             * 2020-12-21
+             */
+            if (nums == null || nums.length == 0) return 0;
+            int len = nums.length;
+//            int[] dp = new int[len+1];
+//            dp[0] = 0;
+//            dp[1] = nums[0];
+//            for (int i = 1; i < len; i++) {
+//                dp[i+1] = Math.max(dp[i],dp[i-1]+nums[i]);
+//            }
+//            return dp[len];
+            int res = nums[0], prev = 0;
+            for (int i = 1; i < len; i++) {
+                int temp = res;
+                res = Math.max(res, prev + nums[i]);
                 prev = temp;
             }
-            return Math.max(prev, current);
+            return Math.max(res, prev);
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
