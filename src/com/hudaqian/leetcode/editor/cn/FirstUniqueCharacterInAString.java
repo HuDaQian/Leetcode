@@ -52,14 +52,13 @@ class Solution {
         /**
          * 数组写法
          */
+        int len = s.length();
         int[] count = new int[26];
-        for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
-            count[c-'a']++;
+        for (int i = 0; i < len; i++) {
+            count[s.charAt(i)-'a']++;
         }
-        for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
-            if (count[c-'a'] == 1) {
+        for (int i = 0; i < len; i++) {
+            if (count[s.charAt(i)-'a'] == 1) {
                 return i;
             }
         }
