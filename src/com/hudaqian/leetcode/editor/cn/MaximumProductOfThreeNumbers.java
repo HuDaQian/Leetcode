@@ -38,6 +38,10 @@ public class MaximumProductOfThreeNumbers {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int maximumProduct(int[] nums) {
+            /**
+             * 取出最大的三个数和最小的两个数字（此处为了保证如果有两个负数的话计算乘积）
+             *
+             */
 //        Arrays.sort(nums);
 //        return Math.max(nums[0]*nums[1]*nums[nums.length-1],nums[nums.length-3]*nums[nums.length-2]*nums[nums.length-1]);
             int min1 = Integer.MAX_VALUE, min2 = Integer.MAX_VALUE;
