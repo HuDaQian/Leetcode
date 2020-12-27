@@ -11,8 +11,13 @@ public class SimpleTest {
 //        System.out.print(Arrays.toString(solution.sort(nums)));
 //        String number = "789-0469-2731  5107289";
 //        System.out.print(solution.reformatNumber(number));
-        int[] nums = {4, 2, 4, 5, 6};
-        System.out.print(solution.maximumUniqueSubarray(nums));
+//        int[] nums = {4, 2, 4, 5, 6};
+//        System.out.print(solution.maximumUniqueSubarray(nums));
+//        String s = "AbCdEfGh";
+//        System.out.print(solution.halvesAreAlike(s));
+        int[] apples = {9,10,1,7,0,2,1,4,1,7,0,11,0,11,0,0,9,11,11,2,0,5,5}, days =
+                {3,19,1,14,0,4,1,8,2,7,0,13,0,13,0,0,2,2,13,1,0,3,7};
+        System.out.print(solution.eatenApples(apples, days));
     }
 
 
@@ -54,6 +59,129 @@ public class SimpleTest {
     }
 
     class Solution {
+//        public int[] findBall(int[][] grid) {
+//            int m = grid.length;
+//            if (m == 0) return new int[0];
+//            int n = grid[0].length;
+//            int[][] temp = new int[m][n];
+//            for (int i = 0; i < m; i++) {
+//                for (int j = 0; j < n; j++) {
+//                    int num = grid[i][j];
+//                    if (j == 0) {
+//                        if (num == -1) {
+//                            temp[i][j] = 0;
+//                        } else {
+//                            temp[i][j] = 1;
+//                        }
+//                    } else if (j == n-1) {
+//                        if (num == 1) {
+//                            temp[i][j] = 0;
+//                        } else  {
+//                            temp[i][j] = -1;
+//                        }
+//                    } else  {
+//                        if (num == 1 && temp[i][j+1] == 1) {
+//                            temp[i][j] = 1;
+//                        } else if (num == -1 && temp[i][j-1] == -1) {
+//                            temp[i][j] = -1;
+//                        } else  {
+//                            temp[i][j] = 0;
+//                        }
+//                    }
+//                }
+//            }
+//
+//            int[] res = new int[n];
+//            for (int i = 0; i < n; i++) {
+//                res[i] = i;
+//            }
+//            for (int i = 1; i < m; i++) {
+//                for (int j = 0; j < n; j++) {
+//                    int[] tempNums = new int[n];
+//                    if (j == 0) {
+//                        int num = temp[i-1][j+1];
+//                        if (num == -1) {
+//                            tempNums[j] = res[j+1];
+//                        } else {
+//                            tempNums[j] = -1;
+//                        }
+//                    } else if (j == n-1) {
+//                        int num = temp[i-1][j-1];
+//                        if (num == 1) {
+//                            tempNums[j] = res[j-1];
+//                        } else {
+//                            tempNums[j] = -1;
+//                        }
+//                    } else {
+//                        int leftNum = temp[i-1][j-1];
+//                        int rightNum = temp[i-1][j+1];
+//                    }
+//                }
+//            }
+//        }
+        public int eatenApples(int[] apples, int[] days) {
+            /**
+             * 贪心解法 + 模拟
+             */
+            int len = apples.length;
+            if (len == 0) return 0;
+            int maxLen = 0;
+            for (int i = 0; i < len; i++) {
+                int day = days[i];
+                maxLen = Math.max(maxLen, i+ day);
+            }
+            int[] temp = new int[maxLen];
+            int ptr = 0;
+            int count = 0;
+            for (int i = 0; i < len; i++) {
+                int apple = apples[i];
+                int day = days[i];
+                if (i + day <= ptr) continue;
+                ptr = Math.max(ptr, i);
+                while (ptr < i+day && apple > 0) {
+                    if (temp[ptr] == 0 ) {
+                        temp[ptr]++;
+                        count++;
+                        apple--;
+                    }
+                    ptr++;
+                }
+            }
+            return count;
+        }
+        public boolean halvesAreAlike(String s) {
+            int temp = 0;
+            char[] sArr = s.toCharArray();
+            int len = sArr.length;
+            for (int i = 0; i < len; i++) {
+                char c = sArr[i];
+                if (i >= len / 2) {
+                    temp -= isCount(c);
+                } else {
+                    temp += isCount(c);
+                }
+            }
+            return temp == 0;
+        }
+
+        private int isCount(char c) {
+            switch (c) {
+                case 'a':
+                case 'e':
+                case 'i':
+                case 'o':
+                case 'u':
+                case 'A':
+                case 'E':
+                case 'I':
+                case 'O':
+                case 'U':
+                    return 1;
+                default:
+                    return 0;
+            }
+        }
+
         public int getMaxNumber(int[] nums) {
             /**
              * 贪心
@@ -77,24 +205,24 @@ public class SimpleTest {
             int ptr = 2;
             for (int i = 0; i < last; i++) {
                 int temp = 0;
-                if (res[index*3+2] == ' ') {
-                    temp = index*3+2;
-                    if (res[index*3+1] == ' ') {
-                        temp = index+1;
-                        if (res[index*3] == ' ') {
-                            temp = index*3;
+                if (res[index * 3 + 2] == ' ') {
+                    temp = index * 3 + 2;
+                    if (res[index * 3 + 1] == ' ') {
+                        temp = index + 1;
+                        if (res[index * 3] == ' ') {
+                            temp = index * 3;
                         }
                     }
                 }
-                if (nums[ptr]-- <= 0){
+                if (nums[ptr]-- <= 0) {
                     ptr++;
                 }
-                res[temp] = (char)('c' + ptr-2);
+                res[temp] = (char) ('c' + ptr - 2);
             }
             /**
              * 交换
              */
-            while (index >= 0 && res[index*3] != ' ' && res[index*3+1] != ' ' && res[index*3+2] != ' ' ) {
+            while (index >= 0 && res[index * 3] != ' ' && res[index * 3 + 1] != ' ' && res[index * 3 + 2] != ' ') {
                 index--;
             }
             return index;
