@@ -56,13 +56,41 @@ public class BestTimeToBuyAndSellStockIi {
             /**
              * 如果后边一天的钱比前边一天的大 那么就赚这个差价
              */
-            int buyProfit = 0;
+//            int buyProfit = 0;
+//            for (int i = 1; i < prices.length; i++) {
+//                if (prices[i] > prices[i - 1]) {
+//                    buyProfit += prices[i] - prices[i - 1];
+//                }
+//            }
+//            return buyProfit;
+            /**
+             * dp解法
+             */
+//            if (prices == null || prices.length == 0) return 0;
+//            int dp[][] = new int[prices.length][2];
+//            dp[0][0] = 0;
+//            dp[0][1] = -prices[0];
+//            for (int i = 1; i < prices.length; i++) {
+//                int temp0 = Math.max(dp[i-1][1] + prices[i], dp[i-1][0]);
+//                int temp1 = Math.max(dp[i-1][0]-prices[i],dp[i-1][1]);
+//                dp[i][0] = temp0;
+//                dp[i][1] = temp1;
+//            }
+//            return dp[prices.length-1][0];
+            /**
+             * dp解法 空间优化
+             */
+            if (prices == null || prices.length == 0) return 0;
+            //  maxRes0 代表第i天未持有最大收益
+            //  maxRes1 代表第i天持有的最大收益
+            int maxRes0 = 0, maxRes1 = -prices[0];
             for (int i = 1; i < prices.length; i++) {
-                if (prices[i] > prices[i - 1]) {
-                    buyProfit += prices[i] - prices[i - 1];
-                }
+                int temp0 = Math.max(maxRes1 + prices[i], maxRes0);
+                int temp1 = Math.max(maxRes0-prices[i],maxRes1);
+                maxRes0 = temp0;
+                maxRes1 = temp1;
             }
-            return buyProfit;
+            return maxRes0;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
