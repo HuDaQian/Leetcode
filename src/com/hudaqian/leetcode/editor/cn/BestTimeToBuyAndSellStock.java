@@ -41,16 +41,29 @@ class Solution {
          * 分割为 [5] [4,7,8,9] [6] [3,6,7,8] [2,4,5,6] [1,9] 比较这几个区间的最大差9-4 8-3 6-2 9-1
          * 然后求各个区间到波谷的差
          */
-        int minPrice = Integer.MAX_VALUE;
-        int maxporfit = 0;
-        for (int i=0;i<prices.length;i++) {
-            if (prices[i] < minPrice) {
-                minPrice = prices[i];
-            } else if (prices[i] - minPrice > maxporfit) {
-                maxporfit = prices[i] - minPrice;
-            }
+//        int minPrice = Integer.MAX_VALUE;
+//        int maxporfit = 0;
+//        for (int i=0;i<prices.length;i++) {
+//            if (prices[i] < minPrice) {
+//                minPrice = prices[i];
+//            } else if (prices[i] - minPrice > maxporfit) {
+//                maxporfit = prices[i] - minPrice;
+//            }
+//        }
+//        return maxporfit;
+        /**
+         * dp解法
+         */
+        if (prices == null || prices.length == 0) return 0;
+        int len = prices.length;
+        // profit0 代表第i天未持有股票的最大收益
+        // profit1 代表第i天持有股票的最大收益 因为只允许进行一次交易 所以如果要在第i天持有 那么值钱不允许进行交易
+        int profit0 = 0, profit1 = - prices[0];
+        for (int i = 1; i < len; i++ ) {
+            profit0 = Math.max(profit1+prices[i], profit0);
+            profit1 = Math.max(profit1, -prices[i]);
         }
-        return maxporfit;
+        return profit0;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
