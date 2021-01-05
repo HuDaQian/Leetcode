@@ -84,7 +84,7 @@ public class BestTimeToBuyAndSellStockIii {
                 maxResTwo0 = Math.max(maxResTwo0, maxResTwo1+prices[i]);
                 maxResTwo1 = Math.max(maxResTwo1, maxResOne0-prices[i]);
                 maxResOne0 = Math.max(maxResOne0, maxResOne1+prices[i]);
-                maxResOne1 = Math.max(maxResOne1, 0-prices[i]);
+                maxResOne1 = Math.max(maxResOne1, -prices[i]);
             }
             return maxResTwo0;
         }

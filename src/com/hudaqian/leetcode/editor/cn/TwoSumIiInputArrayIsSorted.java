@@ -19,12 +19,15 @@
 
 
 package com.hudaqian.leetcode.editor.cn;
+
+import java.util.Arrays;
+
 public class TwoSumIiInputArrayIsSorted {
     public static void main(String[] args) {
         Solution solution = new TwoSumIiInputArrayIsSorted().new Solution();
         int[] nums = new int[]{2,3,4,5,7};
         int target = 7;
-        System.out.print(solution.twoSum(nums, target));
+        System.out.print(Arrays.toString(solution.twoSum(nums, target)));
     }
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
