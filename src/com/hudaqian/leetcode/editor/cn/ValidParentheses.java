@@ -41,46 +41,48 @@
 // 👍 1886 👎 0
 
 
-    package com.hudaqian.leetcode.editor.cn;
+package com.hudaqian.leetcode.editor.cn;
 
 import java.util.Stack;
 
 public class ValidParentheses {
-        public static void main(String[] args) {
-            Solution solution = new ValidParentheses().new Solution();
-            System.out.print(solution.isValid("()"));
-        }
-       //leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
-    public boolean isValid(String s) {
-        /**
-         * 使用栈来保存最后的括号 来判断
-         */
-        Stack<Character> mark = new Stack<>();
-        int len = s.length();
-        for (int i=0; i<len;i++){
-            char tempChar = s.charAt(i);
-            if (isLeft(tempChar)) {
-                mark.push(tempChar);
-            } else {
-                if (mark.isEmpty()) {
-                    return false;
+    public static void main(String[] args) {
+        Solution solution = new ValidParentheses().new Solution();
+        System.out.print(solution.isValid("()"));
+    }
+
+    //leetcode submit region begin(Prohibit modification and deletion)
+    class Solution {
+        public boolean isValid(String s) {
+            /**
+             * 使用栈来保存最后的括号 来判断
+             */
+            Stack<Character> mark = new Stack<>();
+            int len = s.length();
+            for (int i = 0; i < len; i++) {
+                char tempChar = s.charAt(i);
+                if (isLeft(tempChar)) {
+                    mark.push(tempChar);
+                } else {
+                    if (mark.isEmpty()) {
+                        return false;
+                    }
+                    char lastChar = mark.pop();
+                    if (lastChar == '(' && tempChar != ')') return false;
+                    if (lastChar == '{' && tempChar != '}') return false;
+                    if (lastChar == '[' && tempChar != ']') return false;
                 }
-                char lastChar = mark.pop();
-                if (lastChar == '(' && tempChar != ')') return false;
-                if (lastChar == '{' && tempChar != '}') return false;
-                if (lastChar == '[' && tempChar != ']') return false;
             }
+            if (!mark.isEmpty()) {
+                return false;
+            }
+            return true;
         }
-        if (!mark.isEmpty()) {
-            return false;
+
+        public boolean isLeft(Character c) {
+            return c == '{' || c == '[' || c == '(';
         }
-        return true;
     }
-    public boolean isLeft(Character c) {
-        return c=='{' || c=='[' ||c=='(';
-    }
-}
 //leetcode submit region end(Prohibit modification and deletion)
 
-    }
+}
