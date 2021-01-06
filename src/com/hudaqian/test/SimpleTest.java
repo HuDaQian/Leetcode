@@ -20,6 +20,21 @@ public class SimpleTest {
         System.out.print(solution.eatenApples(apples, days));
     }
 
+    int binarySearch(int[] nums, int target) {
+        if (nums == null || nums.length == 0) return -1;
+        int left = 0,right = nums.length-1;
+        while (left <= right) {
+            int mid = left + (right - left)/2;
+            if (nums[mid] == target) {
+                return mid;
+            } else if (nums[mid] > target) {
+                right = mid-1;
+            } else {
+                left = mid+1;
+            }
+        }
+        return -1;
+    }
 
     public class MinHeap<E extends Comparable<E>> {
         private List<E> data;
@@ -56,10 +71,86 @@ public class SimpleTest {
         private int rightChild(int index) {
             return index * 2 + 2;
         }
+
+        /**
+         *
+         * @param i
+         * @param j
+         */
+        public void swap(int i, int j) {
+            if (i < 0 || i >= size() || j < 0 || j >= size())
+                throw new IllegalArgumentException("Index is illegal.");
+
+            E temp = data.get(i);
+            data.set(i, data.get(j));
+            data.set(j, temp);
+        }
+        /**
+         * index 为i位置元素上浮。
+         *
+         * @param i
+         */
+        private void siftUp(int i) {
+            //特性2：比较插入值和其父结点的大小关系，小于父结点则用父结点替换当前值，index位置上升为父结点
+            // 当上浮元素大于父亲，继续上浮。并且不能上浮到0之上
+            // 直到i 等于 0 或 比 父亲节点小了。
+            while (i > 0 && data.get(i).compareTo(data.get(parent(i))) > 0) {
+                // 数组Array中添加方法swap
+                swap(i, parent(i));
+                i = parent(i); // 这句话让i来到新的位置，使得循环可以查看新的位置是否还要大。
+            }
+        }
+        /**
+         * 堆中添加元素方法。
+         *
+         * @param e
+         */
+        public void add(E e) {
+            //特性1：新插入的元素首先放在数组最后，保持完全二叉树的特性
+            data.add(e);
+            siftUp(data.size() - 1);
+        }
+
+        public E findMin() {
+            return data.get(0);
+        }
+
+        public E extractMin() {
+
+            E ret = findMin();
+
+            swap(0, data.size() - 1); // 0位置元素和最后一个元素互换。
+            data.remove(data.size() - 1); // 删除此时的最后一个元素(最小值)
+            siftDown(0); // 对于0处进行siftDown操作
+
+            return ret;
+        }
+
+        /**
+         * k位置元素下移
+         *
+         * @param k
+         */
+        private void siftDown(int k) {
+
+            while(leftChild(k) < data.size()){
+                int j = leftChild(k); // 在此轮循环中,data[k]和data[j]交换位置
+                if( j + 1 < data.size() &&
+                        data.get(j + 1).compareTo(data.get(j)) < 0 )
+                    j ++;
+                // data[j] 是 leftChild 和 rightChild 中的最小值
+
+                if(data.get(k).compareTo(data.get(j)) >= 0 )
+                    break;
+
+                swap(k, j);
+                k = j;
+            }
+        }
     }
 
     class Solution {
-//        public int[] findBall(int[][] grid) {
+        //        public int[] findBall(int[][] grid) {
 //            int m = grid.length;
 //            if (m == 0) return new int[0];
 //            int n = grid[0].length;
