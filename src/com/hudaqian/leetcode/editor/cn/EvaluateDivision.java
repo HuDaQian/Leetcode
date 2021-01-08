@@ -61,18 +61,110 @@
 
 package com.hudaqian.leetcode.editor.cn;
 
-import java.util.List;
+import java.util.*;
 
 public class EvaluateDivision {
     public static void main(String[] args) {
         Solution solution = new EvaluateDivision().new Solution();
-
+        List<List<String>> equations = new ArrayList<>();
+        equations.add(Arrays.asList("a", "b"));
+        equations.add(Arrays.asList("b", "c"));
+        double[] values = {2.0, 3.0};
+        List<List<String>> queries = new ArrayList<>();
+        queries.add(Arrays.asList("a", "c"));
+        queries.add(Arrays.asList("b", "a"));
+        queries.add(Arrays.asList("a", "e"));
+        queries.add(Arrays.asList("a", "a"));
+        queries.add(Arrays.asList("x", "x"));
+        System.out.print(Arrays.toString(solution.calcEquation(equations, values, queries)));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public double[] calcEquation(List<List<String>> equations, double[] values, List<List<String>> queries) {
-            return new double[0];
+            int equationLen = equations.size();
+            UnionFind unionFind = new UnionFind(2 * equationLen);
+            Map<String, Integer> map = new HashMap<>();
+            int ptr = 0;
+            for (int i = 0; i < equationLen; i++) {
+                List<String> equation = equations.get(i);
+                String var1 = equation.get(0);
+                String var2 = equation.get(1);
+
+                if (!map.containsKey(var1)) {
+                    map.put(var1, ptr);
+                    ptr++;
+                }
+                if (!map.containsKey(var2)) {
+                    map.put(var2, ptr);
+                    ptr++;
+                }
+                unionFind.union(map.get(var1), map.get(var2), values[i]);
+            }
+            int queriesLen = queries.size();
+            double[] res = new double[queriesLen];
+            for (int i = 0; i < queriesLen; i++) {
+                List<String> query = queries.get(i);
+                String var1 = query.get(0);
+                String var2 = query.get(1);
+
+                Integer id1 = map.get(var1);
+                Integer id2 = map.get(var2);
+
+                if (id1 == null || id2 == null) {
+                    res[i] = -1.0d;
+                } else {
+                    res[i] = unionFind.isConnected(id1, id2);
+                }
+            }
+            return res;
+        }
+    }
+
+    class UnionFind {
+        //  树
+        int[] parents;
+        //  权
+        double[] weights;
+
+        public UnionFind(int n) {
+            this.parents = new int[n];
+            this.weights = new double[n];
+            for (int i = 0; i < n; i++) {
+                parents[i] = i;
+                weights[i] = 1.0d;
+            }
+        }
+
+        /**
+         * 这里需要使用递归 来更新权的值
+         */
+        public int findRoot(int x) {
+            if (x != parents[x]) {
+                int origin = parents[x];
+                parents[x] = findRoot(parents[x]);
+                weights[x] *= weights[origin];
+            }
+            return parents[x];
+        }
+
+        public void union(int x, int y, double value) {
+            int xRoot = findRoot(x);
+            int yRoot = findRoot(y);
+            if (xRoot != yRoot) {
+                parents[xRoot] = yRoot;
+                weights[xRoot] = weights[y] * value / weights[x];
+            }
+        }
+
+        public double isConnected(int x, int y) {
+            int xRoot = findRoot(x);
+            int yRoot = findRoot(y);
+            if (xRoot == yRoot) {
+                return weights[x] / weights[y];
+            } else {
+                return -1.0d;
+            }
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
