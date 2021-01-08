@@ -30,12 +30,15 @@
 
 package com.hudaqian.leetcode.editor.cn;
 
+import java.util.Arrays;
+
 public class RotateArray {
     public static void main(String[] args) {
         Solution solution = new RotateArray().new Solution();
-        int[] nums = {1,2,3,4,5,6,7,8,9};
-        int k = 3;
-        solution.rotate(nums,k);
+        int[] nums = {-1,-100,3,99};
+        int k = 2;
+        solution.rotate(nums, k);
+        System.out.print(Arrays.toString(nums));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
@@ -45,34 +48,40 @@ public class RotateArray {
          * 第一种是旋转数组法
          */
         public void rotate(int[] nums, int k) {
-            k %= nums.length;
-            int count = 0, n = nums.length;
-            for(int start = 0;count<n; start++) {
-                int current = start;
-                int prev = nums[start];
-                do {
-                    int next = (start + k) % n;
-                    int temp = nums[next];
-                    nums[next] = prev;
-                    prev = temp;
-                    start = next;
-                    count++;
-                } while (current != start);
-            }
-//            k = k % nums.length;
-//            int count = 0;
-//            for (int start = 0; count < nums.length; start++) {
+//            k %= nums.length;
+//            int count = 0, n = nums.length;
+//            for(int start = 0;count<n; start++) {
 //                int current = start;
 //                int prev = nums[start];
 //                do {
-//                    int next = (current + k) % nums.length;
+//                    int next = (start + k) % n;
 //                    int temp = nums[next];
 //                    nums[next] = prev;
 //                    prev = temp;
-//                    current = next;
+//                    start = next;
 //                    count++;
-//                } while (start != current);
+//                } while (current != start);
 //            }
+            /**
+             * 解法2：数组反转
+             * 注意这里是向右移动  所以应该先整体翻转 再局部翻转
+             */
+            int len = nums.length;
+            k = k % len;
+            reverseNums(nums, 0, len - 1);
+            reverseNums(nums, 0, k-1);
+            reverseNums(nums, k, len - 1);
+        }
+
+        private void reverseNums(int[] nums, int start, int end) {
+            int l = start, r = end;
+            while (l < r) {
+                int temp = nums[l];
+                nums[l] = nums[r];
+                nums[r] = temp;
+                l++;
+                r--;
+            }
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
