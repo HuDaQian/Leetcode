@@ -15,29 +15,89 @@ public class SimpleTest {
 //        System.out.print(solution.maximumUniqueSubarray(nums));
 //        String s = "AbCdEfGh";
 //        System.out.print(solution.halvesAreAlike(s));
-        int[] apples = {9,10,1,7,0,2,1,4,1,7,0,11,0,11,0,0,9,11,11,2,0,5,5}, days =
-                {3,19,1,14,0,4,1,8,2,7,0,13,0,13,0,0,2,2,13,1,0,3,7};
-        System.out.print(solution.eatenApples(apples, days));
+//        int[] apples = {9, 10, 1, 7, 0, 2, 1, 4, 1, 7, 0, 11, 0, 11, 0, 0, 9, 11, 11, 2, 0, 5, 5}, days =
+//                {3, 19, 1, 14, 0, 4, 1, 8, 2, 7, 0, 13, 0, 13, 0, 0, 2, 2, 13, 1, 0, 3, 7};
+//        System.out.print(solution.eatenApples(apples, days));
+        int[] jobs = {2, 3, 3, 5, 7, 9, 11};
+        int k = 3;
+        System.out.print(solution.minimumTimeRequired(jobs, k));
+    }
+
+
+
+
+    public class ListNode {
+        int val;
+        ListNode next;
+
+        ListNode() {
+        }
+
+        ListNode(int val) {
+            this.val = val;
+        }
+
+        ListNode(int val, ListNode next) {
+            this.val = val;
+            this.next = next;
+        }
+    }
+
+    public ListNode swapNodes(ListNode head, int k) {
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode current = dummy;
+        while (k > 1) {
+            current = current.next;
+            k--;
+        }
+        ListNode temp = current;
+        ListNode ptr = dummy;
+        while (current.next.next != null) {
+            current = current.next;
+            ptr = ptr.next;
+        }
+        // 交换的是temp.next 和 ptr.next
+        if (temp.next == ptr.next) return dummy.next;
+        if (temp.next == ptr) {
+            temp.next = ptr.next;
+            ptr.next.next = temp;
+            ptr.next = temp.next.next;
+            return dummy.next;
+        } else if (ptr.next == temp) {
+            ptr.next = temp.next;
+            temp.next.next = ptr;
+            temp.next = ptr.next.next;
+            return dummy.next;
+        }
+
+        ListNode lastNode = ptr.next.next;
+        ptr.next.next = temp.next.next;
+        temp.next.next = lastNode;
+        lastNode = ptr.next;
+        ptr.next = temp.next;
+        temp.next = lastNode;
+        return dummy.next;
     }
 
     int binarySearch(int[] nums, int target) {
         if (nums == null || nums.length == 0) return -1;
-        int left = 0,right = nums.length-1;
+        int left = 0, right = nums.length - 1;
         while (left <= right) {
-            int mid = left + (right - left)/2;
+            int mid = left + (right - left) / 2;
             if (nums[mid] == target) {
                 return mid;
             } else if (nums[mid] > target) {
-                right = mid-1;
+                right = mid - 1;
             } else {
-                left = mid+1;
+                left = mid + 1;
             }
         }
         return -1;
     }
 
-    public class MinHeap<E extends Comparable<E>> {
-        private List<E> data;
+    public class MinHeap {
+        private List<Integer> data;
 
         public MinHeap(int capacity) {
             data = new ArrayList<>(capacity);
@@ -73,7 +133,6 @@ public class SimpleTest {
         }
 
         /**
-         *
          * @param i
          * @param j
          */
@@ -81,10 +140,11 @@ public class SimpleTest {
             if (i < 0 || i >= size() || j < 0 || j >= size())
                 throw new IllegalArgumentException("Index is illegal.");
 
-            E temp = data.get(i);
+            Integer temp = data.get(i);
             data.set(i, data.get(j));
             data.set(j, temp);
         }
+
         /**
          * index 为i位置元素上浮。
          *
@@ -94,30 +154,31 @@ public class SimpleTest {
             //特性2：比较插入值和其父结点的大小关系，小于父结点则用父结点替换当前值，index位置上升为父结点
             // 当上浮元素大于父亲，继续上浮。并且不能上浮到0之上
             // 直到i 等于 0 或 比 父亲节点小了。
-            while (i > 0 && data.get(i).compareTo(data.get(parent(i))) > 0) {
+            while (i > 0 && data.get(i).compareTo(data.get(parent(i))) < 0) {
                 // 数组Array中添加方法swap
                 swap(i, parent(i));
                 i = parent(i); // 这句话让i来到新的位置，使得循环可以查看新的位置是否还要大。
             }
         }
+
         /**
          * 堆中添加元素方法。
          *
          * @param e
          */
-        public void add(E e) {
+        public void add(Integer e) {
             //特性1：新插入的元素首先放在数组最后，保持完全二叉树的特性
             data.add(e);
             siftUp(data.size() - 1);
         }
 
-        public E findMin() {
+        public Integer findMin() {
             return data.get(0);
         }
 
-        public E extractMin() {
+        public Integer extractMin() {
 
-            E ret = findMin();
+            Integer ret = findMin();
 
             swap(0, data.size() - 1); // 0位置元素和最后一个元素互换。
             data.remove(data.size() - 1); // 删除此时的最后一个元素(最小值)
@@ -133,14 +194,14 @@ public class SimpleTest {
          */
         private void siftDown(int k) {
 
-            while(leftChild(k) < data.size()){
+            while (leftChild(k) < data.size()) {
                 int j = leftChild(k); // 在此轮循环中,data[k]和data[j]交换位置
-                if( j + 1 < data.size() &&
-                        data.get(j + 1).compareTo(data.get(j)) < 0 )
-                    j ++;
+                if (j + 1 < data.size() &&
+                        data.get(j + 1).compareTo(data.get(j)) > 0)
+                    j++;
                 // data[j] 是 leftChild 和 rightChild 中的最小值
 
-                if(data.get(k).compareTo(data.get(j)) >= 0 )
+                if (data.get(k).compareTo(data.get(j)) <= 0)
                     break;
 
                 swap(k, j);
@@ -150,6 +211,29 @@ public class SimpleTest {
     }
 
     class Solution {
+        public int minimumTimeRequired(int[] jobs, int k) {
+            Arrays.sort(jobs);
+            int len = jobs.length;
+            PriorityQueue<Integer> queue = new PriorityQueue<Integer>();
+      for (int i = len - 1; i >= 0; i--) {
+                if (k > 0) {
+                    queue.offer(jobs[i]);
+                    k--;
+                } else {
+                    if (!queue.isEmpty()) {
+                        int minNum = queue.poll();
+                        queue.offer(minNum + jobs[i]);
+
+                    }
+                }
+            }
+            int res = 0;
+            while (!queue.isEmpty()) {
+                res = queue.poll();
+            }
+            return res;
+        }
+
         //        public int[] findBall(int[][] grid) {
 //            int m = grid.length;
 //            if (m == 0) return new int[0];
@@ -219,7 +303,7 @@ public class SimpleTest {
             int maxLen = 0;
             for (int i = 0; i < len; i++) {
                 int day = days[i];
-                maxLen = Math.max(maxLen, i+ day);
+                maxLen = Math.max(maxLen, i + day);
             }
             int[] temp = new int[maxLen];
             int ptr = 0;
@@ -229,8 +313,8 @@ public class SimpleTest {
                 int day = days[i];
                 if (i + day <= ptr) continue;
                 ptr = Math.max(ptr, i);
-                while (ptr < i+day && apple > 0) {
-                    if (temp[ptr] == 0 ) {
+                while (ptr < i + day && apple > 0) {
+                    if (temp[ptr] == 0) {
                         temp[ptr]++;
                         count++;
                         apple--;
@@ -240,6 +324,7 @@ public class SimpleTest {
             }
             return count;
         }
+
         public boolean halvesAreAlike(String s) {
             int temp = 0;
             char[] sArr = s.toCharArray();

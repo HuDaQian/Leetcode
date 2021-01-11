@@ -148,6 +148,34 @@ public class EvaluateDivision {
             return parents[x];
         }
 
+        public int find(int x) {
+            assert (x<0 || x >= parents.length);
+            while (x != parents[x]) {
+                x = parents[x];
+            }
+            return x;
+        }
+//
+//        public boolean isConnected(int x, int y) {
+//            assert (x<0 || x >= parents.length || y<0 || y >= parents.length);
+//            return parents[x] == parents[y];
+//        }
+
+//        public void union(int x, int y) {
+//            int xRoot = find(x);
+//            int yRoot = find(y);
+//            if (xRoot == yRoot) {
+//                return;
+//            } else {
+//                int len = parents.length;
+//                for (int i = 0; i < len; i++) {
+//                    if (parents[i] == yRoot) {
+//                        parents[i] = xRoot;
+//                    }
+//                }
+//            }
+//        }
+
         public void union(int x, int y, double value) {
             int xRoot = findRoot(x);
             int yRoot = findRoot(y);
