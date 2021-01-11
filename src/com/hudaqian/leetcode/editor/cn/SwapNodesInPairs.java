@@ -82,17 +82,26 @@ public class SwapNodesInPairs {
             /**
              * 迭代
              */
-            ListNode dummy = new ListNode(0);
-            dummy.next = head;
-            ListNode current = dummy;
-            while (current.next != null && current.next.next != null) {
-                ListNode nextNode = current.next;
-                current.next = nextNode.next;
-                nextNode.next = nextNode.next.next;
-                current.next.next = nextNode;
-                current = current.next.next;
-            }
-            return dummy.next;
+//            ListNode dummy = new ListNode(0);
+//            dummy.next = head;
+//            ListNode current = dummy;
+//            while (current.next != null && current.next.next != null) {
+//                ListNode nextNode = current.next;
+//                current.next = nextNode.next;
+//                nextNode.next = nextNode.next.next;
+//                current.next.next = nextNode;
+//                current = current.next.next;
+//            }
+//            return dummy.next;
+            /**
+             * 递归解法
+             */
+            if (head == null || head.next == null) return head;
+            ListNode current = head;
+            ListNode nextNode = head.next;
+            current.next = swapPairs(nextNode.next);
+            nextNode.next = current;
+            return nextNode;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
