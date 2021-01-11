@@ -411,6 +411,14 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/FindMinimumTimeToFinishAllJobs.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/FindMinimumTimeToFinishAllJobs.java" />
+              <option name="questionId" value="1825" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/FindPeakElement.java">
           <value>
             <LeetcodeEditor>
