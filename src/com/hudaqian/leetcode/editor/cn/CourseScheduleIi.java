@@ -43,7 +43,9 @@
 package com.hudaqian.leetcode.editor.cn;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class CourseScheduleIi {
     public static void main(String[] args) {
@@ -55,61 +57,118 @@ public class CourseScheduleIi {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        //  dfs参数
+//        //  存储有向图
+//        List<List<Integer>> edges;
+//        //  标记节点状态：0-未搜索 1-搜索中 2-已搜索
+//        int[] visited;
+//        //  使用数组模拟栈，记录结果
+//        int[] result;
+//        //  栈索引
+//        int index;
+//        //  判断是否有环
+//        boolean vaild;
+//
+        // bfs参数
         //  存储有向图
         List<List<Integer>> edges;
-        //  标记节点状态：0-未搜索 1-搜索中 2-已搜索
-        int[] visited;
-        //  使用数组模拟栈，记录结果
+        //  存储入度
+        int[] indeg;
+        //  缓存队列
+        Queue<Integer> queue;
+        //  存储结果
         int[] result;
-        //  栈索引
+        //  结果索引
         int index;
-        //  判断是否有环
-        boolean vaild;
+
 
         public int[] findOrder(int numCourses, int[][] prerequisites) {
             /**
              * 拓扑排序+dfs
              */
+//            edges = new ArrayList<List<Integer>>();
+//            for (int i = 0; i < numCourses; i++) {
+//                edges.add(new ArrayList<>());
+//            }
+//            visited = new int[numCourses];
+//            result = new int[numCourses];
+//            //  模拟栈 直接从尾部开始写数据
+//            index = numCourses-1;
+//            vaild = true;
+//            //  构建有向图
+//            for (int[] prerequisit:prerequisites) {
+//                edges.get(prerequisit[1]).add(prerequisit[0]);
+//            }
+//            int ptr = 0;
+//            while (vaild && ptr<numCourses) {
+//                if (visited[ptr] == 0) {
+//                    dfs(ptr);
+//                }
+//                ptr++;
+//            }
+//            return vaild ?  result : new int[0];
+            /**
+             * 拓扑排序+bfs
+             */
             edges = new ArrayList<List<Integer>>();
             for (int i = 0; i < numCourses; i++) {
                 edges.add(new ArrayList<>());
             }
-            visited = new int[numCourses];
+            indeg = new int[numCourses];
             result = new int[numCourses];
-            //  模拟栈 直接从尾部开始写数据
-            index = numCourses-1;
-            vaild = true;
-            //  构建有向图
-            for (int[] prerequisit:prerequisites) {
+            index = 0;
+            queue = new LinkedList<>();
+            //  构建有向图 和存储入度
+            for (int[] prerequisit : prerequisites) {
                 edges.get(prerequisit[1]).add(prerequisit[0]);
+                indeg[prerequisit[0]]++;
             }
-            int ptr = 0;
-            while (vaild && ptr<numCourses) {
-                if (visited[ptr] == 0) {
-                    dfs(ptr);
-                }
-                ptr++;
-            }
-            return vaild ?  result : new int[0];
+            return bfs() ? result : new int[0];
         }
-        private void dfs(int n) {
-            //  标记节点为开始搜索
-            visited[n] = 1;
-            for (int next : edges.get(n)) {
-                if (visited[next] == 1) {
-                    vaild = false;
-                    return;
-                }
-                if (visited[next] == 0) {
-                    dfs(next);
-                    if (!vaild) return;
+        private boolean bfs() {
+            //  入度为0的节点放入队列中
+            for (int i = 0; i < indeg.length; i++) {
+                if (indeg[i] == 0) {
+                    queue.offer(i);
                 }
             }
-            visited[n] = 2;
-            result[index] = n;
-            index--;
+            //  按顺序将队列中的节点出栈
+            //  节点出栈的时候 其下级节点入度减1
+            //  然后将入度为0的节点加入队列
+            while (!queue.isEmpty()) {
+                int curr = queue.poll();
+                List<Integer> list = edges.get(curr);
+                for (int i = 0; i < list.size(); i++) {
+                    int num = list.get(i);
+                    if(--indeg[num] == 0) {
+                        queue.offer(num);
+                    }
+                }
+                result[index] = curr;
+                index++;
+            }
+            return index == result.length;
         }
     }
+
+//        private void dfs(int n) {
+//            //  标记节点为开始搜索
+//            visited[n] = 1;
+//            for (int next : edges.get(n)) {
+//                if (visited[next] == 1) {
+//                    vaild = false;
+//                    return;
+//                }
+//                if (visited[next] == 0) {
+//                    dfs(next);
+//                    if (!vaild) return;
+//                }
+//            }
+//            visited[n] = 2;
+//            result[index] = n;
+//            index--;
+//        }
+//    }
 //leetcode submit region end(Prohibit modification and deletion)
 
 }
