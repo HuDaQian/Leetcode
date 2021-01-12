@@ -33,6 +33,9 @@
 
 package com.hudaqian.leetcode.editor.cn;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CourseSchedule {
     public static void main(String[] args) {
         Solution solution = new CourseSchedule().new Solution();
@@ -41,8 +44,60 @@ public class CourseSchedule {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        //  存储有向图
+        List<List<Integer>> edges;
+        //  标记节点状态：0-未搜索 1-搜索中 2-已搜索
+        int[] visited;
+        //  使用数组模拟栈，记录结果
+        int[] result;
+        //  栈索引
+        int index;
+        //  判断是否有环
+        boolean vaild;
+
         public boolean canFinish(int numCourses, int[][] prerequisites) {
-            return false;
+            /**
+             * 拓扑排序+dfs
+             */
+            edges = new ArrayList<List<Integer>>();
+            for (int i = 0; i < numCourses; i++) {
+                edges.add(new ArrayList<>());
+            }
+            visited = new int[numCourses];
+            result = new int[numCourses];
+            //  模拟栈 直接从尾部开始写数据
+            index = numCourses - 1;
+            vaild = true;
+            //  构建有向图
+            for (int[] prerequisit : prerequisites) {
+                edges.get(prerequisit[1]).add(prerequisit[0]);
+            }
+            int ptr = 0;
+            while (vaild && ptr < numCourses) {
+                if (visited[ptr] == 0) {
+                    dfs(ptr);
+                }
+                ptr++;
+            }
+            return vaild;
+        }
+
+        private void dfs(int n) {
+            //  标记节点为开始搜索
+            visited[n] = 1;
+            for (int next : edges.get(n)) {
+                if (visited[next] == 1) {
+                    vaild = false;
+                    return;
+                }
+                if (visited[next] == 0) {
+                    dfs(next);
+                    if (!vaild) return;
+                }
+            }
+            visited[n] = 2;
+            result[index] = n;
+            index--;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
