@@ -42,34 +42,101 @@
 
 package com.hudaqian.leetcode.editor.cn;
 
+import java.util.Deque;
+import java.util.LinkedList;
+
 public class MinStack {
     public static void main(String[] args) {
 //            MinStack minStack = new MinStack();
     }
+
+    //  提交的时候 注意替换一下类的名字
     //leetcode submit region begin(Prohibit modification and deletion)
-//class MinStack {
+    /**
+     * 解法2：不使用辅助栈来处理
+     * 思路是栈中保存入栈值和最小值的差值
+     * 出栈的时候 如果栈中保存的值小于0，那么表示之前的最小值要大于当前最小值
+     * 这时 通过差值更新下最小值
+     * 可以理解为把栈分成几段 每段开始的地方 都是之后最小值和之前最小值的差
+     * 每段中间的部分 就是入栈值和当前段的最小值的差
+     */
+//    class MinStack {
+//        Deque<Long> xStack;
+//        Integer minValue;
+//        public MinStack() {
+//            xStack = new LinkedList<>();
+//            minValue = Integer.MAX_VALUE;
+//        }
+//        public void push(int x) {
+//            if (xStack.isEmpty()) {
+//                xStack.push(0L);
+//                minValue = x;
+//            } else {
+//                xStack.push((long) x - minValue);
+//                minValue = Math.min(minValue, x);
+//            }
+//        }
 //
-//    /** initialize your data structure here. */
-//    public MinStack() {
+//        public void pop() {
+//            long diff = xStack.pop();
+//            if (diff < 0) {
+//                //  这里抛出 minValue
+//                minValue = (int)(minValue-diff);
+////            } else {
+//                //  这里抛出 minValue+diff
+//            }
+//        }
+//
+//        public int top() {
+//            Long diff = xStack.peek();
+//            if (diff < 0) {
+//                return minValue;
+//            } else {
+//                return (int)(minValue+diff);
+//            }
+//        }
+//
+//        public int getMin() {
+//            return minValue;
+//        }
 //
 //    }
-//
-//    public void push(int x) {
-//
-//    }
-//
-//    public void pop() {
-//
-//    }
-//
-//    public int top() {
-//
-//    }
-//
-//    public int getMin() {
-//
-//    }
-//}
+//    class MinStack {
+    class MinStackQuestion {
+        //  原数据栈
+        Deque<Integer> xStack;
+        //  辅助栈
+        //  栈里记录前N个数字最小的是啥
+        Deque<Integer> minStack;
+
+        /**
+         * initialize your data structure here.
+         */
+        public MinStackQuestion() {
+//        public MinStack() {
+            xStack = new LinkedList<>();
+            minStack = new LinkedList<>();
+            minStack.push(Integer.MAX_VALUE);
+        }
+
+        public void push(int x) {
+            xStack.push(x);
+            minStack.push(Math.min(minStack.peek(), x));
+        }
+
+        public void pop() {
+            xStack.poll();
+            minStack.poll();
+        }
+
+        public int top() {
+            return xStack.peek();
+        }
+
+        public int getMin() {
+            return minStack.peek();
+        }
+    }
 
 /**
  * Your MinStack object will be instantiated and called as such:
@@ -81,4 +148,4 @@ public class MinStack {
  */
 //leetcode submit region end(Prohibit modification and deletion)
 
-    }
+}
