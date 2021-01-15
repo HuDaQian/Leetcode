@@ -19,18 +19,27 @@
 
 package com.hudaqian.leetcode.editor.cn;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GenerateParentheses {
     public static void main(String[] args) {
         Solution solution = new GenerateParentheses().new Solution();
-        
+
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public List<String> generateParenthesis(int n) {
+            /**
+             * 动态规划解法
+             */
+            List<String> list = new ArrayList<>();
+            if (n == 0) return list;
+            for (int i = 1; i < n; i++) {
 
+            }
+            return new ArrayList<>();
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
