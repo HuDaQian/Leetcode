@@ -52,7 +52,7 @@ import java.util.*;
 public class QueueReconstructionByHeight {
     public static void main(String[] args) {
         Solution solution = new QueueReconstructionByHeight().new Solution();
-        int[][] people = {{2,4},{3,4},{9,0},{0,6},{7,1},{6,0},{7,3},{2,5},{1,1},{8,0}};
+        int[][] people = {{2, 4}, {3, 4}, {9, 0}, {0, 6}, {7, 1}, {6, 0}, {7, 3}, {2, 5}, {1, 1}, {8, 0}};
         System.out.print(Arrays.deepToString(solution.reconstructQueue(people)));
     }
 
@@ -125,45 +125,62 @@ public class QueueReconstructionByHeight {
              * 解法2：从大到小依次排列
              *
              */
-            if (people == null || people.length == 0) return new int[0][0];
-            int len = people.length;
-            List<TwoNumber> list = new ArrayList<>();
-            for (int i = 0; i < len; i++) {
-                TwoNumber twoNumber = new TwoNumber(people[i]);
-                list.add(twoNumber);
+//            if (people == null || people.length == 0) return new int[0][0];
+//            int len = people.length;
+//            List<TwoNumber> list = new ArrayList<>();
+//            for (int i = 0; i < len; i++) {
+//                TwoNumber twoNumber = new TwoNumber(people[i]);
+//                list.add(twoNumber);
+//            }
+//            list.sort((o1, o2) -> o2.getFirst() == o1.getFirst() ? (o1.getSecond() - o2.getSecond()) : o2.getFirst() - o1.getFirst());
+//            List<TwoNumber> res = new ArrayList<>();
+//            int ptr = -1;
+//            for (int i = 0; i < len; i++) {
+//                TwoNumber twoNumber = list.get(i);
+//                int maxCount = twoNumber.getSecond();
+//                ptr += maxCount;
+//                if (ptr == -1) {
+//                    res.add(twoNumber);
+//                } else {
+//                    res.add(ptr, twoNumber);
+//                }
+//                ptr = 0;
+//            }
+//            int[][] result = new int[people.length][2];
+//            ptr = 0;
+//            for (TwoNumber t:res) {
+//                result[ptr++] = t.getNumbers();
+//            }
+//            return result;
+            /**
+             * 解法2优化
+             * 上边遍历的时候 发现插入的位置都在maxCount位置
+             * 所以 先排序  然后直接插入
+             */
+            if (people == null || people.length == 0) return people;
+            Arrays.sort(people, (o1, o2) -> o1[0] == o2[0] ? o1[1] - o2[1] : o2[0] - o1[0]);
+            List<int[]> list = new ArrayList<>();
+            for (int[] nums :people) {
+                list.add(nums[1], nums);
             }
-            list.sort((o1, o2) -> o2.getFirst() == o1.getFirst() ? (o1.getSecond() - o2.getSecond()) : o2.getFirst() - o1.getFirst());
-            List<TwoNumber> res = new ArrayList<>();
-            int ptr = -1;
-            for (int i = 0; i < len; i++) {
-                TwoNumber twoNumber = list.get(i);
-                int maxCount = twoNumber.getSecond();
-                ptr += maxCount;
-                if (ptr == -1) {
-                    res.add(twoNumber);
-                } else {
-                    res.add(ptr, twoNumber);
-                }
-                ptr = 0;
-            }
-            int[][] result = new int[people.length][2];
-            ptr = 0;
-            for (TwoNumber t:res) {
-                result[ptr++] = t.getNumbers();
-            }
-            return result;
+            return list.toArray(new int[list.size()][2]);
         }
+
         private class TwoNumber {
             private int[] data;
+
             public TwoNumber(int[] nums) {
                 data = nums;
             }
+
             public int getFirst() {
                 return data[0];
             }
+
             public int getSecond() {
                 return data[1];
             }
+
             public int[] getNumbers() {
                 return data;
             }
