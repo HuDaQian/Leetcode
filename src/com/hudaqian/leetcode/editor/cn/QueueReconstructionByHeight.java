@@ -67,52 +67,84 @@ public class QueueReconstructionByHeight {
             //  [5,0] [7,0] [6,1] [7,1]
             //  [5,0] [7,0] [5,2] [6,1] [7,1]
             //  [5,0] [7,0] [5,2] [6,1] [4,4] [7,1]
+            //  解法1：依次按照前面有n个大于它的数字排列
+//            if (people == null || people.length == 0) return new int[0][0];
+//            List<TwoNumber> list = new ArrayList<>();
+//            for (int i = 0; i < people.length; i++) {
+//                TwoNumber twoNumber = new TwoNumber(people[i]);
+//                list.add(twoNumber);
+//            }
+//            int count = 0;
+//            int ptr = 0;
+//            List<List<TwoNumber>> tempList = new ArrayList<>();
+//            while (count != list.size()) {
+//                List<TwoNumber> temp = new ArrayList<>();
+//                for (TwoNumber twoNumber:list) {
+//                    if (twoNumber.getSecond() == ptr) {
+//                        temp.add(twoNumber);
+//                        count++;
+//                    }
+//                }
+//                tempList.add(temp);
+//                ptr++;
+//            }
+//            List<TwoNumber> res = new ArrayList<>();
+//            ptr = -1;
+//            for (int i = 0; i < tempList.size(); i++) {
+//                List<TwoNumber> temp = tempList.get(i);
+//                temp.sort(Comparator.comparingInt(TwoNumber::getFirst));
+//                for (int j = temp.size()-1; j >=0; j--) {
+//                    //  插入
+//                    if (ptr == -1) {
+//                        res.add(temp.get(j));
+//                    } else {
+//                        TwoNumber tempNumber = temp.get(j);
+//                        int maxCount = tempNumber.getSecond();
+//                        while (maxCount != 0 || (ptr<res.size() && res.get(ptr).getFirst()<=tempNumber.getFirst())) {
+//                            if (res.get(ptr).getFirst()>=tempNumber.getFirst()) {
+//                                maxCount--;
+//                            }
+//                            ptr++;
+//                        }
+//                        if (ptr>=res.size()) {
+//                            res.add(tempNumber);
+//                        } else {
+//                            res.add(ptr, tempNumber);
+//                        }
+//                    }
+//                    ptr = 0;
+//                }
+//            }
+//            int[][] result = new int[people.length][2];
+//            ptr = 0;
+//            for (TwoNumber t:res) {
+//                result[ptr++] = t.getNumbers();
+//            }
+//            return result;
+            /**
+             * 解法2：从大到小依次排列
+             *
+             */
             if (people == null || people.length == 0) return new int[0][0];
+            int len = people.length;
             List<TwoNumber> list = new ArrayList<>();
-            for (int i = 0; i < people.length; i++) {
+            for (int i = 0; i < len; i++) {
                 TwoNumber twoNumber = new TwoNumber(people[i]);
                 list.add(twoNumber);
             }
-            int count = 0;
-            int ptr = 0;
-            List<List<TwoNumber>> tempList = new ArrayList<>();
-            while (count != list.size()) {
-                List<TwoNumber> temp = new ArrayList<>();
-                for (TwoNumber twoNumber:list) {
-                    if (twoNumber.getSecond() == ptr) {
-                        temp.add(twoNumber);
-                        count++;
-                    }
-                }
-                tempList.add(temp);
-                ptr++;
-            }
+            list.sort((o1, o2) -> o2.getFirst() == o1.getFirst() ? (o1.getSecond() - o2.getSecond()) : o2.getFirst() - o1.getFirst());
             List<TwoNumber> res = new ArrayList<>();
-            ptr = -1;
-            for (int i = 0; i < tempList.size(); i++) {
-                List<TwoNumber> temp = tempList.get(i);
-                temp.sort(Comparator.comparingInt(TwoNumber::getFirst));
-                for (int j = temp.size()-1; j >=0; j--) {
-                    //  插入
-                    if (ptr == -1) {
-                        res.add(temp.get(j));
-                    } else {
-                        TwoNumber tempNumber = temp.get(j);
-                        int maxCount = tempNumber.getSecond();
-                        while (maxCount != 0 || (ptr<res.size() && res.get(ptr).getFirst()<=tempNumber.getFirst())) {
-                            if (res.get(ptr).getFirst()>=tempNumber.getFirst()) {
-                                maxCount--;
-                            }
-                            ptr++;
-                        }
-                        if (ptr>=res.size()) {
-                            res.add(tempNumber);
-                        } else {
-                            res.add(ptr, tempNumber);
-                        }
-                    }
-                    ptr = 0;
+            int ptr = -1;
+            for (int i = 0; i < len; i++) {
+                TwoNumber twoNumber = list.get(i);
+                int maxCount = twoNumber.getSecond();
+                ptr += maxCount;
+                if (ptr == -1) {
+                    res.add(twoNumber);
+                } else {
+                    res.add(ptr, twoNumber);
                 }
+                ptr = 0;
             }
             int[][] result = new int[people.length][2];
             ptr = 0;
