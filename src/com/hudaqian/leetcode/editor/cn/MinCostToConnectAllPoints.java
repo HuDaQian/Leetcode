@@ -71,7 +71,7 @@ import java.util.List;
 public class MinCostToConnectAllPoints {
     public static void main(String[] args) {
         Solution solution = new MinCostToConnectAllPoints().new Solution();
-        int[][] points = {{11,-6},{9,-19},{16,-13},{4,-9},{20,4},{20,7},{-9,18},{10,-15},{-15,3},{6,6}};
+        int[][] points = {{-14,-14},{-18,5},{18,-10},{18,18},{10,-2}};
         System.out.print(solution.minCostConnectPoints(points));
     }
 
@@ -105,9 +105,10 @@ public class MinCostToConnectAllPoints {
                 int yRoot = find(edge.y);
                 if (xRoot != yRoot) {
                     //  合并
-                    parents[edge.x] = edge.x;
+                    parents[xRoot] = yRoot;
+//                    System.out.print(edge);
                     sum += edge.val;
-                    if (count++ == len-1) {
+                    if (++count == len-1) {
                         break;
                     }
                 }
@@ -115,7 +116,7 @@ public class MinCostToConnectAllPoints {
             return sum;
         }
         private int find(int x) {
-            if (x != parents[x]) {
+            while (x != parents[x]) {
                 x = parents[x];
             }
             return parents[x];
@@ -129,6 +130,15 @@ public class MinCostToConnectAllPoints {
                 this.x = a;
                 this.y = b;
                 this.val = lenth;
+            }
+
+            @Override
+            public String toString() {
+                return "Edge{" +
+                        "x=" + x +
+                        ", y=" + y +
+                        ", val=" + val +
+                        '}' + '\n';
             }
         }
 
