@@ -119,86 +119,87 @@ public class EvaluateDivision {
             }
             return res;
         }
-    }
 
-    class UnionFind {
-        //  树
-        int[] parents;
-        //  权
-        double[] weights;
-        //  秩
-        int[] size;
+        private class UnionFind {
+            //  树
+            int[] parents;
+            //  权
+            double[] weights;
+            //  秩
+            int[] size;
 
-        public UnionFind(int n) {
-            this.parents = new int[n];
-            this.weights = new double[n];
-            this.size = new int[n];
-            for (int i = 0; i < n; i++) {
-                parents[i] = i;
-                weights[i] = 1.0d;
-                size[i] = 1;
+            public UnionFind(int n) {
+                this.parents = new int[n];
+                this.weights = new double[n];
+                this.size = new int[n];
+                for (int i = 0; i < n; i++) {
+                    parents[i] = i;
+                    weights[i] = 1.0d;
+                    size[i] = 1;
+                }
             }
-        }
 
-        /**
-         * 这里需要使用递归 来更新权的值
-         */
-        public int find(int x) {
+            /**
+             * 这里需要使用递归 来更新权的值
+             */
+            public int find(int x) {
 //            assert (x<0 || x >= parents.length);
-            if (x != parents[x]) {
-                int origin = parents[x];
-                parents[x] = find(parents[x]);
-                weights[x] *= weights[origin];
+                if (x != parents[x]) {
+                    int origin = parents[x];
+                    parents[x] = find(parents[x]);
+                    weights[x] *= weights[origin];
+                }
+                return parents[x];
             }
-            return parents[x];
-        }
 
-        public void union(int x, int y, double value) {
-            int xRoot = find(x);
-            int yRoot = find(y);
-            if (xRoot != yRoot) {
-                if (size[xRoot] > size[yRoot]) {
-                    parents[yRoot] = xRoot;
-                    size[xRoot] += size[yRoot];
-                    //  weights[xRoot] = 1
-                    //  weights[yRoot = 1
-                    //  weights[x] = m
-                    //  weights[y] = n
-                    //  value = m / n
-                    //  合并以后
-                    //  weights[xRoot] = 1
-                    //  weights[x] = m
-                    //  weights[y] = m / value
-                    //  weights[yRoot] =  m / (value*n)
-                    weights[yRoot] = weights[x]  / (weights[y] * value);
+            public void union(int x, int y, double value) {
+                int xRoot = find(x);
+                int yRoot = find(y);
+                if (xRoot != yRoot) {
+                    if (size[xRoot] > size[yRoot]) {
+                        parents[yRoot] = xRoot;
+                        size[xRoot] += size[yRoot];
+                        //  weights[xRoot] = 1
+                        //  weights[yRoot = 1
+                        //  weights[x] = m
+                        //  weights[y] = n
+                        //  value = m / n
+                        //  合并以后
+                        //  weights[xRoot] = 1
+                        //  weights[x] = m
+                        //  weights[y] = m / value
+                        //  weights[yRoot] =  m / (value*n)
+                        weights[yRoot] = weights[x] / (weights[y] * value);
+                    } else {
+                        parents[xRoot] = yRoot;
+                        size[yRoot] += size[xRoot];
+                        //  weights[xRoot] = 1
+                        //  weights[yRoot = 1
+                        //  weights[x] = m
+                        //  weights[y] = n
+                        //  value = x / y
+                        //  合并以后
+                        //  weights[yRoot] = 1
+                        //  weights[y] = n
+                        //  weights[x] = n * value
+                        //  weights[xRoot] = (value*n) / m
+                        weights[xRoot] = weights[y] * value / weights[x];
+                    }
+                }
+            }
+
+            public double isConnected(int x, int y) {
+                int xRoot = find(x);
+                int yRoot = find(y);
+                if (xRoot == yRoot) {
+                    return weights[x] / weights[y];
                 } else {
-                    parents[xRoot] = yRoot;
-                    size[yRoot] += size[xRoot];
-                    //  weights[xRoot] = 1
-                    //  weights[yRoot = 1
-                    //  weights[x] = m
-                    //  weights[y] = n
-                    //  value = x / y
-                    //  合并以后
-                    //  weights[yRoot] = 1
-                    //  weights[y] = n
-                    //  weights[x] = n * value
-                    //  weights[xRoot] = (value*n) / m
-                    weights[xRoot] = weights[y] * value / weights[x];
+                    return -1.0d;
                 }
             }
         }
-
-        public double isConnected(int x, int y) {
-            int xRoot = find(x);
-            int yRoot = find(y);
-            if (xRoot == yRoot) {
-                return weights[x] / weights[y];
-            } else {
-                return -1.0d;
-            }
-        }
     }
+
 //leetcode submit region end(Prohibit modification and deletion)
 
 }

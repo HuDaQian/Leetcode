@@ -149,7 +149,7 @@ public class BricksFallingWhenHit {
 
 
         //并查集
-        class UnionFind {
+        private class UnionFind {
             int[] parent;
             int[] size;
 
