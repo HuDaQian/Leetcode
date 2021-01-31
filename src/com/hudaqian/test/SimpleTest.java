@@ -18,9 +18,12 @@ public class SimpleTest {
 //        int[] apples = {9, 10, 1, 7, 0, 2, 1, 4, 1, 7, 0, 11, 0, 11, 0, 0, 9, 11, 11, 2, 0, 5, 5}, days =
 //                {3, 19, 1, 14, 0, 4, 1, 8, 2, 7, 0, 13, 0, 13, 0, 0, 2, 2, 13, 1, 0, 3, 7};
 //        System.out.print(solution.eatenApples(apples, days));
-        int[] jobs = {2, 3, 3, 5, 7, 9, 11};
-        int k = 3;
-        System.out.print(solution.minimumTimeRequired(jobs, k));
+//        int[] jobs = {2, 3, 3, 5, 7, 9, 11};
+//        int k = 3;
+//        System.out.print(solution.minimumTimeRequired(jobs, k));
+        int[][] adjacentPairs =
+                {{58689,-49688},{-29753,-26791},{-31884,2158},{-36275,-13544},{54121,-47737},{43373,8173},{86554,67347},{2158,40615},{-8351,73640},{65429,67120},{12321,54121},{95196,-8351},{-65840,11180},{46868,-76136},{-47737,11180},{-76136,-84061},{30983,-54053},{-65840,30983},{-92759,8173},{68192,-49688},{80032,73805},{-35664,82991},{-36275,43373},{-35664,86554},{-29753,41058},{12321,58689},{41058,67120},{73805,-54053},{17313,-92759},{36884,-84224},{-26791,17313},{95196,67347},{-84061,-31884},{-7404,46868},{68192,-13544},{65429,-84224},{36884,73640},{40615,-50164},{66620,82991},{54794,80032},{54794,-7404}};
+        System.out.print(Arrays.toString(solution.restoreArray(adjacentPairs)));
     }
 
 
@@ -211,11 +214,138 @@ public class SimpleTest {
     }
 
     class Solution {
+        public int[] restoreArray(int[][] adjacentPairs) {
+            if (adjacentPairs == null || adjacentPairs.length == 0) return new int[0];
+            int len = adjacentPairs.length+1;
+            TUnionFind tUnionFind = new TUnionFind(len);
+            int index = 0;
+            Map<Integer, Integer> map = new HashMap<>();
+            int[] temp = new int[len];
+            for (int[] adjancentPair:adjacentPairs) {
+                if (map.getOrDefault(adjancentPair[0], -1) == -1) {
+                    map.put(adjancentPair[0], index);
+                    temp[index++] = adjancentPair[0];
+                }
+                if (map.getOrDefault(adjancentPair[1], -1) == -1) {
+                    map.put(adjancentPair[1], index);
+                    temp[index++] = adjancentPair[1];
+                }
+                tUnionFind.union(map.get(adjancentPair[0]), map.get(adjancentPair[1]));
+            }
+            int[] indexs = tUnionFind.toArray();
+            for (int i = 0; i < len; i++) {
+                int t = indexs[i];
+                indexs[i] = temp[t];
+            }
+            return indexs;
+        }
+
+        private class TUnionFind {
+            /**
+             * 魔改并查集
+             */
+            int[] parents;
+            int[] b;
+
+            public TUnionFind(int n) {
+                this.parents = new int[n];
+                this.b = new int[n];
+                for (int i = 0; i < n; i++) {
+                    parents[i] = i;
+                    b[i] = i;
+                }
+            }
+
+            public int find(int x) {
+                while(x != parents[x]) {
+                    x = parents[x];
+                }
+                return x;
+            }
+            //  根据题意 穿传入的两个数字 一定是两个已经并起来的两个集合的根或者底
+            //  eg：1-2-3  4-5-6  一定会传入 1,4或者3,6或者1,6或者3，6
+            //  这里要多写一个方法 来调整数组的顺序
+            //  1-2-3
+            //  2
+            private int swap(int bottom) {
+                if (bottom == find(bottom)) return bottom;
+                int t = swap(parents[bottom]);
+                parents[t] = bottom;
+                return bottom;
+            }
+            public void union(int x, int y) {
+                int xRoot = find(x);
+                int yRoot = find(y);
+                if (xRoot != x && yRoot != y)  {
+                    // 都不为根
+                    swap(x);
+                    parents[x] = x;
+
+                    parents[x] = y;
+                    b[yRoot] = xRoot;
+                } else if (xRoot == x && yRoot == y) {
+                    //  都为根
+                    //  查底
+                    swap(b[x]);
+                    parents[b[x]] = b[x];
+
+                    parents[yRoot] = x;
+                    b[find(x)] = b[y];
+                } else {
+                    if (xRoot == x) {
+                        parents[x] = y;
+                        b[yRoot] = b[x];
+                    } else {
+                        parents[y] = x;
+                        b[xRoot] = b[y];
+                    }
+                }
+            }
+            public int[] toArray() {
+                int root = 0;
+                for (int i = 0; i < parents.length; i++) {
+                    if (parents[i] == i) {
+                        root = i;
+                        break;
+                    }
+                }
+                int bottom = b[root];
+                int[] res = new int[parents.length];
+                int ptr = 0;
+                while(bottom != parents[bottom]) {
+                    res[ptr++] = bottom;
+                    bottom = parents[bottom];
+                }
+                res[ptr++] = bottom;
+                return res;
+            }
+        }
+
+        public int countBalls(int lowLimit, int highLimit) {
+            int len = highLimit-lowLimit;
+            int ans = Integer.MIN_VALUE;
+            Map<Integer, Integer> map = new HashMap<>();
+            for (int i = 0; i < len; i++) {
+                int num = getSums(lowLimit+i);
+                map.put(num,map.getOrDefault(num, 0) + 1);
+                ans = Math.max(map.get(num), ans);
+            }
+            return ans;
+        }
+        private int getSums(int x) {
+            int sum = 0;
+            while (x != 0) {
+                sum+=x%10;
+                x = x/10;
+            }
+            return sum;
+        }
+
         public int minimumTimeRequired(int[] jobs, int k) {
             Arrays.sort(jobs);
             int len = jobs.length;
             PriorityQueue<Integer> queue = new PriorityQueue<Integer>();
-      for (int i = len - 1; i >= 0; i--) {
+            for (int i = len - 1; i >= 0; i--) {
                 if (k > 0) {
                     queue.offer(jobs[i]);
                     k--;
