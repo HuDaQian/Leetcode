@@ -59,9 +59,7 @@ public class SlidingWindowMedian {
             int ptr = 0, len = nums.length;
             double[] result = new double[len - k + 1];
             int[] tempNumbers = new int[k];
-            for (int i = 0; i < k; i++) {
-                tempNumbers[i] = nums[i];
-            }
+            if (k >= 0) System.arraycopy(nums, 0, tempNumbers, 0, k);
             boolean isSingle = k % 2 != 0;
             long[] temp = getMediumNumber(Arrays.copyOf(tempNumbers, k), isSingle);
             list = getTempMidNumbers(temp, isSingle);
