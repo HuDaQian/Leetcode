@@ -787,6 +787,14 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/LargestMergeOfTwoStrings.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/LargestMergeOfTwoStrings.java" />
+              <option name="questionId" value="1880" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/LargestPerimeterTriangle.java">
           <value>
             <LeetcodeEditor>
@@ -976,6 +984,14 @@
             <LeetcodeEditor>
               <option name="path" value="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/MaximumProductOfThreeNumbers.java" />
               <option name="questionId" value="628" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/MaximumScoreFromRemovingStones.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/MaximumScoreFromRemovingStones.java" />
+              <option name="questionId" value="1879" />
             </LeetcodeEditor>
           </value>
         </entry>
