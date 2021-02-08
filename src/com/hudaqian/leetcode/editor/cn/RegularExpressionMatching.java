@@ -83,14 +83,14 @@ public class RegularExpressionMatching {
             char[] sChars = s.toCharArray();
             char[] pChars = p.toCharArray();
             dp[0][0] = true;
-            for (int i = 1; i <= m; i++) {
+            for (int i = 0; i <= m; i++) {
                 for (int j = 1; j <= n; j++) {
                     //  不到边界 并且 下一位为*的情况 不能拿来匹配 所以直接跳过
                     if (j + 1 <= n && pChars[j + 1] == '*') continue;
 
-                    if (pChars[j] != '*') {
+                    if (i - 1 >= 0 && pChars[j] != '*') {
                         dp[i][j] = dp[i - 1][j - 1] && (sChars[i] == pChars[j] || pChars[j] == '.');
-                    } else {
+                    } else if (pChars[j] == '*')  {
                         dp[i][j] = (j - 2 >= 0 && dp[i][j - 2]) || (i - 1 >= 0 && dp[i - 1][j] && (sChars[i] == pChars[j - 1] || pChars[j - 1] == '.'));
                     }
                 }
