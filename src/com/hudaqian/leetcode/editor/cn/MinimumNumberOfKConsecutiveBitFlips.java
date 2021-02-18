@@ -49,8 +49,8 @@ package com.hudaqian.leetcode.editor.cn;
 public class MinimumNumberOfKConsecutiveBitFlips {
     public static void main(String[] args) {
         Solution solution = new MinimumNumberOfKConsecutiveBitFlips().new Solution();
-        int[] A = {0, 0, 0, 1, 0, 1, 1, 0};
-        int K = 3;
+        int[] A = {0,1,0,0,1,0};
+        int K = 4;
         System.out.print(solution.minKBitFlips(A, K));
     }
 
@@ -60,17 +60,35 @@ public class MinimumNumberOfKConsecutiveBitFlips {
             /**
              * 暴力解法
              */
-            int res = 0, len = A.length;
-            for (int i = 0; i <= len - K; i++) {
-                if (A[i] == 0) {
+//            int res = 0, len = A.length;
+//            for (int i = 0; i <= len - K; i++) {
+//                if (A[i] == 0) {
+//                    res++;
+//                    for (int j = 0; j < K; j++) {
+//                        A[i + j] ^= 1;
+//                    }
+//                }
+//            }
+//            for (int i = len - K; i < len; i++) {
+//                if (A[i] == 0) return -1;
+//            }
+//            return res;
+            /**
+             * 差分数组解法
+             * 差分数组就是只记录后边元素与前面元素的差 当这个子数组整体进行修改的时候 只有区间左侧元素和区间右侧+1的元素进行了修改
+             */
+            int res = 0, revCnt = 0, len = A.length;
+            int[] diff = new int[len + 1];
+            for (int i = 0; i < len; i++) {
+                revCnt ^= diff[i];
+//                revCnt += diff[i];
+//                if ((A[i] + revCnt) % 2 == 0) {
+                if ((A[i] ^ revCnt) == 0) {
+                    if (i + K > len) return -1;
                     res++;
-                    for (int j = 0; j < K; j++) {
-                        A[i + j] ^= 1;
-                    }
+                    revCnt ^= 1;
+                    diff[i + K] ^= 1;
                 }
-            }
-            for (int i = len - K; i < len; i++) {
-                if (A[i] == 0) return -1;
             }
             return res;
         }
