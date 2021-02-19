@@ -69,7 +69,7 @@ public class MaxConsecutiveOnesIii {
 //            return res;
             /**
              * 滑动窗口解法
-             * 使用元素和来代替双指针坐标
+             * 使用元素和来代替1的个数
              */
             int n = A.length;
             int left = 0, lsum = 0, rsum = 0;
