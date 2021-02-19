@@ -38,7 +38,7 @@ package com.hudaqian.leetcode.editor.cn;
 public class MaxConsecutiveOnesIii {
     public static void main(String[] args) {
         Solution solution = new MaxConsecutiveOnesIii().new Solution();
-        int[] A = {0,0,1,1,0,0,1,1,1,0,1,1,0,0,0,1,1,1,1};
+        int[] A = {0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1};
         int K = 3;
         System.out.print(solution.longestOnes(A, K));
     }
@@ -48,23 +48,39 @@ public class MaxConsecutiveOnesIii {
         public int longestOnes(int[] A, int K) {
             //  双指针解法
 //            if (A == null || A.length == 0) return 0;
-            int l = 0, r = 0, len = A.length, res = 0, ptr = K;
-            while (r < len) {
-                if (A[r] == 0) {
-                    if (ptr > 0) {
-                        ptr--;
-                    } else {
-                        while (l < r) {
-                            if (A[l] == 0) {
-                                break;
-                            }
-                            l++;
-                        }
-                        l++;
-                    }
+//            int l = 0, r = 0, len = A.length, res = 0, ptr = K;
+//            while (r < len) {
+//                if (A[r] == 0) {
+//                    if (ptr > 0) {
+//                        ptr--;
+//                    } else {
+//                        while (l < r) {
+//                            if (A[l] == 0) {
+//                                break;
+//                            }
+//                            l++;
+//                        }
+//                        l++;
+//                    }
+//                }
+//                res = Math.max(res, r - l + 1);
+//                r++;
+//            }
+//            return res;
+            /**
+             * 滑动窗口解法
+             * 使用元素和来代替双指针坐标
+             */
+            int n = A.length;
+            int left = 0, lsum = 0, rsum = 0;
+            int res = 0;
+            for (int right = 0; right < n; ++right) {
+                rsum += 1 - A[right];
+                while (lsum < rsum - K) {
+                    lsum += 1 - A[left];
+                    ++left;
                 }
-                res = Math.max(res, r - l + 1);
-                r++;
+                res = Math.max(res, right - left + 1);
             }
             return res;
         }
