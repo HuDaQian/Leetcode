@@ -56,22 +56,45 @@ public class LetterCombinationsOfAPhoneNumber {
             /**
              * 递归解法
              */
+//            if (digits == null || digits.length() == 0) return new ArrayList<>();
+//            List<String> tempList = letterCombinations(digits.substring(1));
+//            char[] letters = getLetters(Integer.parseInt(digits.substring(0, 1)));
+//            List<String> res = new ArrayList<>();
+//            for (int i = 0; i < letters.length; i++) {
+//                StringBuilder sb = new StringBuilder();
+//                sb.append(letters[i]);
+//                if (tempList.size() == 0) {
+//                    res.add(String.valueOf(letters[i]));
+//                } else {
+//                    for (int j = 0; j < tempList.size(); j++) {
+//                        res.add(letters[i] + tempList.get(j));
+//                    }
+//                }
+//            }
+//            return res;
+            /**
+             * 借用队列 回溯解法
+             */
             if (digits == null || digits.length() == 0) return new ArrayList<>();
-            List<String> tempList = letterCombinations(digits.substring(1));
-            char[] letters = getLetters(Integer.parseInt(digits.substring(0, 1)));
-            List<String> res = new ArrayList<>();
-            for (int i = 0; i < letters.length; i++) {
-                StringBuilder sb = new StringBuilder();
-                sb.append(letters[i]);
-                if (tempList.size() == 0) {
-                    res.add(String.valueOf(letters[i]));
+            Queue<String> queue = new LinkedList<>();
+            for (int i = 0; i < digits.length(); i++) {
+                int number = Integer.parseInt(String.valueOf(digits.charAt(i)));
+                char[] letters = getLetters(number);
+                if (queue.isEmpty()) {
+                    for (int j = 0; j < letters.length; j++) {
+                        queue.offer(String.valueOf(letters[j]));
+                    }
                 } else {
-                    for (int j = 0; j < tempList.size(); j++) {
-                        res.add(letters[i] + tempList.get(j));
+                    int len = queue.size();
+                    for (int j = 0; j < len; j++) {
+                        String tmp = queue.poll();
+                        for (int k = 0; k < letters.length; k++) {
+                            queue.offer(tmp+letters[k]);
+                        }
                     }
                 }
             }
-            return res;
+            return new ArrayList<>(queue);
         }
 
         private char[] getLetters(int number) {
