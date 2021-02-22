@@ -1139,6 +1139,14 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/MinimumNumberOfOperationsToMoveAllBallsToEachBox.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/MinimumNumberOfOperationsToMoveAllBallsToEachBox.java" />
+              <option name="questionId" value="1895" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/MinimumSizeSubarraySum.java">
           <value>
             <LeetcodeEditor>
@@ -1960,6 +1968,14 @@
             <LeetcodeEditor>
               <option name="path" value="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/StringToIntegerAtoi.java" />
               <option name="questionId" value="8" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/SubrectangleQueries.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/SubrectangleQueries.java" />
+              <option name="questionId" value="1572" />
             </LeetcodeEditor>
           </value>
         </entry>
