@@ -1011,6 +1011,14 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/MaximumNumberOfBallsInABox.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/MaximumNumberOfBallsInABox.java" />
+              <option name="questionId" value="1844" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/MaximumNumberOfEatenApples.java">
           <value>
             <LeetcodeEditor>
@@ -2080,6 +2088,14 @@
             <LeetcodeEditor>
               <option name="path" value="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/TiHuanKongGeLcof.java" />
               <option name="questionId" value="100280" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/ToeplitzMatrix.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/ToeplitzMatrix.java" />
+              <option name="questionId" value="777" />
             </LeetcodeEditor>
           </value>
         </entry>
