@@ -45,17 +45,22 @@
 // 👍 73 👎 0
 
 
-    package com.hudaqian.leetcode.editor.cn;
-    public class NumberOfValidWordsForEachPuzzle {
-        public static void main(String[] args) {
-            Solution solution = new NumberOfValidWordsForEachPuzzle;
-        }
-       //leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
-    public List<Integer> findNumOfValidWords(String[] words, String[] puzzles) {
+package com.hudaqian.leetcode.editor.cn;
 
+import java.util.ArrayList;
+import java.util.List;
+
+public class NumberOfValidWordsForEachPuzzle {
+    public static void main(String[] args) {
+        Solution solution = new NumberOfValidWordsForEachPuzzle().new Solution();
     }
-}
+
+    //leetcode submit region begin(Prohibit modification and deletion)
+    class Solution {
+        public List<Integer> findNumOfValidWords(String[] words, String[] puzzles) {
+            return new ArrayList<>();
+        }
+    }
 //leetcode submit region end(Prohibit modification and deletion)
 
-    }
+}
