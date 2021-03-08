@@ -1,17 +1,63 @@
 package com.hudaqian.test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ExamTest {
     public static void main(String[] args) {
         Solution solution = new ExamTest().new Solution();
-        String word1 = "g", word2 = "gguggggggguuggguugggggg";
-        System.out.print(solution.largestMerge(word1, word2));
+//        String word1 = "g", word2 = "gguggggggguuggguugggggg";
+//        System.out.print(solution.largestMerge(word1, word2));
 
 //        int a = 6, b = 2, c = 1;
 //        System.out.print(solution.maximumScore(a, b, c));
+
+        TestClass testC = new TestClass();
+//        String s = "11100";
+//        System.out.print(testC.checkOnesSegment(s));
+
+        int[] nums = {2,5,5,-7,4};
+        System.out.print(testC.minElements(nums,7,464680098));
+
     }
+    private static class TestClass {
+        public int minElements(int[] nums, int limit, int goal) {
+            /**
+             * 防越界
+             */
+            Arrays.sort(nums);
+            int len = nums.length;
+            long pres = goal;
+            for (int i = 0; i < (len+1)/2; i++) {
+                if ( i != len-i) {
+                    pres -= (nums[i] + nums[(len-1)-i]);
+                } else {
+                    pres -= nums[i];
+                }
+            }
+            pres = Math.abs(pres);
+            int res = (int)(pres/limit);
+            int count = (int)(pres%limit);
+            return res + (count == 0 ? 0 : 1);
+        }
+
+        public boolean checkOnesSegment(String s) {
+            char[] chars = s.toCharArray();
+            boolean isOne = true;
+            for (int i = 1; i < chars.length; i++) {
+                if (chars[i] == '0') {
+                    isOne = false;
+                } else {
+                    if (!isOne) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+    }
+
 
     public class MaxHeap {
         private List<Integer> data;
