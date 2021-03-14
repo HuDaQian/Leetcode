@@ -1,8 +1,6 @@
 package com.hudaqian.test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class ExamTest {
     public static void main(String[] args) {
@@ -22,6 +20,24 @@ public class ExamTest {
 
     }
     private static class TestClass {
+
+
+        public int findCenter(int[][] edges) {
+            int len = edges.length;
+            int maxCount = 0;
+            Map<Integer, Integer> map = new HashMap<>();
+            for (int i = 0;i<len;i++) {
+                int[] edge = edges[i];
+                int fir = edge[0],sec = edge[1];
+                map.put(fir, map.getOrDefault(fir,0)+1);
+                map.put(sec, map.getOrDefault(sec,0)+1);
+                if (map.get(fir) != map.get(sec)) {
+                    return map.get(fir) > map.get(sec) ? fir : sec;
+                }
+            }
+            return edges[0][0];
+        }
+
         public int minElements(int[] nums, int limit, int goal) {
             /**
              * 防越界
