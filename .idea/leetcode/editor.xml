@@ -1115,6 +1115,14 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/MaximumSubarraySumWithOneDeletion.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/MaximumSubarraySumWithOneDeletion.java" />
+              <option name="questionId" value="1288" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/com/hudaqian/leetcode/editor/cn/MedianOfTwoSortedArrays.java">
           <value>
             <LeetcodeEditor>
