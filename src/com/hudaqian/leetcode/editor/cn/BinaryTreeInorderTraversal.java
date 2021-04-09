@@ -1,4 +1,4 @@
-//给你二叉树的根节点 root ，返回它节点值的 前序 遍历。 
+//给定一个二叉树的根节点 root ，返回它的 中序 遍历。 
 //
 // 
 //
@@ -6,7 +6,7 @@
 //
 // 
 //输入：root = [1,null,2,3]
-//输出：[1,2,3]
+//输出：[1,3,2]
 // 
 //
 // 示例 2： 
@@ -27,7 +27,7 @@
 //
 // 
 //输入：root = [1,2]
-//输出：[1,2]
+//输出：[2,1]
 // 
 //
 // 示例 5： 
@@ -48,25 +48,25 @@
 //
 // 
 //
-// 进阶：递归算法很简单，你可以通过迭代算法完成吗？ 
-// Related Topics 栈 树 
-// 👍 451 👎 0
+// 进阶: 递归算法很简单，你可以通过迭代算法完成吗？ 
+// Related Topics 栈 树 哈希表 
+// 👍 911 👎 0
 
 
 package com.hudaqian.leetcode.editor.cn;
 
-import java.util.*;
+import com.sun.source.tree.Tree;
 
-public class BinaryTreePreorderTraversal {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+
+public class BinaryTreeInorderTraversal {
     public static void main(String[] args) {
-        Solution solution = new BinaryTreePreorderTraversal().new Solution();
-
+        Solution solution = new BinaryTreeInorderTraversal().new Solution();
     }
 
-    /**
-     * Definition for a binary tree node.
-     */
-    private class TreeNode {
+    public class TreeNode {
         int val;
         TreeNode left;
         TreeNode right;
@@ -84,7 +84,6 @@ public class BinaryTreePreorderTraversal {
             this.right = right;
         }
     }
-
     //leetcode submit region begin(Prohibit modification and deletion)
 
     /**
@@ -103,41 +102,34 @@ public class BinaryTreePreorderTraversal {
      * }
      */
     class Solution {
-        public List<Integer> preorderTraversal(TreeNode root) {
+        public List<Integer> inorderTraversal(TreeNode root) {
             /**
-             * 解法1：递归 题目禁用
+             * 递归 题目禁用
              */
-//            List<Integer> resultList = new ArrayList<>();
-//            preorder(root, resultList);
-//            return resultList;
-            /**
-             * 解法2：迭代
-             */
-            List<Integer> res = new ArrayList<Integer>();
-            if (root == null) {
-                return res;
-            }
+//            List<Integer> list = new ArrayList<>();
+//            inorder(root, list);
+//            return list;
             Stack<TreeNode> stack = new Stack<>();
+            List<Integer> list = new ArrayList<>();
+            if (root == null) return list;
             TreeNode node = root;
             while (!stack.isEmpty() || node != null) {
                 while (node != null) {
-                    res.add(node.val);
                     stack.push(node);
                     node = node.left;
                 }
                 node = stack.pop();
+                list.add(node.val);
                 node = node.right;
             }
-            return res;
+            return list;
         }
 
-        private void preorder(TreeNode treeNode, List<Integer> list) {
-            if (treeNode == null) {
-                return;
-            }
-            list.add(treeNode.val);
-            preorder(treeNode.left, list);
-            preorder(treeNode.right, list);
+        private void inorder(TreeNode node, List<Integer> list) {
+            if (node == null) return;
+            inorder(node.left, list);
+            list.add(node.val);
+            inorder(node.right, list);
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
