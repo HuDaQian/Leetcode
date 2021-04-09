@@ -1,10 +1,11 @@
 package com.hudaqian.test;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class ExamTest {
     public static void main(String[] args) {
-        Solution solution = new ExamTest().new Solution();
+//        Solution solution = new ExamTest().new Solution();
 //        String word1 = "g", word2 = "gguggggggguuggguugggggg";
 //        System.out.print(solution.largestMerge(word1, word2));
 
@@ -15,22 +16,197 @@ public class ExamTest {
 //        String s = "11100";
 //        System.out.print(testC.checkOnesSegment(s));
 
-        int[] nums = {2,5,5,-7,4};
-        System.out.print(testC.minElements(nums,7,464680098));
+//        int[] nums = {2,5,5,-7,4};
+//        System.out.print(testC.minElements(nums,7,464680098));
 
+//        String s = "leet1234code234";
+//        System.out.print(testC.numDifferentIntegers(s));
+
+//        String s = "(name)is(age)yearsold";
+//        List knowledge = new ArrayList();
+//        knowledge.add(Arrays.asList("name", "bob"));
+//        knowledge.add(Arrays.asList("age", "two"));
+//        System.out.print(testC.evaluate(s, knowledge));
+
+//        int num = 2;
+//        int xPos = 1;
+//        int yPos = 0;
+//        System.out.print(testC.orchestraLayout(num, xPos, yPos));
+
+        int[] nums = {1,2,3,3,4,2,5,6,1,2,1,5,4,2};
+        int target = 5;
+        System.out.print(testC.purchasePlans(nums, target));
     }
-    private static class TestClass {
 
+    private static class TestClass {
+        public int orchestraLayout(int num, int xPos, int yPos) {
+            if (num == 0) return 0;
+            if (num == 1) return 1;
+            //  判断点位在哪一层
+            //  每一层都是从（xMin,yMin)开始到（xMin,yMax）
+            //  再到（xMax,yMax)
+            //  再到（xMax，yMin）
+            //  再回到（xMin，yMin）
+            //  第一个dir xPos==xMin
+            //  第二个dir yPos==yMax
+            //  第三个dir xPos==xMax
+            //  第四个dir yPos==yMin
+            int xMin = 0, yMin = 0, xMax = num - 1, yMax = num - 1;
+            int floor = 0;
+            while (xPos > xMin && xPos < xMax && yPos > yMin && yPos < yMax) {
+                floor++;
+                xMin++;
+                yMin++;
+                xMax--;
+                yMax--;
+            }
+            int count = 0;
+            int ptr = 0;
+            while (floor > 0) {
+                count += ((num - 2 * ptr - 1) * 4);
+                floor--;
+                ptr++;
+            }
+            if (xPos == xMin) {
+                count += yPos - yMin;
+            } else if (yPos == yMax) {
+                count += num - 2 * ptr - 1;
+                count += xPos - xMin;
+            } else if (xPos == xMax) {
+                count += (num - 2 * ptr - 1) * 2;
+                count += yMax - yPos;
+            } else {
+                count += (num - 2 * ptr - 1) * 3;
+                count += xMax - xPos;
+            }
+            return count % 9 + 1;
+        }
+
+        public int purchasePlans(int[] nums, int target) {
+            if (nums == null || nums.length < 2) return 0;
+            int[] temps = nums.clone();
+            Arrays.sort(temps);
+            int l = 0, r = 1, count = 0;
+            while (temps[r]+temps[l] <= target) {
+                count+=(l+1);
+                r++;
+                l++;
+            }
+            while (l >= 0 && r < temps.length) {
+                if (temps[r]+temps[l] <= target) {
+                    count+=(l+1);
+                    r++;
+                } else {
+                    l--;
+                }
+            }
+            return count % (10 ^ 9 + 7);
+//            int len = nums.length;
+//            int count  = 0;
+//            for (int i = 0; i < len; i++) {
+//                for (int j = 1; j < len; j++) {
+//                    if (nums[i] + nums[j] <= target) count++;
+//                }
+//            }
+//            return count % (10^9 + 7);
+        }
+
+        public int numRabbits(int[] answers) {
+            Map<Integer, Integer> map = new HashMap<>();
+            for (int n : answers) {
+                map.put(n, map.getOrDefault(n, 0) + 1);
+            }
+            int count = 0;
+            for (int key : map.keySet()) {
+                count += (map.get(key) / (key + 1)) * key;
+            }
+            return count;
+        }
+//        如果 i % 2 == 0 ，那么 arr[i] = perm[i / 2]
+//        如果 i % 2 == 1 ，那么 arr[i] = perm[n / 2 + (i - 1) / 2]
+//        6
+//        [0, 1, 2, 3, 4, 5]
+//        [0, 3, 1, 4, 2, 5]
+//        [0, 1, 3, 4, 2, 5]
+//        [0, 1, 2, 4, 3, 5]
+//        [0, 1, 2, 3, 4, 5]
+
+        public String evaluate(String s, List<List<String>> knowledge) {
+            String temp = s;
+            Map<String, String> map = new HashMap<>();
+            float progress = 1;
+            for (List<String> list : knowledge) {
+                String keyStr = "(" + list.get(0) + ")";
+                String valueStr = list.get(1);
+                progress = Math.max(valueStr.length() / keyStr.length(), progress);
+                map.put(keyStr, valueStr);
+            }
+            char[] chars = s.toCharArray();
+            char[] resultChars = new char[chars.length * ((int) progress + 1)];
+
+            int prev = -1, resultPtr = 0;
+            for (int i = 0; i < chars.length; i++) {
+                char c = chars[i];
+
+                if (c == '(') {
+                    prev = i;
+                } else if (c == ')') {
+                    String tempKey = s.substring(prev, i + 1);
+                    String valueStr = map.getOrDefault(tempKey, "?");
+                    char[] values = valueStr.toCharArray();
+                    for (char valueC : values) {
+                        resultChars[resultPtr++] = valueC;
+                    }
+                    prev = -1;
+                } else {
+                    if (prev == -1) {
+                        resultChars[resultPtr++] = c;
+                    }
+                }
+            }
+            return String.copyValueOf(resultChars).trim();
+        }
+
+        public int numDifferentIntegers(String word) {
+            char[] chars = word.toCharArray();
+            Set<Integer> set = new HashSet<>();
+            int tempPtr = -1;
+            for (int i = 0; i < chars.length; i++) {
+                char c = chars[i];
+                int number = getIsNumber(c);
+                if (number == -1) {
+                    if (tempPtr != -1) {
+                        set.add(tempPtr);
+                        tempPtr = -1;
+                    }
+                } else {
+                    if (tempPtr == -1) {
+                        tempPtr = number;
+                    } else {
+                        tempPtr *= 10;
+                        tempPtr += number;
+                    }
+                }
+            }
+            if (tempPtr != -1) {
+                set.add(tempPtr);
+            }
+            return set.size();
+        }
+
+        private int getIsNumber(char c) {
+            return c >= '0' && c <= '9' ? Integer.parseInt(String.valueOf(c)) : -1;
+        }
 
         public int findCenter(int[][] edges) {
             int len = edges.length;
             int maxCount = 0;
             Map<Integer, Integer> map = new HashMap<>();
-            for (int i = 0;i<len;i++) {
+            for (int i = 0; i < len; i++) {
                 int[] edge = edges[i];
-                int fir = edge[0],sec = edge[1];
-                map.put(fir, map.getOrDefault(fir,0)+1);
-                map.put(sec, map.getOrDefault(sec,0)+1);
+                int fir = edge[0], sec = edge[1];
+                map.put(fir, map.getOrDefault(fir, 0) + 1);
+                map.put(sec, map.getOrDefault(sec, 0) + 1);
                 if (map.get(fir) != map.get(sec)) {
                     return map.get(fir) > map.get(sec) ? fir : sec;
                 }
@@ -45,16 +221,16 @@ public class ExamTest {
             Arrays.sort(nums);
             int len = nums.length;
             long pres = goal;
-            for (int i = 0; i < (len+1)/2; i++) {
-                if ( i != len-i) {
-                    pres -= (nums[i] + nums[(len-1)-i]);
+            for (int i = 0; i < (len + 1) / 2; i++) {
+                if (i != len - i) {
+                    pres -= (nums[i] + nums[(len - 1) - i]);
                 } else {
                     pres -= nums[i];
                 }
             }
             pres = Math.abs(pres);
-            int res = (int)(pres/limit);
-            int count = (int)(pres%limit);
+            int res = (int) (pres / limit);
+            int count = (int) (pres % limit);
             return res + (count == 0 ? 0 : 1);
         }
 
@@ -310,7 +486,7 @@ public class ExamTest {
 //            r++;
             boolean aReverse = true, bReverse = true;
 
-            while (((aReverse && l < aCs.length) || (!aReverse && l < bCs.length)) && ((bReverse && r < bCs.length)  || (!bReverse && r < aCs.length))) {
+            while (((aReverse && l < aCs.length) || (!aReverse && l < bCs.length)) && ((bReverse && r < bCs.length) || (!bReverse && r < aCs.length))) {
                 char a = aReverse ? aCs[l] : bCs[l];
                 char b = bReverse ? bCs[r] : aCs[r];
 
