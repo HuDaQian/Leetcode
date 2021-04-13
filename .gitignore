@@ -25,3 +25,4 @@
 hs_err_pid*
 src/com/hudaqian/leetcode/editor/cn/all.json
 .idea/misc.xml
+*.json
