@@ -86,25 +86,47 @@ public class HouseRobber {
 //                prev = temp;
 //            }
 //            return Math.max(prev, current);
+//            /**
+//             * 2020-12-21
+//             */
+//            if (nums == null || nums.length == 0) return 0;
+//            int len = nums.length;
+////            int[] dp = new int[len+1];
+////            dp[0] = 0;
+////            dp[1] = nums[0];
+////            for (int i = 1; i < len; i++) {
+////                dp[i+1] = Math.max(dp[i],dp[i-1]+nums[i]);
+////            }
+////            return dp[len];
+//            int res = nums[0], prev = 0;
+//            for (int i = 1; i < len; i++) {
+//                int temp = res;
+//                res = Math.max(res, prev + nums[i]);
+//                prev = temp;
+//            }
+//            return Math.max(res, prev);
             /**
-             * 2020-12-21
+             * 2021-4-15 复习动态规划
              */
-            if (nums == null || nums.length == 0) return 0;
-            int len = nums.length;
+//            if (nums == null || nums.length == 0) return 0;
+//            int len = nums.length;
 //            int[] dp = new int[len+1];
 //            dp[0] = 0;
 //            dp[1] = nums[0];
 //            for (int i = 1; i < len; i++) {
-//                dp[i+1] = Math.max(dp[i],dp[i-1]+nums[i]);
+//                dp[i+1] = Math.max(dp[i-1]+nums[i], dp[i]);
 //            }
 //            return dp[len];
-            int res = nums[0], prev = 0;
-            for (int i = 1; i < len; i++) {
-                int temp = res;
-                res = Math.max(res, prev + nums[i]);
-                prev = temp;
+            //  动态规划的空间压缩
+            if (nums == null || nums.length == 0) return 0;
+            int len = nums.length;
+            int prev = 0, index = 0, current = nums[index];
+            while (++index < len) {
+                int tmp = current;
+                current = Math.max(prev + nums[index], current);
+                prev = tmp;
             }
-            return Math.max(res, prev);
+            return Math.max(prev, current);
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)

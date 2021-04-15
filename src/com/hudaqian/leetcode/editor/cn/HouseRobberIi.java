@@ -45,7 +45,7 @@ package com.hudaqian.leetcode.editor.cn;
 public class HouseRobberIi {
     public static void main(String[] args) {
         Solution solution = new HouseRobberIi().new Solution();
-        int[] nums = {4, 1, 2, 7, 5, 3, 1};
+        int[] nums = {2,3,2};
         System.out.print(solution.rob(nums));
     }
 
@@ -57,25 +57,26 @@ public class HouseRobberIi {
              * 所以 思路是 先计算偷第一间的最大值  然后再计算不偷第一间偷最后一间的最大值 然后比较一下
              */
             if (nums == null || nums.length == 0) return 0;
-            if (nums.length < 2) return nums[0];
+            if (nums.length == 1) return nums[0];
+            if (nums.length == 2) return Math.max(nums[0], nums[1]);
             int len = nums.length;
-            int[] dp1 = new int[len];
-            dp1[0] = nums[0];
-            dp1[1] = dp1[0];
-            int[] dp2 = new int[len];
-            dp2[0] = 0;
-            dp2[1] = nums[1];
-            /**
-             * 偷了第一间 就不能偷最后一间
-             */
-            for (int i = 2; i < len - 1; i++) {
-                dp1[i] = Math.max(dp1[i - 2] + nums[i], dp1[i - 1]);
-                dp2[i] = Math.max(dp2[i - 2] + nums[i], dp2[i - 1]);
-            }
-            dp1[len - 1] = dp1[len - 2];
-            dp2[len - 1] = Math.max(dp2[len - 2] + nums[len - 1], dp2[len - 1]);
-            return Math.max(dp1[len - 1], dp2[len - 1]);
-//            return Math.max(myRob(nums,0,len-1),myRob(nums,1,len));
+//            int[] dp1 = new int[len];
+//            dp1[0] = nums[0];
+//            dp1[1] = dp1[0];
+//            int[] dp2 = new int[len];
+//            dp2[0] = 0;
+//            dp2[1] = nums[1];
+//            /**
+//             * 偷了第一间 就不能偷最后一间
+//             */
+//            for (int i = 2; i < len - 1; i++) {
+//                dp1[i] = Math.max(dp1[i - 2] + nums[i], dp1[i - 1]);
+//                dp2[i] = Math.max(dp2[i - 2] + nums[i], dp2[i - 1]);
+//            }
+//            dp1[len - 1] = dp1[len - 2];
+//            dp2[len - 1] = Math.max(dp2[len - 3] + nums[len - 1], dp2[len - 2]);
+//            return Math.max(dp1[len - 1], dp2[len - 1]);
+            return Math.max(myRob(nums,0,len-1),myRob(nums,1,len));
         }
 
         private int myRob(int[] nums, int s, int e) {
