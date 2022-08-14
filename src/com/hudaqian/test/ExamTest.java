@@ -33,12 +33,95 @@ public class ExamTest {
 //        int yPos = 0;
 //        System.out.print(testC.orchestraLayout(num, xPos, yPos));
 
-        int[] nums = {1,2,3,3,4,2,5,6,1,2,1,5,4,2};
-        int target = 5;
-        System.out.print(testC.purchasePlans(nums, target));
+//        int[] nums = {1,2,3,3,4,2,5,6,1,2,1,5,4,2};
+//        int target = 5;
+//        System.out.print(testC.purchasePlans(nums, target));
+
+        int[][] tasks = {{19,13},{16,9},{21,10},{32,25},{37,4},{49,24},{2,15},{38,41},{37,34},{33,6},{45,4},{18,18},{46,39},{12,24}};
+        System.out.print(Arrays.toString(testC.getOrder(tasks)));
+
     }
 
     private static class TestClass {
+        private class OperationTask {
+            int index;
+            int innertime;
+            int tasktime;
+            public OperationTask(int[] task, int ptr) {
+                this.index = ptr;
+                this.innertime = task[0];
+                this.tasktime = task[1];
+            }
+        }
+        public int[] getOrder(int[][] tasks) {
+            List<OperationTask> list = new ArrayList<>();
+            for (int i=0; i<tasks.length;i++) {
+                list.add(new OperationTask(tasks[i],i));
+            }
+            list.sort(Comparator.comparingInt(o -> o.innertime));
+            Queue<OperationTask> startQueue = new LinkedList<>();
+            for (OperationTask task : list) {
+                startQueue.offer(task);
+            }
+
+            List<OperationTask> queue = new ArrayList<>();
+            int[] res = new int[tasks.length];
+            int ptr = 0,taskPtr = 0;
+            OperationTask currentTask = null;
+            int taskStartTime = 0;
+            boolean taskLock = false;
+            while (true) {
+                //  任务增加到队列
+                if (startQueue.size() != 0) {
+                    OperationTask tmpTask = startQueue.peek();
+                    if (tmpTask.innertime == ptr) {
+                        while (startQueue.size() != 0 && startQueue.peek().innertime == ptr) {
+                            queue.add(startQueue.poll());
+                        }
+                        Collections.sort(queue, (o1, o2) -> o1.tasktime == o2.tasktime ? o1.index - o2.index : o1.tasktime - o2.tasktime);
+                    }
+                }
+                if (queue.size() != 0) {
+                    if (!taskLock) {
+                        currentTask = queue.get(0);
+                        queue.remove(0);
+                        taskStartTime = ptr;
+                        res[taskPtr++] = currentTask.index;
+                        taskLock = true;
+                    } else {
+                        //  检查当前时间是否结束
+                        if (ptr - taskStartTime == currentTask.tasktime) {
+                            currentTask = queue.get(0);
+                            queue.remove(0);
+                            taskStartTime = ptr;
+                            res[taskPtr++] = currentTask.index;
+                        }
+                    }
+                } else {
+                    if (currentTask != null && ptr - taskStartTime == currentTask.tasktime) {
+                        // 纯解锁
+                        taskLock = false;
+                    }
+                    if (startQueue.size() == 0) break;
+                }
+
+                ptr++;
+            }
+            return res;
+        }
+
+
+        public int getXORSum(int[] arr1, int[] arr2) {
+            int res = 0;
+            for (int num1 : arr1) {
+                for (int num2: arr2) {
+                    int tmp = num1 & num2;
+                    res = res ^ tmp;
+                }
+            }
+            return res;
+        }
+
         public int orchestraLayout(int num, int xPos, int yPos) {
             if (num == 0) return 0;
             if (num == 1) return 1;
